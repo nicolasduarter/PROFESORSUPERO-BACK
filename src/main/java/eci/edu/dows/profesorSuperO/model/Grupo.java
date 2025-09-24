@@ -7,17 +7,20 @@ public class Grupo {
     private String nombre;
     private Profesor profesor;
     private String franjaHoraria;
+    private String salon;
     private int cupo;
     private String estado;
     private ArrayList<Estudiante> estudiantes;
     private ArrayList<GruposObserver> observadores;
 
-    public Grupo() {
-        this.idGrupo = "";
-        this.profesor = null;
-        this.franjaHoraria = "";
-        this.cupo = 0;
-        this.estado = "";
+    public Grupo(String idGrupo, String nombre, Profesor profesor, String franjaHoraria, String salon,int cupo, String estado) {
+        this.idGrupo = idGrupo;
+        this.nombre = nombre;
+        this.profesor = profesor;
+        this.franjaHoraria = franjaHoraria;
+        this.salon = salon;
+        this.cupo = cupo;
+        this.estado = estado;
         this.estudiantes = new ArrayList<>();
         this.observadores = new ArrayList<>();
     }
@@ -48,6 +51,12 @@ public class Grupo {
 
     public void setFranjaHoraria(String franjaHoraria) {
         this.franjaHoraria = franjaHoraria;
+    }
+    public String getSalon() {
+        return salon;
+    }
+    public void setSalon(String salon) {
+        this.salon = salon;
     }
 
     public int getCupo() {

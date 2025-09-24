@@ -6,15 +6,23 @@ public class Estudiante extends Usuario {
     private ArrayList<Horario> horarios;
     private ArrayList<Solicitud> solicitudes;
     private String Facultad;
+    private Semaforo semaforo;
 
-    public Estudiante(String usuario, String clave, String permiso, String correo, String Id, String facultad, int semestre) {
+    public Estudiante(String usuario, String clave, String permiso, String correo, String Id, String facultad, int semestre,Semaforo semaforo) {
         super(usuario, clave, permiso, correo, Id);
         this.semestre = semestre;
         this.horarios = new ArrayList<>();
         this.solicitudes = new ArrayList<>();
         this.Facultad = facultad;
+        this.semaforo = semaforo;
     }
 
+    public Semaforo getSemaforo() {
+        return semaforo;
+    }
+    public void setSemaforo(Semaforo semaforo) {
+        this.semaforo = semaforo;
+    }
 
     public int getSemestre() {
         return semestre;
