@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Grupo {
     private String idGrupo;
+    private String nombre;
     private Profesor profesor;
     private String franjaHoraria;
     private int cupo;
@@ -27,6 +28,18 @@ public class Grupo {
 
     public void setIdGrupo(String idGrupo) {
         this.idGrupo = idGrupo;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public Profesor getProfesor() {
+        return profesor;
+    }
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
     }
 
     public String getFranjaHoraria() {
