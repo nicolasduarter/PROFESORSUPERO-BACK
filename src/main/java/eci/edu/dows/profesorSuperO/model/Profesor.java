@@ -10,4 +10,12 @@ public class Profesor extends Usuario {
         super(usuario, clave, permiso, correo, Id);
         this.grupos = grupos;
     }
+
+    public List<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
+    }
 }
