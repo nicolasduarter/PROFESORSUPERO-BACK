@@ -14,11 +14,9 @@ public class Decanatura {
     public String getFacultad() {
         return facultad;
     }
-
     public void setFacultad(String facultad) {
         this.facultad = facultad;
     }
-
     public List<Solicitud> getSolicitudes() {
         return solicitudes;
     }
@@ -26,4 +24,5 @@ public class Decanatura {
     public void setSolicitudes(List<Solicitud> solicitudes) {
         this.solicitudes = solicitudes;
     }
+
 }

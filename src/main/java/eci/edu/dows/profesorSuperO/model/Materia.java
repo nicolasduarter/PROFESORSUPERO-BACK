@@ -5,14 +5,12 @@ import java.util.ArrayList;
 public class Materia {
     private String nombre;
     private ArrayList<Grupo> grupos;
-    private ArrayList<String> horario;
     private int cupos;
     private String estado;
 
-    public Materia(String nombre, ArrayList<Grupo> grupos, ArrayList<String> horario, int cupos) {
+    public Materia(String nombre, ArrayList<Grupo> grupos, int cupos) {
         this.nombre = nombre;
         this.grupos = grupos;
-        this.horario = horario;
         this.cupos = cupos;
         this.estado = "no cursada";
     }
@@ -27,12 +25,6 @@ public class Materia {
     }
     public void setGrupos(ArrayList<Grupo> grupos) {
         this.grupos = grupos;
-    }
-    public ArrayList<String> getHorario() {
-        return horario;
-    }
-    public void setHorario(ArrayList<String> horario) {
-        this.horario = horario;
     }
     public int getCupos() {
         return cupos;
