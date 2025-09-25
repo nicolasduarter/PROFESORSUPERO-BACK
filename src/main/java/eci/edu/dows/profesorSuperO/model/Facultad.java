@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Facultad {
     private ArrayList<Materia> materias;
     private Facultades facultad;
+
     public Facultad(Facultades facultad) {
         this.facultad = facultad;
         this.materias = new ArrayList<>();
-
     }
 
     public void setMateria(Materia materia) {
