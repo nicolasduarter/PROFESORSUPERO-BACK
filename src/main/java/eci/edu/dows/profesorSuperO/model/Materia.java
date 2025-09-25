@@ -14,7 +14,7 @@ public class Materia {
     @Indexed
     private String nombre;
     @Indexed
-    private String estado;
+    private Boolean estado;
     private ArrayList<Grupo> grupos;
 
 
@@ -22,7 +22,7 @@ public class Materia {
         this.id = id;
         this.nombre = nombre;
         this.grupos = grupos;
-        this.estado = "sin cursar";
+        this.estado = false;
     }
     public String getNombre() {
         return nombre;
@@ -36,10 +36,10 @@ public class Materia {
     public void setGrupos(ArrayList<Grupo> grupos) {
         this.grupos = grupos;
     }
-    public String getEstado() {
+    public boolean getEstado() {
         return estado;
     }
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

@@ -24,6 +24,7 @@ public class Grupo {
     private Profesor profesor;
     private String franjaHoraria;
     private String salon;
+    @DBRef
     private ArrayList<Estudiante> estudiantes;
     @Transient
     private ArrayList<GruposObserver> observadores;
