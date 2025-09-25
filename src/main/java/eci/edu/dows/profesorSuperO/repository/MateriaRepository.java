@@ -1,5 +1,4 @@
 package eci.edu.dows.profesorSuperO.repository;
-import eci.edu.dows.profesorSuperO.model.Grupo;
 import eci.edu.dows.profesorSuperO.model.Materia;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
