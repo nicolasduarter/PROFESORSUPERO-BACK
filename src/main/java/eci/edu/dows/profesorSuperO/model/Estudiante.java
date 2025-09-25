@@ -1,11 +1,23 @@
 package eci.edu.dows.profesorSuperO.model;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 
+
+
+
+@Document("Estudiante")
 public class Estudiante extends Usuario {
+
+    @Id
+    private String id;
+
     private int semestre;
     private ArrayList<Horario> horarios;
     private ArrayList<Solicitud> solicitudes;
-    private String Facultad;
+    private ArrayList<Grupo>  grupos;
+    private String facultad;
     private Semaforo semaforo;
 
     public Estudiante(String usuario, String clave, String permiso, String correo, String Id, String facultad, int semestre,Semaforo semaforo) {
@@ -13,8 +25,9 @@ public class Estudiante extends Usuario {
         this.semestre = semestre;
         this.horarios = new ArrayList<>();
         this.solicitudes = new ArrayList<>();
-        this.Facultad = facultad;
+        this.facultad = facultad;
         this.semaforo = semaforo;
+        this.grupos = new ArrayList<>();
     }
 
     public Semaforo getSemaforo() {
@@ -33,11 +46,11 @@ public class Estudiante extends Usuario {
     }
 
     public String getFacultad() {
-        return Facultad;
+        return facultad;
     }
 
     public void setFacultad(String facultad) {
-        this.Facultad = facultad;
+        this.facultad = facultad;
     }
 
     public ArrayList<Horario> getHorarios() {

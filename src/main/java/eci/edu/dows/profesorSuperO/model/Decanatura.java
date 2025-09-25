@@ -2,6 +2,7 @@ package eci.edu.dows.profesorSuperO.model;
 
 import java.util.List;
 
+
 public class Decanatura {
     private String facultad;
     private List<Solicitud> solicitudes;

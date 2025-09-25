@@ -1,5 +1,5 @@
 package eci.edu.dows.profesorSuperO.service;
 
-public class AccionSolicitudCommand {
+public interface AccionSolicitudCommand {
     void accionSolicitud() {}
 }
