@@ -15,8 +15,8 @@ public class SolicitudCambioMateria extends  Solicitud {
     private Grupo grupoCambio;
 
     public SolicitudCambioMateria(String id, Estudiante estudiante, String motivo, LocalDate fecha,
-                                  Materia materiaProblema, Materia materiaCambio, Grupo grupo, Grupo grupoCambio) {
-        super(id, estudiante, motivo, fecha);
+                                  Materia materiaProblema, Materia materiaCambio, Grupo grupo, Grupo grupoCambio,Facultades facultad) {
+        super(id, estudiante, motivo, fecha,facultad);
         this.materiaProblema = materiaProblema;
         this.materiaCambio = materiaCambio;
         this.grupo = grupo;

@@ -13,8 +13,8 @@ public class SolicitudCambioGrupo extends Solicitud {
     private Grupo grupoCambio;
 
     public SolicitudCambioGrupo(String id, Estudiante estudiante, String motivo, LocalDate fecha,
-                                Materia materiaProblema, Grupo grupo, Grupo grupoCambio) {
-        super(id, estudiante, motivo, fecha);
+                                Materia materiaProblema, Grupo grupo, Grupo grupoCambio,Facultades facultad) {
+        super(id, estudiante, motivo, fecha,facultad);
         this.materiaProblema = materiaProblema;
         this.grupo = grupo;
         this.grupoCambio = grupoCambio;

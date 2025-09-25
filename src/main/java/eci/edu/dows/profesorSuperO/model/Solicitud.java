@@ -25,8 +25,9 @@ public abstract class Solicitud {
     private int prioridad;
     @Transient
     private ArrayList<PeriodoObserver> observadores;
+    private Facultades facultad;
 
-    public Solicitud(String id, Estudiante estudiante, String motivo, LocalDate fecha) {
+    public Solicitud(String id, Estudiante estudiante, String motivo, LocalDate fecha,Facultades facultad) {
         this.id = id;
         this.estado = EstadoSolicitud.PENDIENTE;
         this.estudiante = estudiante;
