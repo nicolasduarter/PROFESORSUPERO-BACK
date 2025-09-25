@@ -16,13 +16,15 @@ public class Materia {
     @Indexed
     private Boolean estado;
     private ArrayList<Grupo> grupos;
+    private int  creditos;
 
 
-    public Materia(String id, String nombre, ArrayList<Grupo> grupos) {
+    public Materia(String id, String nombre, ArrayList<Grupo> grupos, int creditos) {
         this.id = id;
         this.nombre = nombre;
         this.grupos = grupos;
         this.estado = false;
+        this.creditos = creditos;
     }
     public String getNombre() {
         return nombre;
@@ -39,9 +41,6 @@ public class Materia {
     public boolean getEstado() {
         return estado;
     }
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
 
     public String getId() {
         return id;
@@ -51,4 +50,15 @@ public class Materia {
         this.id = id;
     }
 
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
+    public int getCreditos() {
+        return creditos;
+    }
+
+    public void setCreditos(int creditos) {
+        this.creditos = creditos;
+    }
 }

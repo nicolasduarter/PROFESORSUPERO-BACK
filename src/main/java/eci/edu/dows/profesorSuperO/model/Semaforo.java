@@ -5,6 +5,13 @@ import java.util.ArrayList;
 public class Semaforo {
     private ArrayList<Materia> materias;
     private Estudiante estudiante;
+    private int creditosTotales;
+    private int creditosActuales;
+    private int creditosFaltantes;
+    private Facultad facultad;
+    private int materiasVistas;
+    private int promedio;
+
     public Semaforo(Estudiante estudiante) {
         this.materias = new ArrayList<>();
     }
