@@ -14,17 +14,15 @@ public class Materia {
     @Indexed
     private String nombre;
     @Indexed
-    private boolean estado;
+    private String estado;
     private ArrayList<Grupo> grupos;
-    private int cupos;
 
 
-    public Materia(String id, String nombre, ArrayList<Grupo> grupos, int cupos) {
+    public Materia(String id, String nombre, ArrayList<Grupo> grupos) {
         this.id = id;
         this.nombre = nombre;
         this.grupos = grupos;
-        this.cupos = cupos;
-        this.estado = false;
+        this.estado = "sin cursar";
     }
     public String getNombre() {
         return nombre;
@@ -38,16 +36,10 @@ public class Materia {
     public void setGrupos(ArrayList<Grupo> grupos) {
         this.grupos = grupos;
     }
-    public int getCupos() {
-        return cupos;
-    }
-    public void setCupos(int cupos) {
-        this.cupos = cupos;
-    }
-    public boolean getEstado() {
+    public String getEstado() {
         return estado;
     }
-    public void setEstado(boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -59,7 +51,4 @@ public class Materia {
         this.id = id;
     }
 
-    public boolean isEstado() {
-        return estado;
-    }
 }

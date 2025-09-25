@@ -10,7 +10,13 @@ public class GrupoService {
     public void modificarProfesor(Grupo grupo, Profesor profesor) {
         grupo.setProfesor(profesor);
     }
-    public void eliminarGrupo(Grupo grupo) {
 
+    public void modificarCupos(Grupo grupo,int cupo) {
+        grupo.setCupo(cupo);
     }
+
+    public void eliminarGrupo(Grupo grupo) {
+    }
+
+
 }

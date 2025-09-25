@@ -1,8 +1,10 @@
 package eci.edu.dows.profesorSuperO.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 import java.util.List;
-
+@Document("Profesor")
 public class Profesor extends Usuario {
     private List<Grupo> grupos;
 

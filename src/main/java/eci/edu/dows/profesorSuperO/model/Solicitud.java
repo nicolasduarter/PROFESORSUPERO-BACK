@@ -4,9 +4,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 
+@Document("Solicitud")
 public abstract class Solicitud {
     @Id
     private String id;
@@ -17,6 +19,7 @@ public abstract class Solicitud {
     private Materia materiaProblema;
     private Materia materiaCambio;
     private Grupo grupo;
+    private Grupo grupoCambio;
     private String motivo;
     @Indexed
     private String fecha;
@@ -26,12 +29,13 @@ public abstract class Solicitud {
     private ArrayList<PeriodoObserver> observadores;
 
     public Solicitud(String id, Materia materiaProblema, Materia materiaCambio,
-                     Grupo grupo, String motivo, String fecha) {
+                     Grupo grupo,Grupo grupoCambio, String motivo, String fecha) {
         this.id = id;
         this.estado = EstadoSolicitud.PENDIENTE;
         this.materiaProblema = materiaProblema;
         this.materiaCambio = materiaCambio;
         this.grupo = grupo;
+        this.grupoCambio = grupoCambio;
         this.motivo = motivo;
         this.fecha = fecha;
         this.prioridad = 0;
@@ -43,6 +47,7 @@ public abstract class Solicitud {
     public Materia getMateriaProblema() { return materiaProblema; }
     public Materia getMateriaCambio() { return materiaCambio; }
     public Grupo getGrupo() { return grupo; }
+    public Grupo getGrupoCambio() { return grupoCambio; }
     public String getMotivo() { return motivo; }
     public String getFecha() { return fecha; }
     public int getPrioridad() { return prioridad; }

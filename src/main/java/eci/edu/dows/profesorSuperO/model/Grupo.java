@@ -96,6 +96,9 @@ public class Grupo {
     public void agregarEstudiantes(Estudiante estudiante) {
         estudiantes.add(estudiante);
     }
+    public void eliminarEstudiantes(Estudiante estudiante) {
+        estudiantes.remove(estudiante);
+    }
 
     public ArrayList<GruposObserver> getObservadores(){
         return observadores;

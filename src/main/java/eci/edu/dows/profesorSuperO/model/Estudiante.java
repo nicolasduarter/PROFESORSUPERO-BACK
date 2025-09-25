@@ -14,12 +14,11 @@ public class Estudiante extends Usuario {
 
 
     private int semestre;
-
     private ArrayList<Horario> horarios;
     private ArrayList<Solicitud> solicitudes;
+    @DBRef
     private ArrayList<Grupo>  grupos;
     private Facultades facultad;
-
     @DBRef
     private Semaforo semaforo;
 

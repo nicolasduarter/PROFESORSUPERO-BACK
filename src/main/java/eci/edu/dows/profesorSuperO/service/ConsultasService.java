@@ -3,7 +3,8 @@ import eci.edu.dows.profesorSuperO.model.*;
 
 import java.util.List;
 
-public class ConsultasService {
+public class
+ConsultasService {
 
     public ConsultasService() {
     }

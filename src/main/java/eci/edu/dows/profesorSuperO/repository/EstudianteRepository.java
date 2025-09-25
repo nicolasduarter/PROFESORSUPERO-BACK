@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EstudianteRepository extends MongoRepository<Estudiante, String> {
-    Optional<Estudiante> findByCorreo(String correo);
     List<Estudiante> findByFacultad(String facultad);
     List<Estudiante> findBySemestre(int semestre);
-    List<Estudiante> findByGruposidGrupo(String idGrupo);
+    Optional<Estudiante> findByGrupos_IdGrupo(String idGrupo);
 
 }
