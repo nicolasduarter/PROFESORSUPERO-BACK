@@ -19,17 +19,43 @@ public class Estudiante extends Usuario {
     @DBRef
     private ArrayList<Grupo>  grupos;
     private Facultades facultad;
+    private Facultad facultadObjeto;
     @DBRef
     private Semaforo semaforo;
 
-    public Estudiante(String usuario, String clave, String permiso, String correo, String Id, Facultades facultad, int semestre,Semaforo semaforo) {
+    public Estudiante(String usuario, String clave, String permiso, String correo, String Id, Facultad facultadObjeto, int semestre,Semaforo semaforo) {
         super(usuario, clave, permiso, correo, Id);
         this.semestre = semestre;
         this.horarios = new ArrayList<>();
         this.solicitudes = new ArrayList<>();
-        this.facultad = facultad;
+        this.facultad = facultadObjeto.getFacultad();
+        this.facultadObjeto = facultadObjeto;
         this.semaforo = semaforo;
         this.grupos = new ArrayList<>();
+    }
+
+    public void setHorarios(ArrayList<Horario> horarios) {
+        this.horarios = horarios;
+    }
+
+    public void setSolicitudes(ArrayList<Solicitud> solicitudes) {
+        this.solicitudes = solicitudes;
+    }
+
+    public ArrayList<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(ArrayList<Grupo> grupos) {
+        this.grupos = grupos;
+    }
+
+    public Facultad getFacultadObjeto() {
+        return facultadObjeto;
+    }
+
+    public void setFacultadObjeto(Facultad facultadObjeto) {
+        this.facultadObjeto = facultadObjeto;
     }
 
     public Semaforo getSemaforo() {

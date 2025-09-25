@@ -1,8 +1,8 @@
 package eci.edu.dows.profesorSuperO.model;
 
+import eci.edu.dows.profesorSuperO.service.Validadores.SolicitudValidaCambioGrupo;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
-import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+
+@SolicitudValidaCambioGrupo
 @Document("Solicitud")
 public abstract class Solicitud {
 
@@ -26,14 +28,22 @@ public abstract class Solicitud {
     @Transient
     private ArrayList<PeriodoObserver> observadores;
     private Facultades facultad;
+    @DBRef
+    private CalendarioAcademico calendarioAcademico;
 
-    public Solicitud(String id, Estudiante estudiante, String motivo, LocalDate fecha,Facultades facultad) {
+    public Solicitud(String id, Estudiante estudiante, String motivo, LocalDate fecha) {
         this.id = id;
         this.estado = EstadoSolicitud.PENDIENTE;
         this.estudiante = estudiante;
         this.motivo = motivo;
         this.fecha = fecha;
         this.prioridad = 0;
+        this.facultad = estudiante.getFacultad();
+        this.calendarioAcademico = new CalendarioAcademico();
+    }
+
+    public Facultad getFacultadOBJ() {
+        return estudiante.getFacultadObjeto();
     }
 
     public String getId() {
