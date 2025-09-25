@@ -1,7 +1,9 @@
 package eci.edu.dows.profesorSuperO.service;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.repository.*;
+import io.micrometer.observation.Observation;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -22,6 +24,7 @@ public class GrupoService {
 
         return grupoRepository.save(grupo);
     }
+
     public void eliminarGrupo(String id) {
         Grupo grupo = grupoRepository.findById(id).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
         grupoRepository.delete(grupo);
@@ -52,8 +55,14 @@ public class GrupoService {
         Grupo grupo = grupoRepository.findById(grupoId).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
         Estudiante estudiante = estudianteRepository.findById(estudianteId).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
 
+        if (grupo.getCupo() <= 0) {
+            throw new RuntimeException("El grupo ya está lleno");
+        }
         grupo.getEstudiantes().add(estudiante);
-        grupo.setCupo(grupo.getCupo() -1);
+        grupo.setCupo(grupo.getCupo() + 1);
+        for (GruposObserver observador : grupo.getObservadores()) {
+            observador.notificar(grupo);
+        }
         return grupoRepository.save(grupo);
     }
 
@@ -63,7 +72,7 @@ public class GrupoService {
 
         grupo.getEstudiantes().remove(estudiante);
         grupo.setCupo(grupo.getCupo() + 1);
+
         return grupoRepository.save(grupo);
     }
-
 }
