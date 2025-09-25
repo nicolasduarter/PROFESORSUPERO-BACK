@@ -2,6 +2,7 @@ package eci.edu.dows.profesorSuperO.model;
 
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,6 +18,7 @@ public abstract class Usuario {
 
     private String usuario;
     private String clave;
+    @Transient
     private String permiso;
 
     public Usuario(String usuario, String clave, String permiso, String correo, String id) {

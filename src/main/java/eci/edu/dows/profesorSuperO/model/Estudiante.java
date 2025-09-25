@@ -13,18 +13,17 @@ import java.util.ArrayList;
 public class Estudiante extends Usuario {
 
 
-
     private int semestre;
 
     private ArrayList<Horario> horarios;
     private ArrayList<Solicitud> solicitudes;
     private ArrayList<Grupo>  grupos;
-    private String facultad;
+    private Facultades facultad;
 
     @DBRef
     private Semaforo semaforo;
 
-    public Estudiante(String usuario, String clave, String permiso, String correo, String Id, String facultad, int semestre,Semaforo semaforo) {
+    public Estudiante(String usuario, String clave, String permiso, String correo, String Id, Facultades facultad, int semestre,Semaforo semaforo) {
         super(usuario, clave, permiso, correo, Id);
         this.semestre = semestre;
         this.horarios = new ArrayList<>();
@@ -49,11 +48,11 @@ public class Estudiante extends Usuario {
         this.semestre = semestre;
     }
 
-    public String getFacultad() {
+    public Facultades getFacultad() {
         return facultad;
     }
 
-    public void setFacultad(String facultad) {
+    public void setFacultad(Facultades facultad) {
         this.facultad = facultad;
     }
 

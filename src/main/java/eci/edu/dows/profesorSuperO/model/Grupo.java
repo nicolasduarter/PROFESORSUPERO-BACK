@@ -1,16 +1,31 @@
 package eci.edu.dows.profesorSuperO.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 
+
+@Document("Grupo")
 public class Grupo {
+    @Id
     private String idGrupo;
+    @Indexed
     private String nombre;
+    @Indexed
+    private int cupo;
+    @Indexed
+    private String estado;
+
+    @DBRef
     private Profesor profesor;
     private String franjaHoraria;
     private String salon;
-    private int cupo;
-    private String estado;
     private ArrayList<Estudiante> estudiantes;
+    @Transient
     private ArrayList<GruposObserver> observadores;
 
     public Grupo(String idGrupo, String nombre, Profesor profesor, String franjaHoraria, String salon,int cupo, String estado) {

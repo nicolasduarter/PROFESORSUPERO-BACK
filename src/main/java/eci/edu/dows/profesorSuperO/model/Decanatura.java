@@ -4,18 +4,18 @@ import java.util.List;
 
 
 public class Decanatura {
-    private String facultad;
+    private Facultades facultad;
     private List<Solicitud> solicitudes;
 
-    public Decanatura(String facultad, List<Solicitud> solicitudes) {
+    public Decanatura(Facultades facultad, List<Solicitud> solicitudes) {
         this.facultad = facultad;
         this.solicitudes = solicitudes;
     }
 
-    public String getFacultad() {
+    public Facultades getFacultad() {
         return facultad;
     }
-    public void setFacultad(String facultad) {
+    public void setFacultad(Facultades facultad) {
         this.facultad = facultad;
     }
     public List<Solicitud> getSolicitudes() {

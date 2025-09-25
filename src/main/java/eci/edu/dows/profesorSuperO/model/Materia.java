@@ -1,18 +1,30 @@
 package eci.edu.dows.profesorSuperO.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 
+@Document("Materia")
 public class Materia {
+
+    @Id
+    private String id;
+    @Indexed
     private String nombre;
+    @Indexed
+    private boolean estado;
     private ArrayList<Grupo> grupos;
     private int cupos;
-    private String estado;
 
-    public Materia(String nombre, ArrayList<Grupo> grupos, int cupos) {
+
+    public Materia(String id, String nombre, ArrayList<Grupo> grupos, int cupos) {
+        this.id = id;
         this.nombre = nombre;
         this.grupos = grupos;
         this.cupos = cupos;
-        this.estado = "no cursada";
+        this.estado = false;
     }
     public String getNombre() {
         return nombre;
@@ -32,10 +44,22 @@ public class Materia {
     public void setCupos(int cupos) {
         this.cupos = cupos;
     }
-    public String getEstado() {
+    public boolean getEstado() {
         return estado;
     }
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public boolean isEstado() {
+        return estado;
     }
 }
