@@ -1,5 +1,7 @@
 package eci.edu.dows.profesorSuperO.model;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -10,14 +12,16 @@ import java.util.ArrayList;
 @Document("Estudiante")
 public class Estudiante extends Usuario {
 
-    @Id
-    private String id;
+
 
     private int semestre;
+
     private ArrayList<Horario> horarios;
     private ArrayList<Solicitud> solicitudes;
     private ArrayList<Grupo>  grupos;
     private String facultad;
+
+    @DBRef
     private Semaforo semaforo;
 
     public Estudiante(String usuario, String clave, String permiso, String correo, String Id, String facultad, int semestre,Semaforo semaforo) {

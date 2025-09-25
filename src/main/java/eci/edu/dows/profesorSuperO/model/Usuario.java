@@ -1,9 +1,21 @@
 package eci.edu.dows.profesorSuperO.model;
 
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document("Usuarios")
 public abstract class Usuario {
+
+
+    @Id
     private String id;
-    private String usuario;
+
+    @Indexed(unique = true)
     private String correo;
+
+    private String usuario;
     private String clave;
     private String permiso;
 
