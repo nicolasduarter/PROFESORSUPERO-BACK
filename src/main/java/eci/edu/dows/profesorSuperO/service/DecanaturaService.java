@@ -1,20 +1,25 @@
 package eci.edu.dows.profesorSuperO.service;
 
 
+import eci.edu.dows.profesorSuperO.model.Facultades;
+import eci.edu.dows.profesorSuperO.model.Solicitud;
+import eci.edu.dows.profesorSuperO.repository.SolicitudRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.*;
+import java.util.List;
 
 @Service
 public class DecanaturaService {
-    private CalendarioAcademico calendarioAcademico;
+    private final SolicitudRepository solicitudRepository;
 
-
-    public void modificarPeriodohabilitado(LocalDateTime start, LocalDateTime end) {
-        if (start.isAfter(end)) {
-            throw new IllegalArgumentException("La fecha de inicio es mayor a la fecha de final");
-        }
-        calendarioAcademico.setFechaInicio(start);
-        calendarioAcademico.setFechaFinal(end);
+    public DecanaturaService(SolicitudRepository solicitudRepository) {
+        this.solicitudRepository = solicitudRepository;
     }
+
+    public List<Solicitud> obtenerSolicitudesPorFacultad(Facultades facultad) {
+        return solicitudRepository.findByEstudiante_facultad(facultad);
+    }
+
+
 }
