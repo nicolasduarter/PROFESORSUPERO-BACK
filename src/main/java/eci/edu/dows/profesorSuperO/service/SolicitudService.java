@@ -25,14 +25,14 @@ public class SolicitudService {
     }
 
     public Solicitud crearSolicitudCambiogrupo(String id, Estudiante estudiante, String motivo, LocalDate fecha,
-                                               Materia materiaProblema, Grupo grupo, Grupo grupoCambio, Facultades facultad) {
-        SolicitudCambioGrupo solicitud = new SolicitudCambioGrupo(id,estudiante,motivo,fecha,materiaProblema,grupo,grupoCambio,facultad);
+                                               Materia materiaProblema, Grupo grupo, Grupo grupoCambio) {
+        SolicitudCambioGrupo solicitud = new SolicitudCambioGrupo(id,estudiante,motivo,fecha,materiaProblema,grupo,grupoCambio);
         return solicitudRepository.save(solicitud);
     }
 
     public Solicitud crearSolicitudCambioMateria(String id, Estudiante estudiante, String motivo, LocalDate fecha,
-                                                 Materia materiaProblema, Materia materiaCambio, Grupo grupo, Grupo grupoCambio,Facultades facultad) {
-        SolicitudCambioGrupo solicitud = new SolicitudCambioGrupo(id,estudiante,motivo,fecha,materiaProblema,grupo,grupoCambio,facultad);
+                                                 Materia materiaProblema, Materia materiaCambio, Grupo grupo, Grupo grupoCambio) {
+        SolicitudCambioGrupo solicitud = new SolicitudCambioGrupo(id,estudiante,motivo,fecha,materiaProblema,grupo,grupoCambio);
         return solicitudRepository.save(solicitud);
     }
 

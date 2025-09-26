@@ -1,10 +1,13 @@
 package eci.edu.dows.profesorSuperO.model;
 
+import eci.edu.dows.profesorSuperO.service.Validadores.SolicitudValidaCambioGrupo;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.time.LocalDate;
 
+
+@SolicitudValidaCambioGrupo
 @TypeAlias("solicitudCambioGrupo")
 public class SolicitudCambioGrupo extends Solicitud {
     @DBRef
@@ -13,8 +16,8 @@ public class SolicitudCambioGrupo extends Solicitud {
     private Grupo grupoCambio;
 
     public SolicitudCambioGrupo(String id, Estudiante estudiante, String motivo, LocalDate fecha,
-                                Materia materiaProblema, Grupo grupo, Grupo grupoCambio,Facultades facultad) {
-        super(id, estudiante, motivo, fecha,facultad);
+                                Materia materiaProblema, Grupo grupo, Grupo grupoCambio) {
+        super(id, estudiante, motivo, fecha);
         this.materiaProblema = materiaProblema;
         this.grupo = grupo;
         this.grupoCambio = grupoCambio;
