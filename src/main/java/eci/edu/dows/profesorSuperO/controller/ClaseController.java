@@ -5,7 +5,7 @@ import eci.edu.dows.profesorSuperO.service.ClaseService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/clases")
+@RequestMapping("/api/clases")
 public class ClaseController {
 
     private final ClaseService claseService;
