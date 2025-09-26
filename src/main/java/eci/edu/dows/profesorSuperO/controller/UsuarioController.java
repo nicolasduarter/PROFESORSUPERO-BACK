@@ -34,4 +34,16 @@ public class UsuarioController {
         return usuarioService.verificarUsuario(id, correo, clave);
     }
 
+    @DeleteMapping
+    public void eliminarUsuario(@RequestParam String id) {
+        usuarioService.eliminarUsuario(id);
+    }
+
+    @PatchMapping("/usuario/{user}/clave/{contra}")
+    public void actualizarClave(@PathVariable String user, @PathVariable String contra) {
+        usuarioService.modificarClave(user, contra);
+    }
+
+
+
 }

@@ -36,10 +36,13 @@ public class UsuarioService {
         usuarioRepository.deleteById(usuario);
     }
 
-    public void modificarClave(Usuario usuario,String clave) {
-        usuario.setClave(clave);
-        usuarioRepository.save(usuario);
+    public void modificarClave(String id, String nuevaClave) {
+        usuarioRepository.findById(id).ifPresent(usuario -> {
+            usuario.setClave(nuevaClave);
+            usuarioRepository.save(usuario);
+        });
     }
+
 
     public boolean verificarUsuario(String id, String correo, String clave) {
         return usuarioRepository.findById(id)
