@@ -26,7 +26,8 @@ public class GrupoService {
                 dto.getNombre(),
                 dto.getProfesor(),
                 dto.getCupo(),
-                dto.getMateria());
+                dto.getMateria(),
+                dto.getCuposMax());
 
 
         return grupoRepository.save(grupo);

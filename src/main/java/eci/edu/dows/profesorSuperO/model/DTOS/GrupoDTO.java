@@ -9,7 +9,15 @@ public class GrupoDTO {
     private Profesor profesor;
     private int cupo;
     private Materia materia;
+    private int cuposMax;
 
+    public int getCuposMax() {
+        return cuposMax;
+    }
+
+    public void setCuposMax(int cuposMax) {
+        this.cuposMax = cuposMax;
+    }
 
     public String getIdGrupo() {
         return idGrupo;

@@ -4,6 +4,7 @@ import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioMateriaDTO;
 import eci.edu.dows.profesorSuperO.service.SolicitudService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -20,12 +21,12 @@ public class SolicitudController {
     }
 
     @PostMapping("/cambio-grupo")
-    public Solicitud crearSolicitudCambioGrupo(@RequestBody SolicitudCambioGrupoDTO dto) {
+    public Solicitud crearSolicitudCambioGrupo(@Valid @RequestBody SolicitudCambioGrupoDTO dto) {
         return solicitudService.crearSolicitudCambioGrupo(dto);
     }
 
     @PostMapping("/cambio-materia")
-    public Solicitud crearSolicitudCambioMateria(@RequestBody SolicitudCambioMateriaDTO dto) {
+    public Solicitud crearSolicitudCambioMateria(@Valid @RequestBody SolicitudCambioMateriaDTO dto) {
         return solicitudService.crearSolicitudCambioMateria(dto);
     }
 
