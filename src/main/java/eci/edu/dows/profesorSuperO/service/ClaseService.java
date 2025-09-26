@@ -51,7 +51,7 @@ public class ClaseService {
         Clase clase = claseRepository.findById(claseId)
                 .orElseThrow(() -> new RuntimeException("Clase no encontrada"));
 
-        clase.getEstudiantes().add(estudiante);
+        clase.agregarEstudiantes(estudiante);
         return claseRepository.save(clase);
     }
 
@@ -61,7 +61,7 @@ public class ClaseService {
         Clase clase = claseRepository.findById(claseId)
                 .orElseThrow(() -> new RuntimeException("Clase no encontrada"));
 
-        clase.getEstudiantes().remove(estudiante);
+        clase.eliminarEstudiantes(estudiante);
         return claseRepository.save(clase);
     }
 }
