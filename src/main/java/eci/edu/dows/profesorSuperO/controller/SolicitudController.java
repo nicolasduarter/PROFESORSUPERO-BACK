@@ -1,6 +1,8 @@
 package eci.edu.dows.profesorSuperO.controller;
 
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioGrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioMateriaDTO;
 import eci.edu.dows.profesorSuperO.service.SolicitudService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,31 +20,13 @@ public class SolicitudController {
     }
 
     @PostMapping("/cambio-grupo")
-    public Solicitud crearSolicitudCambioGrupo(@RequestParam String id,
-                                               @RequestBody Estudiante estudiante,
-                                               @RequestParam String motivo,
-                                               @RequestParam String fecha,
-                                               @RequestBody Materia materiaProblema,
-                                               @RequestBody Grupo grupo,
-                                               @RequestBody Grupo grupoCambio) {
-        return solicitudService.crearSolicitudCambiogrupo(
-                id, estudiante, motivo, LocalDate.parse(fecha), materiaProblema, grupo, grupoCambio
-        );
+    public Solicitud crearSolicitudCambioGrupo(@RequestBody SolicitudCambioGrupoDTO dto) {
+        return solicitudService.crearSolicitudCambioGrupo(dto);
     }
 
     @PostMapping("/cambio-materia")
-    public Solicitud crearSolicitudCambioMateria(@RequestParam String id,
-                                                 @RequestBody Estudiante estudiante,
-                                                 @RequestParam String motivo,
-                                                 @RequestParam String fecha,
-                                                 @RequestBody Materia materiaProblema,
-                                                 @RequestBody Materia materiaCambio,
-                                                 @RequestBody Grupo grupo,
-                                                 @RequestBody Grupo grupoCambio) {
-        return solicitudService.crearSolicitudCambioMateria(
-                id, estudiante, motivo, LocalDate.parse(fecha),
-                materiaProblema, materiaCambio, grupo, grupoCambio
-        );
+    public Solicitud crearSolicitudCambioMateria(@RequestBody SolicitudCambioMateriaDTO dto) {
+        return solicitudService.crearSolicitudCambioMateria(dto);
     }
 
     @GetMapping

@@ -1,6 +1,7 @@
 package eci.edu.dows.profesorSuperO.controller;
 
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
 import eci.edu.dows.profesorSuperO.service.GrupoService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +17,8 @@ public class GrupoController {
     }
 
     @PostMapping("/crearGrupo")
-    public Grupo crearGrupo(@RequestParam String idGrupo,
-                            @RequestParam String nombre,
-                            @RequestBody Profesor profesor,
-                            @RequestParam int cupo) {
-        return grupoService.crearGrupo(idGrupo, nombre, profesor, cupo);
+    public Grupo crearGrupo(@RequestBody GrupoDTO dto) {
+        return grupoService.crearGrupo(dto);
     }
 
     @DeleteMapping("/eliminar/{id}")

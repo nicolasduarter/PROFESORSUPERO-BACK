@@ -24,9 +24,11 @@ public class Grupo {
     @Transient
     private ArrayList<GruposObserver> observadores;
 
+    @DBRef
+    private Materia materia;
 
 
-    public Grupo(String idGrupo, String nombre, Profesor profesor,int cupo) {
+    public Grupo(String idGrupo, String nombre, Profesor profesor,int cupo, Materia materia) {
         this.idGrupo = idGrupo;
         this.nombre = nombre;
         this.profesor = profesor;
@@ -34,6 +36,27 @@ public class Grupo {
         this.estudiantes = new ArrayList<>();
         this.clases = new ArrayList<>();
         this.observadores = new ArrayList<>();
+        this.materia = materia;
+    }
+
+    public void setEstudiantes(ArrayList<Estudiante> estudiantes) {
+        this.estudiantes = estudiantes;
+    }
+
+    public void setClases(ArrayList<Clase> clases) {
+        this.clases = clases;
+    }
+
+    public void setObservadores(ArrayList<GruposObserver> observadores) {
+        this.observadores = observadores;
+    }
+
+    public Materia getMateria() {
+        return materia;
+    }
+
+    public void setMateria(Materia materia) {
+        this.materia = materia;
     }
 
     public String getIdGrupo() {

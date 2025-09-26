@@ -1,5 +1,6 @@
 package eci.edu.dows.profesorSuperO.service;
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
 import eci.edu.dows.profesorSuperO.repository.*;
 import io.micrometer.observation.Observation;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,13 @@ public class GrupoService {
 
     }
 
-    public Grupo crearGrupo(String idGrupo, String nombre, Profesor profesor,int cupo) {
-        Grupo grupo = new Grupo(idGrupo, nombre, profesor,cupo);
+    public Grupo crearGrupo(GrupoDTO dto) {
+        Grupo grupo = new Grupo(dto.getIdGrupo(),
+                dto.getNombre(),
+                dto.getProfesor(),
+                dto.getCupo(),
+                dto.getMateria());
+
 
         return grupoRepository.save(grupo);
     }

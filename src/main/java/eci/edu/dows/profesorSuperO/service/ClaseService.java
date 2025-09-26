@@ -1,5 +1,6 @@
 package eci.edu.dows.profesorSuperO.service;
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
 import eci.edu.dows.profesorSuperO.repository.*;
 import io.micrometer.observation.Observation;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,12 @@ public class ClaseService {
         this.claseRepository = claseRepository;
     }
 
-    public Clase crearClase(String idClase,String franjaHoraria, Profesor profesor, String salon,String estado) {
-        Clase clase = new Clase(idClase,franjaHoraria,profesor,salon,estado);
+    public Clase crearClase(ClaseDTO dto) {
+        Clase clase = new Clase(dto.getIdClase(),
+                dto.getFranjaHoraria(),
+                dto.getProfesor(),
+                dto.getSalon(),
+                dto.getEstado());
         return claseRepository.save(clase);
     }
 

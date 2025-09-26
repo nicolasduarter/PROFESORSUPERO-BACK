@@ -1,6 +1,8 @@
 package eci.edu.dows.profesorSuperO.service;
 
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioGrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioMateriaDTO;
 import eci.edu.dows.profesorSuperO.repository.DecanaturaRepository;
 import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
 import eci.edu.dows.profesorSuperO.repository.SolicitudRepository;
@@ -24,15 +26,28 @@ public class SolicitudService {
         this.estudianteRepository = estudianteRepository;
     }
 
-    public Solicitud crearSolicitudCambiogrupo(String id, Estudiante estudiante, String motivo, LocalDate fecha,
-                                               Materia materiaProblema, Grupo grupo, Grupo grupoCambio) {
-        SolicitudCambioGrupo solicitud = new SolicitudCambioGrupo(id,estudiante,motivo,fecha,materiaProblema,grupo,grupoCambio);
+    public Solicitud crearSolicitudCambioGrupo(SolicitudCambioGrupoDTO dto) {
+        SolicitudCambioGrupo solicitud = new SolicitudCambioGrupo(
+                dto.getId(),
+                dto.getEstudiante(),
+                dto.getMotivo(),
+                dto.getFecha(),
+                dto.getMateriaProblema(),
+                dto.getGrupo(),
+                dto.getGrupoCambio()
+        );
         return solicitudRepository.save(solicitud);
     }
 
-    public Solicitud crearSolicitudCambioMateria(String id, Estudiante estudiante, String motivo, LocalDate fecha,
-                                                 Materia materiaProblema, Materia materiaCambio, Grupo grupo, Grupo grupoCambio) {
-        SolicitudCambioGrupo solicitud = new SolicitudCambioGrupo(id,estudiante,motivo,fecha,materiaProblema,grupo,grupoCambio);
+
+    public Solicitud crearSolicitudCambioMateria(SolicitudCambioMateriaDTO dto) {
+        SolicitudCambioGrupo solicitud = new SolicitudCambioGrupo(dto.getId(),
+                dto.getEstudiante(),
+                dto.getMotivo(),
+                dto.getFecha(),
+                dto.getMateriaProblema(),
+                dto.getGrupo(),
+                dto.getGrupoCambio());
         return solicitudRepository.save(solicitud);
     }
 

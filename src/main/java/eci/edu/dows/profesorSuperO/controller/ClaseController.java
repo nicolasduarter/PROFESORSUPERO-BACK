@@ -1,6 +1,7 @@
 package eci.edu.dows.profesorSuperO.controller;
 
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
 import eci.edu.dows.profesorSuperO.service.ClaseService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +16,8 @@ public class ClaseController {
     }
 
     @PostMapping("/crear")
-    public Clase crearClase(@RequestParam String idClase,
-                            @RequestParam String franjaHoraria,
-                            @RequestBody Profesor profesor,
-                            @RequestParam String salon,
-                            @RequestParam String estado) {
-        return claseService.crearClase(idClase, franjaHoraria, profesor, salon, estado);
+    public Clase crearClase(@RequestBody ClaseDTO dto) {
+        return claseService.crearClase(dto);
     }
 
     @PutMapping("/modificarHorario")
