@@ -17,8 +17,8 @@ public class MateriaController {
     private MateriaService materiaService;
 
     @PostMapping
-    public void crearMateria(@RequestBody Materia materia) {
-        materiaService.guardarMateria(materia);
+    public Materia crearMateria(@RequestBody Materia materia) {
+       return materiaService.guardarMateria(materia);
     }
 
     @DeleteMapping

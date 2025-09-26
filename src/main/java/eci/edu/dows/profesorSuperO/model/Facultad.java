@@ -11,6 +11,8 @@ public class Facultad {
         this.materias = new ArrayList<>();
     }
 
+    public Facultad(){}
+
     public void setMateria(Materia materia) {
         this.materias.add(materia);
     }

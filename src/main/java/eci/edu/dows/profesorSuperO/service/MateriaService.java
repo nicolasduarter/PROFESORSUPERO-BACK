@@ -17,8 +17,8 @@ public class MateriaService {
     }
 
 
-    public void guardarMateria(Materia materia){
-        materiaRepository.save(materia);
+    public Materia guardarMateria(Materia materia){
+        return   materiaRepository.save(materia);
     }
 
 

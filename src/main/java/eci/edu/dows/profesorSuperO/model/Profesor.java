@@ -13,6 +13,7 @@ public class Profesor extends Usuario {
         this.grupos = grupos;
     }
 
+    public Profesor() {}
     public List<Grupo> getGrupos() {
         return grupos;
     }

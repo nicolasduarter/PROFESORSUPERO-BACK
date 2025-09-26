@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = ValidacionCambioMateriaSolicitud.class)
 public @interface SolicitudValidaCambioMateria {
-    String message() default "Error en datos de la soli";
+    String message() default "Error en datos de la soli -> materia cambio";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 

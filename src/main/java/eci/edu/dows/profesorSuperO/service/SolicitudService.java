@@ -3,14 +3,14 @@ package eci.edu.dows.profesorSuperO.service;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioMateriaDTO;
-import eci.edu.dows.profesorSuperO.repository.DecanaturaRepository;
-import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
-import eci.edu.dows.profesorSuperO.repository.SolicitudRepository;
+import eci.edu.dows.profesorSuperO.repository.*;
 import jakarta.validation.ConstraintViolation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.validation.Validator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -20,6 +20,15 @@ public class SolicitudService {
     private final DecanaturaRepository decanaturaRepository;
     private final EstudianteRepository estudianteRepository;
     private final Validator validator;
+
+    @Autowired
+    private CalendarioRepository calendarioRepository;
+    @Autowired
+    private MateriaRepository materiaRepository;
+
+    @Autowired
+    private GrupoRepository grupoRepository;
+
 
     public SolicitudService(SolicitudRepository solicitudRepository,
                             DecanaturaRepository decanaturaRepository,
@@ -32,25 +41,46 @@ public class SolicitudService {
     }
 
     public Solicitud crearSolicitudCambioGrupo(SolicitudCambioGrupoDTO dto) {
+        Estudiante estudiante = estudianteRepository.findById(dto.getEstudiante().getId())
+                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+
+        Materia materia = materiaRepository.findById(dto.getMateriaProblema().getId())
+                .orElseThrow(() -> new RuntimeException("Materia no encontrada"));
+        Grupo grupo = grupoRepository.findById(dto.getGrupo().getIdGrupo())
+                .orElseThrow(() -> new RuntimeException("Grupo actual no encontrado"));
+
+        Grupo grupoCambio = grupoRepository.findById(dto.getGrupoCambio().getIdGrupo())
+                .orElseThrow(() -> new RuntimeException("Grupo de cambio no encontrado"));
+
         SolicitudCambioGrupo solicitud = new SolicitudCambioGrupo(
                 dto.getId(),
-                dto.getEstudiante(),
+                estudiante,
                 dto.getMotivo(),
                 dto.getFecha(),
-                dto.getMateriaProblema(),
-                dto.getGrupo(),
-                dto.getGrupoCambio()
+                materia,
+                grupo,
+                grupoCambio
         );
+
+        Optional<CalendarioAcademico> calendarioOpt = calendarioRepository.findTopByOrderByStartDesc();
+        if (calendarioOpt.isEmpty()) {
+            throw new RuntimeException("No se encontró un calendario académico");
+        }
+        solicitud.setCalendarioAcademico(calendarioOpt.get());
+
         Set<ConstraintViolation<SolicitudCambioGrupo>> errores = validator.validate(solicitud);
         if (!errores.isEmpty()) {
             String msg = errores.stream()
                     .map(ConstraintViolation::getMessage)
                     .reduce((a, b) -> a + "; " + b)
-                    .orElse("Solicitud no valida");
-            throw new RuntimeException("Error de validacion: " + msg);
+                    .orElse("Solicitud no válida");
+            throw new RuntimeException("Error de validación: " + msg);
         }
 
-        return solicitudRepository.save(solicitud);    }
+        return solicitudRepository.save(solicitud);
+    }
+
+
 
 
     public Solicitud crearSolicitudCambioMateria(SolicitudCambioMateriaDTO dto) {

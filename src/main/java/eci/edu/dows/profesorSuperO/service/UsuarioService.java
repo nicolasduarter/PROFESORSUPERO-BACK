@@ -12,24 +12,26 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
+    private final EstudianteRepository estudianteRepository;
+    private final ProfesorRepository profesorRepository;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository,
+                          EstudianteRepository estudianteRepository,
+                          ProfesorRepository profesorRepository) {
         this.usuarioRepository = usuarioRepository;
+        this.estudianteRepository = estudianteRepository;
+        this.profesorRepository = profesorRepository;
     }
 
-    public Usuario crearEstudiante(EstudianteDTO dto) {
-        Usuario nuevoUsuario = new Estudiante(dto.getUsuario(), dto.getClave(), dto.getPermiso(), dto.getCorreo(), dto.getId(), dto.getFacultadObjeto(), dto.getSemestre(), dto.getSemaforo()
-        );
-
-        return usuarioRepository.save(nuevoUsuario);
+    public Estudiante crearEstudiante(EstudianteDTO dto) {
+        Estudiante estudiante = new Estudiante(dto.getUsuario(), dto.getClave(), dto.getPermiso(), dto.getCorreo(), dto.getId(), dto.getFacultadObjeto(), dto.getSemestre(), dto.getSemaforo());
+        return estudianteRepository.save(estudiante);
     }
 
 
-    public Usuario crearProfesor(ProfesorDTO dto) {
-        Usuario nuevoUsuario = new Profesor(
-                dto.getUsuario(), dto.getClave(), dto.getPermiso(), dto.getCorreo(), dto.getId(), dto.getGrupos()
-        );
-        return usuarioRepository.save(nuevoUsuario);
+    public Profesor crearProfesor(ProfesorDTO dto) {
+        Profesor profesor = new Profesor(dto.getUsuario(), dto.getClave(), dto.getPermiso(), dto.getCorreo(), dto.getId(), dto.getGrupos());
+        return profesorRepository.save(profesor);
     }
 
     public void eliminarUsuario(String usuario) {

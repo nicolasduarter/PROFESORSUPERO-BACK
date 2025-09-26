@@ -6,9 +6,9 @@ import java.lang.annotation.*;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = ValidacionCambioMateriaSolicitud.class)
+@Constraint(validatedBy = ValidacionSolicitudValida.class)
 public @interface SolicitudValida {
-    String message() default "Error en datos de la soli";
+    String message() default "Error en datos de la soli -> clase abstracta";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

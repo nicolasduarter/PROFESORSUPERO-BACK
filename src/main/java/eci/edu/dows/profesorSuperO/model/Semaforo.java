@@ -3,6 +3,7 @@ package eci.edu.dows.profesorSuperO.model;
 import java.util.ArrayList;
 
 public class Semaforo {
+
     private ArrayList<Materia> materias;
     private Estudiante estudiante;
     private int creditosTotales;
@@ -16,6 +17,7 @@ public class Semaforo {
         this.materias = new ArrayList<>();
     }
 
+    public Semaforo(){}
 
     public ArrayList<Materia> getMateriasNoCursadas() {
         ArrayList<Materia> noCursadas = new ArrayList<>();

@@ -40,8 +40,9 @@ public abstract class Solicitud {
         this.fecha = fecha;
         this.prioridad = 0;
         this.facultad = estudiante.getFacultad();
-        this.calendarioAcademico = new CalendarioAcademico();
     }
+
+    public Solicitud() {}
 
     public Facultad getFacultadOBJ() {
         return estudiante.getFacultadObjeto();

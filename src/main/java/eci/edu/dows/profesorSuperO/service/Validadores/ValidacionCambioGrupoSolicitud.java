@@ -11,15 +11,20 @@ public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<Solic
 
 
 
-    private boolean mismaMateria2(SolicitudCambioGrupo solicitud){
-        Materia m = solicitud.getMateriaProblema();
-        return m.getGrupos().contains(solicitud.getGrupo());
-    }
-
     private boolean mismaMateria(SolicitudCambioGrupo solicitud){
         Materia m = solicitud.getMateriaProblema();
+        if (m == null || m.getGrupos() == null) return false;
 
-        return m.getGrupos().contains(solicitud.getGrupoCambio());
+        return m.getGrupos().stream()
+                .anyMatch(g -> g.getIdGrupo().equals(solicitud.getGrupoCambio().getIdGrupo()));
+    }
+
+    private boolean mismaMateria2(SolicitudCambioGrupo solicitud){
+        Materia m = solicitud.getMateriaProblema();
+        if (m == null || m.getGrupos() == null) return false;
+
+        return m.getGrupos().stream()
+                .anyMatch(g -> g.getIdGrupo().equals(solicitud.getGrupo().getIdGrupo()));
     }
 
 
@@ -39,8 +44,14 @@ public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<Solic
     public boolean isValid(SolicitudCambioGrupo solicitud, ConstraintValidatorContext context) {
         if (solicitud == null) return false;
 
-        return grupoLLeno(solicitud)
-                && mismaMateria(solicitud)
-                && mismaMateria2(solicitud);
+        if(!grupoLLeno(solicitud)){System.out.println("Grupo Lleno");}
+        if(!mismaMateria(solicitud)){System.out.println("Materia Lleno");}
+        if(!mismaMateria2(solicitud)){System.out.println("Materia Lleno");}
+
+
+        return mismaMateria(solicitud) &&
+                mismaMateria2(solicitud) &&
+                grupoLLeno(solicitud);
+
     }
 }

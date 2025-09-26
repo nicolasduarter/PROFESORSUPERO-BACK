@@ -17,7 +17,6 @@ public class UsuarioController {
 
     @PostMapping("/estudiantes")
     public Usuario crearEstudiante(@RequestBody EstudianteDTO dto) {
-
        return  usuarioService.crearEstudiante(dto);
     }
 

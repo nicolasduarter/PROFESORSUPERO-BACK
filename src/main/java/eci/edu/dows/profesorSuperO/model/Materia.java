@@ -19,6 +19,8 @@ public class Materia {
     private int  creditos;
 
 
+    public Materia() {}
+
     public Materia(String id, String nombre, ArrayList<Grupo> grupos, int creditos) {
         this.id = id;
         this.nombre = nombre;
@@ -26,6 +28,7 @@ public class Materia {
         this.estado = false;
         this.creditos = creditos;
     }
+
     public String getNombre() {
         return nombre;
     }

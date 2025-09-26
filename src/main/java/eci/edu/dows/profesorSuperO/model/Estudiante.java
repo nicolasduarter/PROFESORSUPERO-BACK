@@ -20,7 +20,6 @@ public class Estudiante extends Usuario {
     private ArrayList<Grupo>  grupos;
     private Facultades facultad;
     private Facultad facultadObjeto;
-    @DBRef
     private Semaforo semaforo;
 
     public Estudiante(String usuario, String clave, String permiso, String correo, String Id, Facultad facultadObjeto, int semestre,Semaforo semaforo) {
@@ -33,6 +32,8 @@ public class Estudiante extends Usuario {
         this.semaforo = semaforo;
         this.grupos = new ArrayList<>();
     }
+
+    public  Estudiante(){}
 
     public void setHorarios(ArrayList<Horario> horarios) {
         this.horarios = horarios;

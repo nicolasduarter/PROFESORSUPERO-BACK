@@ -29,6 +29,7 @@ public abstract class Usuario {
         this.correo = correo;
     }
 
+    public Usuario() {}
     public String getId() {
         return id;
     }
