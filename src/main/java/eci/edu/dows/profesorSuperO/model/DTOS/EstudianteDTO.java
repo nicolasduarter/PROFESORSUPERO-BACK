@@ -13,6 +13,19 @@ public class EstudianteDTO {
     private int semestre;
     private Semaforo semaforo;
 
+    public EstudianteDTO(String usuario, String clave, String permiso, String correo, String id,
+                         Facultad facultadObjeto, int semestre, Semaforo semaforo) {
+        this.usuario = usuario;
+        this.clave = clave;
+        this.permiso = permiso;
+        this.correo = correo;
+        this.id = id;
+        this.facultadObjeto = facultadObjeto;
+        this.semestre = semestre;
+        this.semaforo = semaforo;
+    }
+
+
 
     public String getUsuario() {
         return usuario;
