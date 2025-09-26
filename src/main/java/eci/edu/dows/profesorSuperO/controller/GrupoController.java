@@ -4,7 +4,6 @@ import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.service.GrupoService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/Grupos")
@@ -16,7 +15,7 @@ public class GrupoController {
         this.grupoService = grupoService;
     }
 
-    @PostMapping("/crear")
+    @PostMapping("/crearGrupo")
     public Grupo crearGrupo(@RequestParam String idGrupo,
                             @RequestParam String nombre,
                             @RequestBody Profesor profesor,
