@@ -28,17 +28,24 @@ El proyecto sigue el patrón **MVC (Modelo - Vista - Controlador)**:
 
 ## Diagramas
 
+### Diagrama de Contexto
+![Diagrama de Contexto](./docs/DiagramaDeContexto.png)
+
 ### Diagrama de Clases
-![Diagrama de Clases](./docs/diagramaClases.png)
+![Diagrama de Clases](./docs/DiagramaDeClases.png)
 
 ### Diagrama de Casos de Uso
-![Diagrama de Casos de Uso](./docs/diagramaCasosUso.png)
+![Diagrama de Casos de Uso](./docs/DiagramaDeCasosUso.png)
 
-### Diagrama de Componentes
-![Diagrama de Componentes](./docs/diagramaComponentes.png)
+### Diagrama de Componentes General
+![Diagrama de Componentes General](./docs/DiagramaDeComponentesGeneral.png)
 
-### Diagrama de Contexto
-![Diagrama de Contexto](./docs/diagramaContexto.png)
+### Diagrama de Componentes Especifico
+![Diagrama de Componentes Especifico](./docs/DiagramaDeComponentesEspecifico.png)
+
+### Diagrama de Base de Datos
+![Diagrama de Base de Datos](./docs/DiagramaDeBaseDeDatos.png)
+
 
 ---
 ## Estrategia de Versionamiento y Branches
@@ -50,8 +57,8 @@ El proyecto sigue el patrón **MVC (Modelo - Vista - Controlador)**:
 - `release/*`: preparación de versiones.  
 
 ## Autores
-- Sebastian Barrios
+- Sebastián Barros
 - Nicolas Duarte
-- Julian Ramirez
+- Julián Ramirez
 - Juan Rangel
 - Santiago Suarez
