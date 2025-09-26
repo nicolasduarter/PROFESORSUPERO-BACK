@@ -20,10 +20,10 @@ public class UsuarioController {
        return  usuarioService.crearEstudiante(dto);
     }
 
-    @PostMapping("/profesores")
-    public Usuario crearProfesor(@RequestBody ProfesorDTO dto) {
-        return usuarioService.crearProfesor(dto);
-    }
+        @PostMapping("/profesores")
+        public Usuario crearProfesor(@RequestBody ProfesorDTO dto) {
+            return usuarioService.crearProfesor(dto);
+        }
 
     @GetMapping("/verificar-usuario")
     public boolean verificarUsuario(@RequestParam String id,
