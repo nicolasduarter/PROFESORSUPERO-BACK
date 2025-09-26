@@ -1,5 +1,6 @@
 package eci.edu.dows.profesorSuperO.model;
 
+import eci.edu.dows.profesorSuperO.service.Validadores.SolicitudValida;
 import eci.edu.dows.profesorSuperO.service.Validadores.SolicitudValidaCambioGrupo;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-@SolicitudValidaCambioGrupo
+@SolicitudValida
 @Document("Solicitud")
 public abstract class Solicitud {
 

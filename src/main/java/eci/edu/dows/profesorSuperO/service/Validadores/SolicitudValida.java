@@ -6,8 +6,8 @@ import java.lang.annotation.*;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = ValidacionCambioGrupoSolicitud.class)
-public  @interface SolicitudValidaCambioGrupo {
+@Constraint(validatedBy = ValidacionCambioMateriaSolicitud.class)
+public @interface SolicitudValida {
     String message() default "Error en datos de la soli";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

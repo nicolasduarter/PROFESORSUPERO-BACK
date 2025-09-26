@@ -9,8 +9,11 @@ import java.time.LocalDate;
 
 public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<SolicitudValidaCambioGrupo, SolicitudCambioGrupo> {
 
-    private boolean mismoGrupo(SolicitudCambioGrupo solicitud) {
-        return solicitud.getGrupo().getIdGrupo().equals(solicitud.getGrupoCambio().getIdGrupo());
+
+
+    private boolean mismaMateria2(SolicitudCambioGrupo solicitud){
+        Materia m = solicitud.getMateriaProblema();
+        return m.getGrupos().contains(solicitud.getGrupo());
     }
 
     private boolean mismaMateria(SolicitudCambioGrupo solicitud){
@@ -19,39 +22,25 @@ public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<Solic
         return m.getGrupos().contains(solicitud.getGrupoCambio());
     }
 
-    private boolean horarioAdecuado(SolicitudCambioGrupo solicitud){
-        LocalDate fechaSoli = solicitud.getFecha();
 
-        LocalDate fechaInicio =  solicitud.getCalendarioAcademico().getEnd();
-        LocalDate fechaFinal = solicitud.getCalendarioAcademico().getStart();
-
-        boolean noMasGrande = !fechaSoli.isAfter(fechaFinal);
-        boolean noMasPeque = fechaSoli.isBefore(fechaInicio);
-
-        return noMasGrande && noMasPeque;
-    }
 
     private boolean grupoLLeno(SolicitudCambioGrupo solicitud){
         Grupo grupo = solicitud.getGrupoCambio();
         int cupos = grupo.getCupo();
         int cuosMax = grupo.getCuposMax();
-        if(cupos< cuosMax){
-            return true;
-        }else{
-            return false;
-        }
 
+        return cupos < cuosMax;
     }
 
 
 
 
-
     @Override
-    public boolean isValid(SolicitudCambioGrupo solicitud, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(SolicitudCambioGrupo solicitud, ConstraintValidatorContext context) {
         if (solicitud == null) return false;
 
-
-        return false;
+        return grupoLLeno(solicitud)
+                && mismaMateria(solicitud)
+                && mismaMateria2(solicitud);
     }
 }
