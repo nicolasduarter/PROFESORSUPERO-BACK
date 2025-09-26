@@ -6,10 +6,13 @@ import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioMateriaDTO;
 import eci.edu.dows.profesorSuperO.repository.DecanaturaRepository;
 import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
 import eci.edu.dows.profesorSuperO.repository.SolicitudRepository;
+import jakarta.validation.ConstraintViolation;
 import org.springframework.stereotype.Service;
 
+import jakarta.validation.Validator;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SolicitudService {
@@ -17,13 +20,16 @@ public class SolicitudService {
     private final SolicitudRepository solicitudRepository;
     private final DecanaturaRepository decanaturaRepository;
     private final EstudianteRepository estudianteRepository;
+    private final Validator validator;
 
     public SolicitudService(SolicitudRepository solicitudRepository,
                             DecanaturaRepository decanaturaRepository,
-                            EstudianteRepository estudianteRepository) {
+                            EstudianteRepository estudianteRepository,
+                            Validator validator) {
         this.solicitudRepository = solicitudRepository;
         this.decanaturaRepository = decanaturaRepository;
         this.estudianteRepository = estudianteRepository;
+        this.validator = validator;
     }
 
     public Solicitud crearSolicitudCambioGrupo(SolicitudCambioGrupoDTO dto) {
@@ -36,18 +42,40 @@ public class SolicitudService {
                 dto.getGrupo(),
                 dto.getGrupoCambio()
         );
-        return solicitudRepository.save(solicitud);
-    }
+        Set<ConstraintViolation<SolicitudCambioGrupo>> errores = validator.validate(solicitud);
+        if (!errores.isEmpty()) {
+            String msg = errores.stream()
+                    .map(ConstraintViolation::getMessage)
+                    .reduce((a, b) -> a + "; " + b)
+                    .orElse("Solicitud no valida");
+            throw new RuntimeException("Error de validacion: " + msg);
+        }
+
+        return solicitudRepository.save(solicitud);    }
 
 
     public Solicitud crearSolicitudCambioMateria(SolicitudCambioMateriaDTO dto) {
-        SolicitudCambioGrupo solicitud = new SolicitudCambioGrupo(dto.getId(),
+        SolicitudCambioMateria solicitud = new SolicitudCambioMateria(
+                dto.getId(),
                 dto.getEstudiante(),
                 dto.getMotivo(),
                 dto.getFecha(),
                 dto.getMateriaProblema(),
+                dto.getMateriaCambio(),
                 dto.getGrupo(),
-                dto.getGrupoCambio());
+                dto.getGrupoCambio()
+        );
+
+        Set<ConstraintViolation<SolicitudCambioMateria>> errores = validator.validate(solicitud);
+        if (!errores.isEmpty()) {
+            String msg = errores.stream()
+                    .map(ConstraintViolation::getMessage)
+                    .reduce((a, b) -> a + "; " + b)
+                    .orElse("Solicitud no valida");
+            throw new RuntimeException("Error de validacion: " + msg);
+        }
+
+
         return solicitudRepository.save(solicitud);
     }
 
