@@ -15,49 +15,25 @@ public class Grupo {
     private String idGrupo;
     @Indexed
     private String nombre;
-    @Indexed
-    private int cupo;
-    @Indexed
-    private String estado;
-
-    private int cuposMax;
     @DBRef
     private Profesor profesor;
-    private String franjaHoraria;
-    private String salon;
+    private int cupo;
     @DBRef
     private ArrayList<Estudiante> estudiantes;
+    private ArrayList<Clase> clases;
     @Transient
     private ArrayList<GruposObserver> observadores;
 
 
-    public Grupo(String idGrupo, String nombre, Profesor profesor, String franjaHoraria, String salon,int cupo, String estado,int  cuposMax) {
+
+    public Grupo(String idGrupo, String nombre, Profesor profesor,int cupo) {
         this.idGrupo = idGrupo;
         this.nombre = nombre;
         this.profesor = profesor;
-        this.franjaHoraria = franjaHoraria;
-        this.salon = salon;
         this.cupo = cupo;
-        this.estado = estado;
         this.estudiantes = new ArrayList<>();
+        this.clases = new ArrayList<>();
         this.observadores = new ArrayList<>();
-        this.cuposMax = cuposMax;
-    }
-
-    public int getCuposMax() {
-        return cuposMax;
-    }
-
-    public void setCuposMax(int cuposMax) {
-        this.cuposMax = cuposMax;
-    }
-
-    public void setEstudiantes(ArrayList<Estudiante> estudiantes) {
-        this.estudiantes = estudiantes;
-    }
-
-    public void setObservadores(ArrayList<GruposObserver> observadores) {
-        this.observadores = observadores;
     }
 
     public String getIdGrupo() {
@@ -80,34 +56,11 @@ public class Grupo {
         this.profesor = profesor;
     }
 
-    public String getFranjaHoraria() {
-        return franjaHoraria;
-    }
-
-    public void setFranjaHoraria(String franjaHoraria) {
-        this.franjaHoraria = franjaHoraria;
-    }
-    public String getSalon() {
-        return salon;
-    }
-    public void setSalon(String salon) {
-        this.salon = salon;
-    }
-
     public int getCupo() {
         return cupo;
     }
-
     public void setCupo(int cupo) {
         this.cupo = cupo;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public ArrayList<Estudiante> getEstudiantes() {
@@ -119,11 +72,17 @@ public class Grupo {
     public void eliminarEstudiantes(Estudiante estudiante) {
         estudiantes.remove(estudiante);
     }
-
+    public ArrayList<Clase> getClases() {
+        return clases;
+    }
+    public void agregarClases(Clase clase) {
+        clases.add(clase);
+    }
     public ArrayList<GruposObserver> getObservadores(){
         return observadores;
     }
     public void agregarObservador(GruposObserver observador){
         observadores.add(observador);
     }
+
 }
