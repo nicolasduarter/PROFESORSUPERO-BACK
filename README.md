@@ -35,7 +35,7 @@ El proyecto sigue el patrón **MVC (Modelo - Vista - Controlador)**:
 ![Diagrama de Clases](./docs/DiagramaDeClases.png)
 
 ### Diagrama de Casos de Uso
-![Diagrama de Casos de Uso](./docs/DiagramaDeCasosUso.png)
+![Diagrama de Casos de Uso](./docs/DiagramaDeCasosDeUso.png)
 
 ### Diagrama de Componentes General
 ![Diagrama de Componentes General](./docs/DiagramaDeComponentesGeneral.png)
