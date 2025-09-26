@@ -15,9 +15,9 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public Usuario crearEstudiante(String usuario, String clave, String permiso, String correo, String id, Facultades facultad, int semestre,Semaforo semaforo) {
+    public Usuario crearEstudiante(String usuario, String clave, String permiso, String correo, String Id, Facultad facultadObjeto, int semestre,Semaforo semaforo) {
 
-        Usuario nuevoUsuario = new Estudiante(usuario, clave, permiso, correo,id, facultad, semestre, semaforo);
+        Usuario nuevoUsuario = new Estudiante(usuario, clave, permiso, correo,Id,facultadObjeto,semestre, semaforo);
         return usuarioRepository.save(nuevoUsuario);
     }
 
