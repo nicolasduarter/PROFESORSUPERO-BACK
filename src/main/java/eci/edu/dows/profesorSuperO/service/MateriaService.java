@@ -44,4 +44,15 @@ public class MateriaService {
     public Optional<Materia> buscarPorId(String id) {
         return materiaRepository.findById(id);
     }
+
+    public void actualizarCreditos(String id, int nuevosCreditos) {
+        Optional<Materia> materiaOpt = buscarPorId(id);
+        if (materiaOpt.isEmpty()) {
+            throw new RuntimeException("Materia no encontrada con id: " + id);
+        }
+        Materia materia = materiaOpt.get();
+        materia.setCreditos(nuevosCreditos);
+        guardarMateria(materia);
+    }
+
 }
