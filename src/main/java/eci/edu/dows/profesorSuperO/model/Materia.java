@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Document("Materia")
 public class Materia {
@@ -17,6 +18,7 @@ public class Materia {
     private Boolean estado;
     private ArrayList<Grupo> grupos;
     private int  creditos;
+    private List<Materia> prerequisitos;
 
 
     public Materia() {}
@@ -27,6 +29,7 @@ public class Materia {
         this.grupos = grupos;
         this.estado = false;
         this.creditos = creditos;
+        this.prerequisitos = new ArrayList<Materia>();
     }
 
     public String getNombre() {
@@ -63,5 +66,13 @@ public class Materia {
 
     public void setCreditos(int creditos) {
         this.creditos = creditos;
+    }
+
+    public List<Materia> getPrerequisitos() {
+        return prerequisitos;
+    }
+
+    public void setPrerequisitos(List<Materia> prerequisitos) {
+        this.prerequisitos = prerequisitos;
     }
 }
