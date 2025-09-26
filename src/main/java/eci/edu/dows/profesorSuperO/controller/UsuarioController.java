@@ -1,6 +1,7 @@
 package eci.edu.dows.profesorSuperO.controller;
 
 import eci.edu.dows.profesorSuperO.model.DTOS.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.ProfesorDTO;
 import eci.edu.dows.profesorSuperO.model.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Usuario;
 import eci.edu.dows.profesorSuperO.service.UsuarioService;
@@ -19,6 +20,18 @@ public class UsuarioController {
     public Usuario crearEstudiante(@RequestBody EstudianteDTO dto) {
 
        return  usuarioService.crearEstudiante(dto);
+    }
+
+    @PostMapping("/profesores")
+    public Usuario crearProfesor(@RequestBody ProfesorDTO dto) {
+        return usuarioService.crearProfesor(dto);
+    }
+
+    @GetMapping("/verificar-usuario")
+    public boolean verificarUsuario(@RequestParam String id,
+                                    @RequestParam String correo,
+                                    @RequestParam String clave) {
+        return usuarioService.verificarUsuario(id, correo, clave);
     }
 
 }
