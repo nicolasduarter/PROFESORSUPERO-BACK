@@ -1,6 +1,7 @@
 package eci.edu.dows.profesorSuperO.service;
 
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.EstudianteDTO;
 import eci.edu.dows.profesorSuperO.repository.*;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,13 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public Usuario crearEstudiante(String usuario, String clave, String permiso, String correo, String Id, Facultad facultadObjeto, int semestre,Semaforo semaforo) {
+    public Usuario crearEstudiante(EstudianteDTO dto) {
+        Usuario nuevoUsuario = new Estudiante(dto.getUsuario(), dto.getClave(), dto.getPermiso(), dto.getCorreo(), dto.getId(), dto.getFacultadObjeto(), dto.getSemestre(), dto.getSemaforo()
+        );
 
-        Usuario nuevoUsuario = new Estudiante(usuario, clave, permiso, correo,Id,facultadObjeto,semestre, semaforo);
         return usuarioRepository.save(nuevoUsuario);
     }
+
 
     public Usuario crearProfesor(String usuario, String clave, String permiso, String correo, String id, List<Grupo> grupos) {
 
