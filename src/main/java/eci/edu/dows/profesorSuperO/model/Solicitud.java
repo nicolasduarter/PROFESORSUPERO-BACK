@@ -101,4 +101,20 @@ public abstract class Solicitud {
     public void setObservadores(ArrayList<PeriodoObserver> observadores) {
         this.observadores = observadores;
     }
+
+    public Facultades getFacultad() {
+        return facultad;
+    }
+
+    public void setFacultad(Facultades facultad) {
+        this.facultad = facultad;
+    }
+
+    public CalendarioAcademico getCalendarioAcademico() {
+        return calendarioAcademico;
+    }
+
+    public void setCalendarioAcademico(CalendarioAcademico calendarioAcademico) {
+        this.calendarioAcademico = calendarioAcademico;
+    }
 }

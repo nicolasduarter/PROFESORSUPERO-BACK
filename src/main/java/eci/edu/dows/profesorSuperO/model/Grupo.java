@@ -20,6 +20,7 @@ public class Grupo {
     @Indexed
     private String estado;
 
+    private int cuposMax;
     @DBRef
     private Profesor profesor;
     private String franjaHoraria;
@@ -29,7 +30,8 @@ public class Grupo {
     @Transient
     private ArrayList<GruposObserver> observadores;
 
-    public Grupo(String idGrupo, String nombre, Profesor profesor, String franjaHoraria, String salon,int cupo, String estado) {
+
+    public Grupo(String idGrupo, String nombre, Profesor profesor, String franjaHoraria, String salon,int cupo, String estado,int  cuposMax) {
         this.idGrupo = idGrupo;
         this.nombre = nombre;
         this.profesor = profesor;
@@ -39,6 +41,23 @@ public class Grupo {
         this.estado = estado;
         this.estudiantes = new ArrayList<>();
         this.observadores = new ArrayList<>();
+        this.cuposMax = cuposMax;
+    }
+
+    public int getCuposMax() {
+        return cuposMax;
+    }
+
+    public void setCuposMax(int cuposMax) {
+        this.cuposMax = cuposMax;
+    }
+
+    public void setEstudiantes(ArrayList<Estudiante> estudiantes) {
+        this.estudiantes = estudiantes;
+    }
+
+    public void setObservadores(ArrayList<GruposObserver> observadores) {
+        this.observadores = observadores;
     }
 
     public String getIdGrupo() {

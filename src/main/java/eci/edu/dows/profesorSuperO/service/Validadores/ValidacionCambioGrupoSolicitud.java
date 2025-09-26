@@ -5,6 +5,8 @@ import eci.edu.dows.profesorSuperO.model.SolicitudCambioGrupo;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+import java.time.LocalDate;
+
 public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<SolicitudValidaCambioGrupo, SolicitudCambioGrupo> {
 
     private boolean mismoGrupo(SolicitudCambioGrupo solicitud) {
@@ -16,6 +18,31 @@ public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<Solic
 
         return m.getGrupos().contains(solicitud.getGrupoCambio());
     }
+
+    private boolean horarioAdecuado(SolicitudCambioGrupo solicitud){
+        LocalDate fechaSoli = solicitud.getFecha();
+
+        LocalDate fechaInicio =  solicitud.getCalendarioAcademico().getEnd();
+        LocalDate fechaFinal = solicitud.getCalendarioAcademico().getStart();
+
+        boolean noMasGrande = !fechaSoli.isAfter(fechaFinal);
+        boolean noMasPeque = fechaSoli.isBefore(fechaInicio);
+
+        return noMasGrande && noMasPeque;
+    }
+
+    private boolean grupoLLeno(SolicitudCambioGrupo solicitud){
+        Grupo grupo = solicitud.getGrupoCambio();
+        int cupos = grupo.getCupo();
+        int cuosMax = grupo.getCuposMax();
+        if(cupos< cuosMax){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
 
 
 
