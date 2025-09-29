@@ -3,6 +3,7 @@ package eci.edu.dows.profesorSuperO.service;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioMateriaDTO;
+import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.repository.*;
 import jakarta.validation.ConstraintViolation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,12 +1,15 @@
 package eci.edu.dows.profesorSuperO.model;
 
 import eci.edu.dows.profesorSuperO.service.Validadores.SolicitudValidaCambioMateria;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.time.LocalDate;
 
-
+@Getter
+@Setter
 @SolicitudValidaCambioMateria
 @TypeAlias("solicitudCambioMateria")
 public class SolicitudCambioMateria extends  Solicitud {

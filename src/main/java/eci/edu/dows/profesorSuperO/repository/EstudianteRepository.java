@@ -1,7 +1,7 @@
 package eci.edu.dows.profesorSuperO.repository;
 
 import eci.edu.dows.profesorSuperO.model.Estudiante;
-import eci.edu.dows.profesorSuperO.model.Facultades;
+import eci.edu.dows.profesorSuperO.model.Enums.Facultades;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

@@ -1,12 +1,15 @@
 package eci.edu.dows.profesorSuperO.model;
 
 import eci.edu.dows.profesorSuperO.service.Validadores.SolicitudValidaCambioGrupo;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.time.LocalDate;
 
-
+@Getter
+@Setter
 @SolicitudValidaCambioGrupo
 @TypeAlias("solicitudCambioGrupo")
 public class SolicitudCambioGrupo extends Solicitud {
@@ -24,27 +27,4 @@ public class SolicitudCambioGrupo extends Solicitud {
     }
 
 
-    public Materia getMateriaProblema() {
-        return materiaProblema;
-    }
-
-    public void setMateriaProblema(Materia materiaProblema) {
-        this.materiaProblema = materiaProblema;
-    }
-
-    public Grupo getGrupo() {
-        return grupo;
-    }
-
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
-    }
-
-    public Grupo getGrupoCambio() {
-        return grupoCambio;
-    }
-
-    public void setGrupoCambio(Grupo grupoCambio) {
-        this.grupoCambio = grupoCambio;
-    }
 }

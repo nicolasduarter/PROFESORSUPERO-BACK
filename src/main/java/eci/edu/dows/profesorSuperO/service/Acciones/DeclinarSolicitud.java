@@ -1,6 +1,6 @@
-package eci.edu.dows.profesorSuperO.service;
+package eci.edu.dows.profesorSuperO.service.Acciones;
 
-import eci.edu.dows.profesorSuperO.model.EstadoSolicitud;
+import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.model.Solicitud;
 import org.springframework.stereotype.Component;
 

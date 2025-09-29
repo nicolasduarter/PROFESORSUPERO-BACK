@@ -1,8 +1,13 @@
-package eci.edu.dows.profesorSuperO.model;
+package eci.edu.dows.profesorSuperO.model.Observer;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class PeriodoHabilitadoObserver implements PeriodoObserver {
 
     private List<String> mensajes = new ArrayList<>();
@@ -14,11 +19,5 @@ public class PeriodoHabilitadoObserver implements PeriodoObserver {
         System.out.println(respuesta);
     }
 
-    public List<String> getMensajes() {
-        return mensajes;
-    }
 
-    public void setMensajes(List<String> mensajes) {
-        this.mensajes = mensajes;
-    }
 }

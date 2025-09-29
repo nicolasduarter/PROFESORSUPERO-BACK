@@ -1,45 +1,23 @@
 package eci.edu.dows.profesorSuperO.model;
 
+import eci.edu.dows.profesorSuperO.model.Enums.Facultades;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Document("Decanatura")
-public class Decanatura {
+public class Decanatura extends Usuario {
 
-    @Id
-    private String nombre;
-    private Facultades facultad;
-    private List<Solicitud> solicitudes;
+    private Facultad facultad;
 
-    public Decanatura(String nombre, Facultades facultad, List<Solicitud> solicitudes) {
-        this.nombre = nombre;
-        this.facultad = facultad;
-        this.solicitudes = solicitudes;
-    }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Facultades getFacultad() {
-        return facultad;
-    }
-
-    public void setFacultad(Facultades facultad) {
+    public Decanatura(String usuario, String clave, String permiso, String correo, String id,Facultad facultad) {
+        super(usuario, clave, permiso, correo, id);
         this.facultad = facultad;
     }
 
-    public List<Solicitud> getSolicitudes() {
-        return solicitudes;
-    }
 
-    public void setSolicitudes(List<Solicitud> solicitudes) {
-        this.solicitudes = solicitudes;
-    }
 }
 

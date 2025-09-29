@@ -1,11 +1,23 @@
 package eci.edu.dows.profesorSuperO.model;
 
-import java.util.ArrayList;
+import eci.edu.dows.profesorSuperO.model.Enums.EstadoMateria;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
+
+@Getter
+@Setter
+@AllArgsConstructor
+@Document("Semaforo")
 public class Semaforo {
 
-    private ArrayList<Materia> materias;
-    private Estudiante estudiante;
+    private ArrayList<MateriaEstudiante> materiaEstudiante;
     private int creditosTotales;
     private int creditosActuales;
     private int creditosFaltantes;
@@ -13,66 +25,65 @@ public class Semaforo {
     private int materiasVistas;
     private int promedio;
 
-    public Semaforo(Estudiante estudiante) {
-        this.materias = new ArrayList<>();
+    public Semaforo() {
+        this.materiaEstudiante = new ArrayList<>();
+
     }
 
-    public Semaforo(){}
 
-    public ArrayList<Materia> getMateriasNoCursadas() {
-        ArrayList<Materia> noCursadas = new ArrayList<>();
-        for (Materia materia : materias) {
-            if (!materia.getEstado()) {
-                noCursadas.add(materia);
-            }
-        }
+
+    public ArrayList<MateriaEstudiante> getMateriasAprobadas() {
+        ArrayList<MateriaEstudiante> aprobadas = new ArrayList<>();
+        materiaEstudiante.stream().
+                filter(m->m.getEstado() == EstadoMateria.APROBADA).
+                forEach(aprobadas::add);
+        return aprobadas;
+    }
+
+
+
+    public ArrayList<MateriaEstudiante> getMateriasNoCursadas() {
+        ArrayList<MateriaEstudiante> noCursadas = new ArrayList<>();
+        materiaEstudiante.stream().
+                filter(m->m.getEstado() == EstadoMateria.PENDIENTE).
+                forEach(noCursadas::add);
         return noCursadas;
     }
 
-    public ArrayList<Materia> getMateriasCursadas() {
-        ArrayList<Materia> cursadas = new ArrayList<>();
-        for (Materia materia : materias) {
-            if (materia.getEstado()) {
-                cursadas.add(materia);
-            }
-        }
-        return cursadas;
+    public ArrayList<MateriaEstudiante> getMateriasCanceladas() {
+        ArrayList<MateriaEstudiante> canceladas = new ArrayList<>();
+        materiaEstudiante.stream().
+                filter(m->m.getEstado() == EstadoMateria.CANCELADA).
+                forEach(canceladas::add);
+        return canceladas;
     }
 
-    public ArrayList<Materia> getMaterias() {
-        return materias;
+
+    public ArrayList<MateriaEstudiante> getMateriasReprobadas() {
+        ArrayList<MateriaEstudiante> reprobadas = new ArrayList<>();
+        materiaEstudiante.stream().
+                filter(m->m.getEstado() == EstadoMateria.REPROBADA).
+                forEach(reprobadas::add);
+        return reprobadas;
     }
 
-    public void setMaterias(ArrayList<Materia> materias) {
-        this.materias = materias;
+    public ArrayList<MateriaEstudiante> getMateriasEnCurso() {
+        ArrayList<MateriaEstudiante> reprobadas = new ArrayList<>();
+        materiaEstudiante.stream().
+                filter(m->m.getEstado() == EstadoMateria.EN_CURSO).
+                forEach(reprobadas::add);
+        return reprobadas;
     }
 
-    public Estudiante getEstudiante() {
-        return estudiante;
+
+
+    public MateriaEstudiante getMateriaById(String id) {
+        Optional<MateriaEstudiante> materia =  materiaEstudiante.stream().filter(m->m.getId().equals(id)).findFirst();
+        return   materia.orElse(null);
+
     }
 
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
-    }
 
-    public Materia getMateriaById(String id) {
-        for (Materia m : materias) {
-            if (m.getId().equals(id)) {
-                return m;
-            }
-        }
-        return null;
-    }
-
-    public boolean cambiarEstadoDeMateria(String id, boolean nuevoEstado) {
-        for (Materia m : materias) {
-            if (m.getId().equals(id)) {
-                m.setEstado(nuevoEstado);
-                return true;
-            }
-        }
-        return false;
-    }
 
 
 }

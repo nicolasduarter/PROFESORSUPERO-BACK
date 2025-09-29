@@ -11,19 +11,5 @@ public class Horario {
         this.grupos = grupos;
     }
 
-    public int getSemestre() {
-        return semestre;
-    }
 
-    public void setSemestre(int semestre) {
-        this.semestre = semestre;
-    }
-
-    public List<Grupo> getGrupos() {
-        return grupos;
-    }
-
-    public void setGrupos(List<Grupo> grupos) {
-        this.grupos = grupos;
-    }
 }

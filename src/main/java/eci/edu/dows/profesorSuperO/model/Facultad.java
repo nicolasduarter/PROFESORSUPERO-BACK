@@ -1,8 +1,20 @@
 package eci.edu.dows.profesorSuperO.model;
 
+import eci.edu.dows.profesorSuperO.model.Enums.Facultades;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 
+
+@Getter
+@Setter
+@Document("Facultad")
 public class Facultad {
+    @Id
+    private String id;
     private ArrayList<Materia> materias;
     private Facultades facultad;
 
@@ -13,24 +25,5 @@ public class Facultad {
 
     public Facultad(){}
 
-    public void setMateria(Materia materia) {
-        this.materias.add(materia);
-    }
 
-
-    public ArrayList<Materia> getMaterias() {
-        return materias;
-    }
-
-    public void setMaterias(ArrayList<Materia> materias) {
-        this.materias = materias;
-    }
-
-    public Facultades getFacultad() {
-        return facultad;
-    }
-
-    public void setFacultad(Facultades facultad) {
-        this.facultad = facultad;
-    }
 }

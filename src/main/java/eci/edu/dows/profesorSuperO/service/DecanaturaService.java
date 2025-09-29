@@ -1,10 +1,13 @@
 package eci.edu.dows.profesorSuperO.service;
 
 
-import eci.edu.dows.profesorSuperO.model.EstadoSolicitud;
-import eci.edu.dows.profesorSuperO.model.Facultades;
+import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
+import eci.edu.dows.profesorSuperO.model.Enums.Facultades;
 import eci.edu.dows.profesorSuperO.model.Solicitud;
 import eci.edu.dows.profesorSuperO.repository.SolicitudRepository;
+import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudCommand;
+import eci.edu.dows.profesorSuperO.service.Acciones.AceptarSolicitud;
+import eci.edu.dows.profesorSuperO.service.Acciones.DeclinarSolicitud;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

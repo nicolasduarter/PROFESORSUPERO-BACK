@@ -1,9 +1,18 @@
 package eci.edu.dows.profesorSuperO.model.DTOS;
 
 import eci.edu.dows.profesorSuperO.model.Grupo;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProfesorDTO {
     private String usuario;
     private String clave;
@@ -21,51 +30,5 @@ public class ProfesorDTO {
         this.grupos = grupos;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
-    public String getPermiso() {
-        return permiso;
-    }
-
-    public void setPermiso(String permiso) {
-        this.permiso = permiso;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public List<Grupo> getGrupos() {
-        return grupos;
-    }
-
-    public void setGrupos(List<Grupo> grupos) {
-        this.grupos = grupos;
-    }
 }

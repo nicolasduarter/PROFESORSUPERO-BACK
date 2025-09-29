@@ -3,11 +3,11 @@ package eci.edu.dows.profesorSuperO.controller;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudCambioMateriaDTO;
+import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.service.SolicitudService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController

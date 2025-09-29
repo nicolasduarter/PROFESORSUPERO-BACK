@@ -1,8 +1,9 @@
 package eci.edu.dows.profesorSuperO.controller;
 
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.Enums.Facultades;
 import eci.edu.dows.profesorSuperO.service.DecanaturaService;
-import eci.edu.dows.profesorSuperO.service.AccionSolicitudCommand;
+import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudCommand;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

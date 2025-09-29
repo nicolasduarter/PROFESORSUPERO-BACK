@@ -1,12 +1,14 @@
 package eci.edu.dows.profesorSuperO.model;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("Usuarios")
+@Getter
+@Setter
 public abstract class Usuario {
 
 
@@ -30,43 +32,5 @@ public abstract class Usuario {
     }
 
     public Usuario() {}
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
-    public String getPermiso() {
-        return permiso;
-    }
-
-    public void setPermiso(String permiso) {
-        this.permiso = permiso;
-    }
 }

@@ -1,8 +1,14 @@
-package eci.edu.dows.profesorSuperO.model;
+package eci.edu.dows.profesorSuperO.model.Observer;
+
+import eci.edu.dows.profesorSuperO.model.Grupo;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class cuposObserver implements GruposObserver {
 
     private List<String> mensajes = new ArrayList<>();
@@ -14,7 +20,4 @@ public class cuposObserver implements GruposObserver {
         System.out.println(respuesta);
     }
 
-    public List<String> getMensajes() {
-        return mensajes;
-    }
 }

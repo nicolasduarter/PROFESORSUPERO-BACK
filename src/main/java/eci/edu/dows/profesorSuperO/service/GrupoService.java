@@ -1,11 +1,9 @@
 package eci.edu.dows.profesorSuperO.service;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.Observer.GruposObserver;
 import eci.edu.dows.profesorSuperO.repository.*;
-import io.micrometer.observation.Observation;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class GrupoService {
