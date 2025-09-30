@@ -20,11 +20,7 @@ public class ClaseService {
     }
 
     public Clase crearClase(ClaseDTO dto) {
-        Clase clase = new Clase(dto.getIdClase(),
-                dto.getFranjaHoraria(),
-                dto.getProfesor(),
-                dto.getSalon(),
-                dto.getEstado());
+        Clase clase = new Clase();
         return claseRepository.save(clase);
     }
 

@@ -6,16 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClaseDTO {
     private String idClase;
-    private String franjaHoraria;
-    private Profesor profesor;
+    private LocalTime horaInicio;
+    private LocalTime horaFin;
     private String salon;
-    private String estado;
-
-
+    private DayOfWeek diaSemana;
 }

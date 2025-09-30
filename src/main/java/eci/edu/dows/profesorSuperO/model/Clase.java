@@ -30,5 +30,4 @@ public class Clase {
         this.horaFin = horaFin;
         this.diaSemana = diaSemana;
     }
-
 }

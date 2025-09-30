@@ -37,7 +37,6 @@ public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<Solic
         return cupos < cuosMax;
     }
 
-
     @Override
     public boolean isValid(SolicitudCambioGrupo solicitud, ConstraintValidatorContext context) {
         if (solicitud == null) return false;
