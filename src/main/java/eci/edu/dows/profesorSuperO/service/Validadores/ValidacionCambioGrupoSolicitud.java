@@ -38,16 +38,9 @@ public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<Solic
     }
 
 
-
-
     @Override
     public boolean isValid(SolicitudCambioGrupo solicitud, ConstraintValidatorContext context) {
         if (solicitud == null) return false;
-
-        if(!grupoLLeno(solicitud)){System.out.println("Grupo Lleno");}
-        if(!mismaMateria(solicitud)){System.out.println("Materia Lleno");}
-        if(!mismaMateria2(solicitud)){System.out.println("Materia Lleno");}
-
 
         return mismaMateria(solicitud) &&
                 mismaMateria2(solicitud) &&

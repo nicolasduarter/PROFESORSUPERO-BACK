@@ -1,6 +1,7 @@
 package eci.edu.dows.profesorSuperO.model;
 
 import eci.edu.dows.profesorSuperO.model.Enums.Facultades;
+import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,7 +14,7 @@ public class Decanatura extends Usuario {
     private Facultad facultad;
 
 
-    public Decanatura(String usuario, String clave, String permiso, String correo, String id,Facultad facultad) {
+    public Decanatura(String usuario, String clave, Permisos permiso, String correo, String id, Facultad facultad) {
         super(usuario, clave, permiso, correo, id);
         this.facultad = facultad;
     }

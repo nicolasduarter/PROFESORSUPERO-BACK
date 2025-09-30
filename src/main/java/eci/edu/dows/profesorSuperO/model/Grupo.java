@@ -45,7 +45,4 @@ public class Grupo {
         this.materia = materia;
         this.cuposMax = cuposMax;
     }
-
-
-
 }

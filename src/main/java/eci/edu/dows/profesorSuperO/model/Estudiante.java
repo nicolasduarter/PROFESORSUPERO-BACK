@@ -1,4 +1,5 @@
 package eci.edu.dows.profesorSuperO.model;
+import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,7 +19,7 @@ public class Estudiante extends Usuario {
     private Facultad facultad;
     private Semaforo semaforo;
 
-    public Estudiante(String usuario, String clave, String permiso, String correo, String Id, Facultad facultad, int semestre) {
+    public Estudiante(String usuario, String clave, Permisos permiso, String correo, String Id, Facultad facultad, int semestre) {
         super(usuario, clave, permiso, correo, Id);
         this.semestre = semestre;
         this.horarios = new ArrayList<>();
@@ -27,7 +28,5 @@ public class Estudiante extends Usuario {
     }
 
     public  Estudiante(){}
-
-
 
 }

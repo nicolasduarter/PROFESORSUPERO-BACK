@@ -29,10 +29,6 @@ public class ValidacionSolicitudValida implements ConstraintValidator<SolicitudV
         return dentroFechas ;
     }
 
-
-
-
-
     @Override
     public boolean isValid(Solicitud solicitud, ConstraintValidatorContext constraintValidatorContext) {
         return horarioAdecuado(solicitud);
