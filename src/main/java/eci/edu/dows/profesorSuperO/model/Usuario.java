@@ -1,6 +1,7 @@
 package eci.edu.dows.profesorSuperO.model;
 
 
+import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -21,9 +22,9 @@ public abstract class Usuario {
     private String usuario;
     private String clave;
     @Transient
-    private String permiso;
+    private Permisos permiso;
 
-    public Usuario(String usuario, String clave, String permiso, String correo, String id) {
+    public Usuario(String usuario, String clave, Permisos permiso, String correo, String id) {
         this.id = id;
         this.usuario = usuario;
         this.clave = clave;
