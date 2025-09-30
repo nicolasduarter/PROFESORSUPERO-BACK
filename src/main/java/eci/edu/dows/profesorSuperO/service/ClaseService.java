@@ -1,8 +1,10 @@
 package eci.edu.dows.profesorSuperO.service;
+import eci.edu.dows.profesorSuperO.Util.ClaseMapper;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
 import eci.edu.dows.profesorSuperO.repository.*;
 import io.micrometer.observation.Observation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,15 +14,18 @@ public class ClaseService {
 
     private final EstudianteRepository estudianteRepository;
     private final ClaseRepository claseRepository;
+    private final ClaseMapper claseMapper;
 
+    @Autowired
     public ClaseService(EstudianteRepository estudianteRepository,
-                        ClaseRepository claseRepository) {
+                        ClaseRepository claseRepository,ClaseMapper claseMapper) {
         this.estudianteRepository = estudianteRepository;
         this.claseRepository = claseRepository;
+        this.claseMapper = claseMapper;
     }
 
     public Clase crearClase(ClaseDTO dto) {
-        Clase clase = new Clase();
+        Clase clase = claseMapper.toClass(dto);
         return claseRepository.save(clase);
     }
 

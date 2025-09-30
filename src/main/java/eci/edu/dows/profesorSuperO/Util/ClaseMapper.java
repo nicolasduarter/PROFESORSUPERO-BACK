@@ -6,8 +6,10 @@ import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ClaseMapper {
     ClaseMapper INSTANCE = Mappers.getMapper(ClaseMapper.class);
-    ClaseDTO toClass(Clase clase);
+
+    Clase toClass(ClaseDTO dto);
+    ClaseDTO toDTO(Clase clase);
 }
