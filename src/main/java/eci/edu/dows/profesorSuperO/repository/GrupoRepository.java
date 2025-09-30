@@ -9,4 +9,5 @@ public interface GrupoRepository extends MongoRepository<Grupo, String> {
     List<Grupo> findByProfesor_Id(String profesor);
     List<Grupo> findBynombre(String nombre);
     List<Grupo> findByEstudiantes_id(String idGrupo);
+    List<Grupo> findByMateria_ID(String idMateria);
 }
