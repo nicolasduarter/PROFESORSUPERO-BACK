@@ -16,10 +16,10 @@ public class Materia {
 
     @Id
     private String id;
+
     @Indexed
     private String nombre;
-    @Indexed
-    private Boolean estado;
+
     private int  creditos;
     private List<Materia> prerequisitos;
 
@@ -29,10 +29,24 @@ public class Materia {
     public Materia(String id, String nombre,  int creditos) {
         this.id = id;
         this.nombre = nombre;
-        this.estado = false;
         this.creditos = creditos;
         this.prerequisitos = new ArrayList<>();
     }
 
+    public void agregarPrerequisito(Materia materia) {
+        this.prerequisitos.add(materia);
+    }
+
+    public void eliminarPrerequisito(Materia materia) {
+        this.prerequisitos.remove(materia);
+    }
+
+    public void agregarPrerequisitos(List<Materia> materias) {
+        this.prerequisitos.addAll(materias);
+    }
+
+    public void eliminarPrerequisitos(List<Materia> materias) {
+        this.prerequisitos.addAll(materias);
+    }
 
 }
