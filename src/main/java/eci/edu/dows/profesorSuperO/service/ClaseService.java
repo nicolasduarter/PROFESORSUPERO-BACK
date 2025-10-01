@@ -1,14 +1,14 @@
 package eci.edu.dows.profesorSuperO.service;
+
 import eci.edu.dows.profesorSuperO.Util.ClaseMapper;
-import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.Clase;
 import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
-import eci.edu.dows.profesorSuperO.repository.*;
-import io.micrometer.observation.Observation;
+import eci.edu.dows.profesorSuperO.repository.ClaseRepository;
+import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.List;
 
 @Service
 public class ClaseService {
@@ -19,38 +19,43 @@ public class ClaseService {
 
     @Autowired
     public ClaseService(EstudianteRepository estudianteRepository,
-                        ClaseRepository claseRepository,ClaseMapper claseMapper) {
+                        ClaseRepository claseRepository,
+                        ClaseMapper claseMapper) {
         this.estudianteRepository = estudianteRepository;
         this.claseRepository = claseRepository;
         this.claseMapper = claseMapper;
     }
 
-    public Clase crearClase(ClaseDTO dto) {
+    public ClaseDTO crearClase(ClaseDTO dto) {
         Clase clase = claseMapper.toClass(dto);
-        return claseRepository.save(clase);
+        Clase claseGuardada = claseRepository.save(clase);
+        return claseMapper.toDTO(claseGuardada);
     }
 
-    public Clase modificarHoraInicio(String claseId, LocalTime inicio) {
+    public ClaseDTO modificarHoraInicio(String claseId, LocalTime inicio) {
         Clase clase = claseRepository.findById(claseId)
                 .orElseThrow(() -> new RuntimeException("Clase no encontrada"));
 
         clase.setHoraInicio(inicio);
-        return claseRepository.save(clase);
+        Clase claseActualizada = claseRepository.save(clase);
+        return claseMapper.toDTO(claseActualizada);
     }
-    public Clase modificarHoraFin(String claseId, LocalTime fin) {
+
+    public ClaseDTO modificarHoraFin(String claseId, LocalTime fin) {
         Clase clase = claseRepository.findById(claseId)
                 .orElseThrow(() -> new RuntimeException("Clase no encontrada"));
 
         clase.setHoraFin(fin);
-        return claseRepository.save(clase);
+        Clase claseActualizada = claseRepository.save(clase);
+        return claseMapper.toDTO(claseActualizada);
     }
 
-
-    public Clase modificarSalonClase(String claseId, String salon) {
+    public ClaseDTO modificarSalonClase(String claseId, String salon) {
         Clase clase = claseRepository.findById(claseId)
                 .orElseThrow(() -> new RuntimeException("Clase no encontrada"));
 
         clase.setSalon(salon);
-        return claseRepository.save(clase);
+        Clase claseActualizada = claseRepository.save(clase);
+        return claseMapper.toDTO(claseActualizada);
     }
 }

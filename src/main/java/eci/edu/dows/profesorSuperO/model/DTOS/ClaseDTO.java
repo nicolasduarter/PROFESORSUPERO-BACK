@@ -1,6 +1,5 @@
 package eci.edu.dows.profesorSuperO.model.DTOS;
 
-import eci.edu.dows.profesorSuperO.model.Profesor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
