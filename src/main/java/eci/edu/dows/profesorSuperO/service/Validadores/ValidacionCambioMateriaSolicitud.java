@@ -9,16 +9,16 @@ import jakarta.validation.ConstraintValidatorContext;
 public class ValidacionCambioMateriaSolicitud implements ConstraintValidator<SolicitudValidaCambioMateria, SolicitudCambioMateria> {
 
 
-    private boolean mismaMateria(SolicitudCambioMateria solicitud){
-        Materia m = solicitud.getMateriaCambio();
-        return m.getGrupos().contains(solicitud.getGrupoCambio());
-    }
-
-
-    private boolean materiaPertenceAFacultad(SolicitudCambioMateria solicitud){
-        Materia m = solicitud.getMateriaCambio();
-        return solicitud.getFacultadOBJ().getMaterias().contains(m);
-    }
+//    private boolean mismaMateria(SolicitudCambioMateria solicitud){
+//        Materia m = solicitud.getMateriaCambio();
+//        return m.getGrupos().contains(solicitud.getGrupoCambio());
+//    }
+//
+//
+//    private boolean materiaPertenceAFacultad(SolicitudCambioMateria solicitud){
+//        Materia m = solicitud.getMateriaCambio();
+//        return solicitud.getFacultadOBJ().getMaterias().contains(m);
+//    }
 
 
 
@@ -26,7 +26,6 @@ public class ValidacionCambioMateriaSolicitud implements ConstraintValidator<Sol
 
     @Override
     public boolean isValid(SolicitudCambioMateria solicitudCambioMateria, ConstraintValidatorContext constraintValidatorContext) {
-        return mismaMateria(solicitudCambioMateria)
-                && materiaPertenceAFacultad(solicitudCambioMateria);
+        return true;
     }
 }

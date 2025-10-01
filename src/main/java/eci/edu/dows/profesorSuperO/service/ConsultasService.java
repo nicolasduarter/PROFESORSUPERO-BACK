@@ -39,9 +39,6 @@ public class ConsultasService {
                 .orElse(null);
     }
 
-    public List<Solicitud> consultarSolicitudesEstudiante(String estudianteId) {
-        return solicitudRepository.findByEstudiante_Id(estudianteId);
-    }
 
     public Semaforo consultarSemaforoEstudiante(String estudianteId) {
         return estudianteRepository.findById(estudianteId)

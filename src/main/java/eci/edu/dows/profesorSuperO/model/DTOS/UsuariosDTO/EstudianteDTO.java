@@ -14,7 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EstudianteDTO extends UsuarioDTO{
-    private String clave;
     private FacultadDTO facultad;
     private int semestre;
 }

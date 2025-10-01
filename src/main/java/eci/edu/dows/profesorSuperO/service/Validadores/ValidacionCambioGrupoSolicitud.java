@@ -11,21 +11,21 @@ public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<Solic
 
 
 
-    private boolean mismaMateria(SolicitudCambioGrupo solicitud){
-        Materia m = solicitud.getMateriaProblema();
-        if (m == null || m.getGrupos() == null) return false;
-
-        return m.getGrupos().stream()
-                .anyMatch(g -> g.getIdGrupo().equals(solicitud.getGrupoCambio().getIdGrupo()));
-    }
-
-    private boolean mismaMateria2(SolicitudCambioGrupo solicitud){
-        Materia m = solicitud.getMateriaProblema();
-        if (m == null || m.getGrupos() == null) return false;
-
-        return m.getGrupos().stream()
-                .anyMatch(g -> g.getIdGrupo().equals(solicitud.getGrupo().getIdGrupo()));
-    }
+//    private boolean mismaMateria(SolicitudCambioGrupo solicitud){
+//        Materia m = solicitud.getMateriaProblema();
+//        if (m == null || m.getGrupos() == null) return false;
+//
+//        return m.getGrupos().stream()
+//                .anyMatch(g -> g.getIdGrupo().equals(solicitud.getGrupoCambio().getIdGrupo()));
+//    }
+//
+//    private boolean mismaMateria2(SolicitudCambioGrupo solicitud){
+//        Materia m = solicitud.getMateriaProblema();
+//        if (m == null || m.getGrupos() == null) return false;
+//
+//        return m.getGrupos().stream()
+//                .anyMatch(g -> g.getIdGrupo().equals(solicitud.getGrupo().getIdGrupo()));
+//    }
 
 
 
@@ -41,9 +41,7 @@ public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<Solic
     public boolean isValid(SolicitudCambioGrupo solicitud, ConstraintValidatorContext context) {
         if (solicitud == null) return false;
 
-        return mismaMateria(solicitud) &&
-                mismaMateria2(solicitud) &&
-                grupoLLeno(solicitud);
+        return                grupoLLeno(solicitud);
 
     }
 }
