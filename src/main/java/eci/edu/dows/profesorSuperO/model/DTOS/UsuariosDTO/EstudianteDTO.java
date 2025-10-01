@@ -1,5 +1,7 @@
-package eci.edu.dows.profesorSuperO.model.DTOS;
+package eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO;
 
+import eci.edu.dows.profesorSuperO.model.DTOS.FacultadDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.SemaforoDTO;
 import eci.edu.dows.profesorSuperO.model.Facultad;
 import eci.edu.dows.profesorSuperO.model.Semaforo;
 import lombok.AllArgsConstructor;
@@ -11,15 +13,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EstudianteDTO {
-    private String usuario;
+public class EstudianteDTO extends UsuarioDTO{
     private String clave;
-    private String permiso;
-    private String correo;
-    private String id;
-    private Facultad facultadObjeto;
+    private FacultadDTO facultad;
     private int semestre;
-    private Semaforo semaforo;
-
-
 }

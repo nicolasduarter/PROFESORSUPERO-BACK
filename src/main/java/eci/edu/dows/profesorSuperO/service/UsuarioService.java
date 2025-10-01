@@ -1,13 +1,10 @@
 package eci.edu.dows.profesorSuperO.service;
 
 import eci.edu.dows.profesorSuperO.model.*;
-import eci.edu.dows.profesorSuperO.model.DTOS.EstudianteDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.ProfesorDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
 import eci.edu.dows.profesorSuperO.repository.*;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UsuarioService {

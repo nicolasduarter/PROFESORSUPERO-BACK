@@ -12,8 +12,8 @@ import java.util.List;
 @Document("Profesor")
 public class Profesor extends Usuario {
 
-    public Profesor(String usuario, String clave, Permisos permiso, String correo, String Id) {
-        super(usuario, clave, permiso, correo, Id);
+    public Profesor(String usuario, Permisos permiso, String correo, String Id) {
+        super(usuario, permiso, correo, Id);
     }
 
     public Profesor() {}

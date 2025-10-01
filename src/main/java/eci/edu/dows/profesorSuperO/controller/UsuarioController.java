@@ -1,7 +1,7 @@
 package eci.edu.dows.profesorSuperO.controller;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.EstudianteDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.ProfesorDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
 import eci.edu.dows.profesorSuperO.model.Usuario;
 import eci.edu.dows.profesorSuperO.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;

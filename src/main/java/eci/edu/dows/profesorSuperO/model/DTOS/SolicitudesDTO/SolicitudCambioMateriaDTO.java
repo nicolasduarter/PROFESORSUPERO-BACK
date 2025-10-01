@@ -1,4 +1,4 @@
-package eci.edu.dows.profesorSuperO.model.DTOS;
+package eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO;
 
 import eci.edu.dows.profesorSuperO.model.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Grupo;

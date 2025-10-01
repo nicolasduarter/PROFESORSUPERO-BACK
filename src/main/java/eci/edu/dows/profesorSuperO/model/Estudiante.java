@@ -19,8 +19,8 @@ public class Estudiante extends Usuario {
     private Facultad facultad;
     private Semaforo semaforo;
 
-    public Estudiante(String usuario, String clave, Permisos permiso, String correo, String Id, Facultad facultad, int semestre) {
-        super(usuario, clave, permiso, correo, Id);
+    public Estudiante(String usuario, Permisos permiso, String correo, String Id, Facultad facultad, int semestre) {
+        super(usuario, permiso, correo, Id);
         this.semestre = semestre;
         this.horarios = new ArrayList<>();
         this.facultad = facultad;

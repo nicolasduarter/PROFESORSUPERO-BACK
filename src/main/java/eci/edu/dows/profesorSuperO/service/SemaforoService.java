@@ -18,7 +18,7 @@ public class SemaforoService {
         this.materiaEstudianteService = materiaEstudianteService;
     }
 
-    public void actualizarSemaforo(Estudiante estudiante){
+    private Semaforo actualizarSemaforo(Estudiante estudiante){
         List<MateriaEstudiante> historial = materiaEstudianteService.obtenerHistorial(estudiante.getId());
         ArrayList<MateriaEstudiante> historialMaterias = new ArrayList<>(historial);
         Semaforo semaforo = estudiante.getSemaforo();
@@ -33,12 +33,12 @@ public class SemaforoService {
         semaforo.setCreditosTotales(creditosTotales);
         semaforo.setCreditosActuales(creditosActuales);
         estudiante.setSemaforo(semaforo);
-
+        return semaforo;
     }
 
     public Semaforo getSemaforo(Estudiante estudiante) {
-        this.actualizarSemaforo(estudiante);
-        return estudiante.getSemaforo();
+        return  this.actualizarSemaforo(estudiante);
+
     }
 
 

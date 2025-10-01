@@ -1,5 +1,6 @@
-package eci.edu.dows.profesorSuperO.model.DTOS;
+package eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO;
 
+import eci.edu.dows.profesorSuperO.model.DTOS.MateriaEstudianteDTO;
 import eci.edu.dows.profesorSuperO.model.Grupo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,12 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProfesorDTO {
-    private String usuario;
-    private String clave;
-    private String permiso;
-    private String correo;
-    private String id;
-    private List<Grupo> grupos;
+public class ProfesorDTO extends UsuarioDTO {
+
 
 }
