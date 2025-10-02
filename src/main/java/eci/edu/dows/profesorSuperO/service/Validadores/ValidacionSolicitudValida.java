@@ -1,36 +1,41 @@
 package eci.edu.dows.profesorSuperO.service.Validadores;
 
-import eci.edu.dows.profesorSuperO.model.Grupo;
-import eci.edu.dows.profesorSuperO.model.Solicitud;
-import eci.edu.dows.profesorSuperO.model.SolicitudCambioGrupo;
+import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
+import eci.edu.dows.profesorSuperO.model.CalendarioAcademico;
+import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
+
+import eci.edu.dows.profesorSuperO.repository.CalendarioRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+@Component
+public class ValidacionSolicitudValida implements ConstraintValidator<SolicitudValida, SolicitudDTO> {
 
-public class ValidacionSolicitudValida implements ConstraintValidator<SolicitudValida, Solicitud> {
+    @Autowired
+    private  CalendarioRepository calendarioRepository;
 
-
-    private boolean horarioAdecuado(Solicitud solicitud){
-        LocalDate fechaInicio = solicitud.getCalendarioAcademico().getStart();
-        LocalDate fechaFinal = solicitud.getCalendarioAcademico().getEnd();
-        LocalDate fechaSoli = solicitud.getFecha();
-
-
-
-        System.out.println("fechaSoli: "+fechaSoli.toString());
-        System.out.println("fechaInicio: "+fechaInicio.toString());
-        System.out.println("fechaFinal: "+fechaFinal.toString());
-
-        boolean dentroFechas= (fechaSoli.isEqual(fechaInicio) || fechaSoli.isAfter(fechaInicio)) &&
-                (fechaSoli.isEqual(fechaFinal) || fechaSoli.isBefore(fechaFinal));
+    public ValidacionSolicitudValida(CalendarioRepository calendarioRepository) {
+        this.calendarioRepository = calendarioRepository;
+    }
 
 
-        return dentroFechas ;
+    private boolean horarioAdecuado(SolicitudDTO solicitud){
+        CalendarioAcademico c = calendarioRepository.findTopByOrderByStartDesc().orElseThrow(() -> new NotFoundException("Calendario no encontrado"));
+
+        LocalDate start =  c.getStart();
+        LocalDate end =  c.getEnd();
+
+        LocalDate sDate = solicitud.getFecha();
+
+        return (sDate.isEqual(start) || sDate.isAfter(start)) &&
+                (sDate.isEqual(end) || sDate.isBefore(end));
     }
 
     @Override
-    public boolean isValid(Solicitud solicitud, ConstraintValidatorContext constraintValidatorContext) {
-        return horarioAdecuado(solicitud);
+    public boolean isValid(SolicitudDTO solicitudDTO, ConstraintValidatorContext constraintValidatorContext) {
+        return horarioAdecuado(solicitudDTO);
     }
 }

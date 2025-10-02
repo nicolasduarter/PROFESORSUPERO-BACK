@@ -21,12 +21,12 @@ public class SolicitudController {
     }
 
     @PostMapping("/cambio-grupo")
-    public Solicitud crearSolicitudCambioGrupo(@Valid @RequestBody SolicitudCambioGrupoDTO dto) {
+    public SolicitudCambioGrupoDTO crearSolicitudCambioGrupo(@Valid @RequestBody SolicitudCambioGrupoDTO dto) {
         return solicitudService.crearSolicitudCambioGrupo(dto);
     }
 
     @PostMapping("/cambio-materia")
-    public Solicitud crearSolicitudCambioMateria(@Valid @RequestBody SolicitudCambioMateriaDTO dto) {
+    public SolicitudCambioMateriaDTO crearSolicitudCambioMateria(@Valid @RequestBody SolicitudCambioMateriaDTO dto) {
         return solicitudService.crearSolicitudCambioMateria(dto);
     }
 

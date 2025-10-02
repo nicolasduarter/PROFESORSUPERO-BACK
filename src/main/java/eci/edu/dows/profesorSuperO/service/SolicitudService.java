@@ -1,5 +1,8 @@
 package eci.edu.dows.profesorSuperO.service;
 
+import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
+import eci.edu.dows.profesorSuperO.Util.SolicitudCambioGrupoMapper;
+import eci.edu.dows.profesorSuperO.Util.SolicitudCambioMateriaMapper;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
@@ -21,92 +24,73 @@ public class SolicitudService {
     private final DecanaturaRepository decanaturaRepository;
     private final EstudianteRepository estudianteRepository;
     private final Validator validator;
-
-    @Autowired
     private CalendarioRepository calendarioRepository;
-    @Autowired
     private MateriaRepository materiaRepository;
-
-    @Autowired
     private GrupoRepository grupoRepository;
-
-
+    private final SolicitudCambioGrupoMapper SolicitudCambioGrupoMapper;
+    private final SolicitudCambioMateriaMapper solicitudCambioMateriaMapper;
+    @Autowired
     public SolicitudService(SolicitudRepository solicitudRepository,
                             DecanaturaRepository decanaturaRepository,
                             EstudianteRepository estudianteRepository,
-                            Validator validator) {
+                            Validator validator,SolicitudCambioGrupoMapper solicitudCambioGrupoMapper,
+                            SolicitudCambioMateriaMapper solicitudCambioMateriaMapper) {
         this.solicitudRepository = solicitudRepository;
         this.decanaturaRepository = decanaturaRepository;
         this.estudianteRepository = estudianteRepository;
         this.validator = validator;
+        this.SolicitudCambioGrupoMapper = solicitudCambioGrupoMapper;
+        this.solicitudCambioMateriaMapper = solicitudCambioMateriaMapper;
     }
 
-    public Solicitud crearSolicitudCambioGrupo(SolicitudCambioGrupoDTO dto) {
+    public SolicitudCambioGrupoDTO crearSolicitudCambioGrupo(SolicitudCambioGrupoDTO dto) {
         Estudiante estudiante = estudianteRepository.findById(dto.getEstudiante().getId())
-                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+                .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
 
         Materia materia = materiaRepository.findById(dto.getMateriaProblema().getId())
-                .orElseThrow(() -> new RuntimeException("Materia no encontrada"));
+                .orElseThrow(() -> new NotFoundException("Materia no encontrada"));
         Grupo grupo = grupoRepository.findById(dto.getGrupo().getIdGrupo())
-                .orElseThrow(() -> new RuntimeException("Grupo actual no encontrado"));
+                .orElseThrow(() -> new NotFoundException("Grupo actual no encontrado"));
 
         Grupo grupoCambio = grupoRepository.findById(dto.getGrupoCambio().getIdGrupo())
-                .orElseThrow(() -> new RuntimeException("Grupo de cambio no encontrado"));
+                .orElseThrow(() -> new NotFoundException("Grupo de cambio no encontrado"));
 
-        SolicitudCambioGrupo solicitud = new SolicitudCambioGrupo(
-                dto.getId(),
-                estudiante,
-                dto.getMotivo(),
-                dto.getFecha(),
-                materia,
-                grupo,
-                grupoCambio
-        );
+        SolicitudCambioGrupo solicitud = SolicitudCambioGrupoMapper.toEntity(dto);
+        solicitud.setEstudiante(estudiante);
+        solicitud.setMateriaProblema(materia);
+        solicitud.setGrupo(grupo);
+        solicitud.setGrupoCambio(grupoCambio);
 
-        Optional<CalendarioAcademico> calendarioOpt = calendarioRepository.findTopByOrderByStartDesc();
-        if (calendarioOpt.isEmpty()) {
-            throw new RuntimeException("No se encontró un calendario académico");
-        }
-        solicitud.setCalendarioAcademico(calendarioOpt.get());
+        return  SolicitudCambioGrupoMapper.toDTO(solicitudRepository.save(solicitud));
 
-        Set<ConstraintViolation<SolicitudCambioGrupo>> errores = validator.validate(solicitud);
-        if (!errores.isEmpty()) {
-            String msg = errores.stream()
-                    .map(ConstraintViolation::getMessage)
-                    .reduce((a, b) -> a + "; " + b)
-                    .orElse("Solicitud no válida");
-            throw new RuntimeException("Error de validación: " + msg);
-        }
-
-        return solicitudRepository.save(solicitud);
     }
 
 
 
 
-    public Solicitud crearSolicitudCambioMateria(SolicitudCambioMateriaDTO dto) {
-        SolicitudCambioMateria solicitud = new SolicitudCambioMateria(
-                dto.getId(),
-                dto.getEstudiante(),
-                dto.getMotivo(),
-                dto.getFecha(),
-                dto.getMateriaProblema(),
-                dto.getMateriaCambio(),
-                dto.getGrupo(),
-                dto.getGrupoCambio()
-        );
+    public SolicitudCambioMateriaDTO crearSolicitudCambioMateria(SolicitudCambioMateriaDTO dto) {
+        Estudiante estudiante = estudianteRepository.findById(dto.getEstudiante().getId())
+                .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
 
-        Set<ConstraintViolation<SolicitudCambioMateria>> errores = validator.validate(solicitud);
-        if (!errores.isEmpty()) {
-            String msg = errores.stream()
-                    .map(ConstraintViolation::getMessage)
-                    .reduce((a, b) -> a + "; " + b)
-                    .orElse("Solicitud no valida");
-            throw new RuntimeException("Error de validacion: " + msg);
-        }
+        Materia materiaProblema = materiaRepository.findById(dto.getMateriaProblema().getId())
+                .orElseThrow(() -> new NotFoundException("Materia no encontrada"));
 
+        Materia materiaNueva = materiaRepository.findById(dto.getMateriaCambio().getId()).
+                orElseThrow(() -> new NotFoundException("Materia no encontrada"));
+        Grupo grupo = grupoRepository.findById(dto.getGrupo().getIdGrupo())
+                .orElseThrow(() -> new NotFoundException("Grupo actual no encontrado"));
 
-        return solicitudRepository.save(solicitud);
+        Grupo grupoCambio = grupoRepository.findById(dto.getGrupoCambio().getIdGrupo())
+                .orElseThrow(() -> new NotFoundException("Grupo de cambio no encontrado"));
+
+        SolicitudCambioMateria solicitud = solicitudCambioMateriaMapper.toEntity(dto);
+        solicitud.setEstudiante(estudiante);
+        solicitud.setMateriaProblema(materiaProblema);
+        solicitud.setGrupo(grupo);
+        solicitud.setGrupoCambio(grupoCambio);
+        solicitud.setMateriaCambio(materiaNueva);
+
+        return solicitudCambioMateriaMapper.toDTO(solicitudRepository.save(solicitud));
     }
 
     public List<Solicitud> consultarSolicitudes() {

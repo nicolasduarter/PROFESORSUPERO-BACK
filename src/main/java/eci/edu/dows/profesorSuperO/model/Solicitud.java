@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-@SolicitudValida
 @Document("Solicitud")
 public abstract class Solicitud {
 
@@ -34,8 +33,6 @@ public abstract class Solicitud {
     @Transient
     private ArrayList<PeriodoObserver> observadores;
     private Facultad facultad;
-    @DBRef
-    private CalendarioAcademico calendarioAcademico;
 
     public Solicitud(String id, Estudiante estudiante, String motivo, LocalDate fecha) {
         this.id = id;

@@ -1,24 +1,23 @@
 package eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO;
 
-import eci.edu.dows.profesorSuperO.model.Estudiante;
-import eci.edu.dows.profesorSuperO.model.Grupo;
-import eci.edu.dows.profesorSuperO.model.Materia;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
 
-import java.time.LocalDate;
+import eci.edu.dows.profesorSuperO.service.Validadores.SolicitudValidaCambioGrupo;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SolicitudCambioGrupoDTO {
-    private String id;
-    private Estudiante estudiante;
-    private String motivo;
-    private LocalDate fecha;
-    private Materia materiaProblema;
-    private Grupo grupo;
-    private Grupo grupoCambio;
+@SolicitudValidaCambioGrupo
+public class SolicitudCambioGrupoDTO extends SolicitudDTO {
+    @NotNull(message = "Materria no puede ser vacia")
+    private MateriaDTO materiaProblema;
+    @NotNull(message = "Grupo no puede ser vacia")
+    private GrupoDTO grupo;
+    @NotNull(message = "El nuevo grupo  no puede ser vacia")
+    private GrupoDTO grupoCambio;
 }

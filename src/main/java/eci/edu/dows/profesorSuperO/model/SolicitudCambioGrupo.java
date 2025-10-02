@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@SolicitudValidaCambioGrupo
 @TypeAlias("solicitudCambioGrupo")
 public class SolicitudCambioGrupo extends Solicitud {
     @DBRef

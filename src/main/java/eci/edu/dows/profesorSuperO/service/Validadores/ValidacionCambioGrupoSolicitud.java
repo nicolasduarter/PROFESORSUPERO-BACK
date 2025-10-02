@@ -1,47 +1,49 @@
 package eci.edu.dows.profesorSuperO.service.Validadores;
 
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.SolicitudCambioGrupo;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 import java.time.LocalDate;
 
-public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<SolicitudValidaCambioGrupo, SolicitudCambioGrupo> {
+public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<SolicitudValidaCambioGrupo, SolicitudCambioGrupoDTO> {
 
 
 
-//    private boolean mismaMateria(SolicitudCambioGrupo solicitud){
-//        Materia m = solicitud.getMateriaProblema();
-//        if (m == null || m.getGrupos() == null) return false;
-//
-//        return m.getGrupos().stream()
-//                .anyMatch(g -> g.getIdGrupo().equals(solicitud.getGrupoCambio().getIdGrupo()));
-//    }
-//
-//    private boolean mismaMateria2(SolicitudCambioGrupo solicitud){
-//        Materia m = solicitud.getMateriaProblema();
-//        if (m == null || m.getGrupos() == null) return false;
-//
-//        return m.getGrupos().stream()
-//                .anyMatch(g -> g.getIdGrupo().equals(solicitud.getGrupo().getIdGrupo()));
-//    }
+    private boolean mismaMateriayGrupo(SolicitudCambioGrupoDTO solicitud){
+        MateriaDTO m = solicitud.getMateriaProblema();
+        if (m == null ) return false;
 
 
+        return  m.getId().equals(solicitud.getGrupo().getMateria().getId());
 
-    private boolean grupoLLeno(SolicitudCambioGrupo solicitud){
-        Grupo grupo = solicitud.getGrupoCambio();
-        int cupos = grupo.getCupo();
-        int cuosMax = grupo.getCuposMax();
-
-        return cupos < cuosMax;
     }
 
-    @Override
-    public boolean isValid(SolicitudCambioGrupo solicitud, ConstraintValidatorContext context) {
-        if (solicitud == null) return false;
+    private boolean mismaMateria2(SolicitudCambioGrupoDTO solicitud){
 
-        return                grupoLLeno(solicitud);
+        MateriaDTO m = solicitud.getMateriaProblema();
+        if (m == null ) return false;
+
+
+        return  m.getId().equals(solicitud.getGrupoCambio().getMateria().getId());
+
+    }
+
+
+
+    private boolean grupoTieneCupo(SolicitudCambioGrupoDTO solicitud){
+        return  solicitud.getGrupoCambio().getCupo() < solicitud.getGrupoCambio().getCuposMax();
+    }
+
+
+    @Override
+    public boolean isValid(SolicitudCambioGrupoDTO solicitudDTO, ConstraintValidatorContext context) {
+        if (solicitudDTO == null) return false;
+
+        return grupoTieneCupo(solicitudDTO) && mismaMateria2(solicitudDTO) && mismaMateriayGrupo(solicitudDTO);
 
     }
 }
