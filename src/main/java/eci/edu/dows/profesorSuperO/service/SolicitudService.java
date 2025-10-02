@@ -90,6 +90,10 @@ public class SolicitudService {
         solicitud.setGrupoCambio(grupoCambio);
         solicitud.setMateriaCambio(materiaNueva);
 
+        for(int asd,asd < 4,asd++){
+
+        }
+
         return solicitudCambioMateriaMapper.toDTO(solicitudRepository.save(solicitud));
     }
 

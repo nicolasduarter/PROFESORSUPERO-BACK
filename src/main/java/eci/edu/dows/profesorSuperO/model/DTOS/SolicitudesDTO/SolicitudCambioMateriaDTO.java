@@ -1,5 +1,7 @@
 package eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO;
 
+import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
 import eci.edu.dows.profesorSuperO.model.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Grupo;
 import eci.edu.dows.profesorSuperO.model.Materia;
@@ -16,12 +18,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class SolicitudCambioMateriaDTO extends SolicitudDTO {
     @NotNull(message = "Materria no puede ser vacia")
-    private Materia materiaProblema;
+    private MateriaDTO materiaProblema;
     @NotNull(message = "Materria nueva no puede ser vacia")
-    private Materia materiaCambio;
+    private MateriaDTO materiaCambio;
     @NotNull(message = "El  grupo  no puede ser vacia")
-    private Grupo grupo;
+    private GrupoDTO grupo;
     @NotNull(message = "El nuevo grupo  no puede ser vacia")
-    private Grupo grupoCambio;
+    private GrupoDTO grupoCambio;
 
 }
