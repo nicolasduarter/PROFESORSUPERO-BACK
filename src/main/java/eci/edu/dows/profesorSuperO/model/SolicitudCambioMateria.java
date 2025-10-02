@@ -1,5 +1,6 @@
 package eci.edu.dows.profesorSuperO.model;
 
+import eci.edu.dows.profesorSuperO.model.Enums.TipoSolicitud;
 import eci.edu.dows.profesorSuperO.service.Validadores.SolicitudValidaCambioMateria;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@SolicitudValidaCambioMateria
 @TypeAlias("solicitudCambioMateria")
 public class SolicitudCambioMateria extends  Solicitud {
     @DBRef
@@ -27,37 +27,9 @@ public class SolicitudCambioMateria extends  Solicitud {
         this.materiaCambio = materiaCambio;
         this.grupo = grupo;
         this.grupoCambio = grupoCambio;
+        this.tipoSolicitud = TipoSolicitud.CAMBIO_MATERIA;
+
     }
 
-    public Materia getMateriaProblema() {
-        return materiaProblema;
-    }
 
-    public void setMateriaProblema(Materia materiaProblema) {
-        this.materiaProblema = materiaProblema;
-    }
-
-    public Materia getMateriaCambio() {
-        return materiaCambio;
-    }
-
-    public void setMateriaCambio(Materia materiaCambio) {
-        this.materiaCambio = materiaCambio;
-    }
-
-    public Grupo getGrupo() {
-        return grupo;
-    }
-
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
-    }
-
-    public Grupo getGrupoCambio() {
-        return grupoCambio;
-    }
-
-    public void setGrupoCambio(Grupo grupoCambio) {
-        this.grupoCambio = grupoCambio;
-    }
 }

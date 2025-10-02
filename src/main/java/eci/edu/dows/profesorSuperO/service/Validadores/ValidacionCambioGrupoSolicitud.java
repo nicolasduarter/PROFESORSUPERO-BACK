@@ -16,8 +16,6 @@ public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<Solic
     private boolean mismaMateriayGrupo(SolicitudCambioGrupoDTO solicitud){
         MateriaDTO m = solicitud.getMateriaProblema();
         if (m == null ) return false;
-
-
         return  m.getId().equals(solicitud.getGrupo().getMateria().getId());
 
     }

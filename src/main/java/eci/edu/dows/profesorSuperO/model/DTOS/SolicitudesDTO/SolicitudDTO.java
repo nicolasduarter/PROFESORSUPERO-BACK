@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @SolicitudValida
-public abstract class SolicitudDTO {
+public  class SolicitudDTO {
 
     private String id;
     private String estado;
@@ -22,4 +22,5 @@ public abstract class SolicitudDTO {
     private String motivo;
     private LocalDate fecha;
     private int prioridad;
+    private String tipoSolicitud;
 }

@@ -3,6 +3,7 @@ package eci.edu.dows.profesorSuperO.controller;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.service.SolicitudService;
 import jakarta.validation.Valid;
@@ -31,32 +32,21 @@ public class SolicitudController {
     }
 
     @GetMapping
-    public List<Solicitud> consultarSolicitudes() {
+    public List<SolicitudDTO> consultarSolicitudes() {
         return solicitudService.consultarSolicitudes();
     }
 
     @GetMapping("/{id}")
-    public Solicitud consultarSolicitudPorId(@PathVariable String id) {
+    public SolicitudDTO consultarSolicitudPorId(@PathVariable String id) {
         return solicitudService.consultarSolicitudPorId(id);
     }
 
     @PutMapping("/{id}/estado")
-    public Solicitud actualizarEstadoSolicitud(@PathVariable String id,
+    public SolicitudDTO actualizarEstadoSolicitud(@PathVariable String id,
                                                @RequestParam EstadoSolicitud nuevoEstado) {
         return solicitudService.actualizarEstadoSolicitud(id, nuevoEstado);
     }
 
-    @PostMapping("/{decanaturaId}/enviar-decanatura")
-    public Decanatura enviarSolicitudDecanatura(@PathVariable String decanaturaId,
-                                                @RequestBody Solicitud solicitud) {
-        return solicitudService.enviarSolicitudDecanatura(decanaturaId, solicitud);
-    }
-
-    @PostMapping("/{estudianteId}/enviar-estudiante")
-    public Estudiante enviarSolicitudEstudiante(@PathVariable String estudianteId,
-                                                @RequestBody Solicitud solicitud) {
-        return solicitudService.enviarSolicitudEstudiante(estudianteId, solicitud);
-    }
 
     @DeleteMapping("/{id}")
     public void eliminarSolicitud(@PathVariable String id) {

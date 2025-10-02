@@ -3,9 +3,11 @@ package eci.edu.dows.profesorSuperO.service;
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.Util.SolicitudCambioGrupoMapper;
 import eci.edu.dows.profesorSuperO.Util.SolicitudCambioMateriaMapper;
+import eci.edu.dows.profesorSuperO.Util.SolicitudMapper;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.repository.*;
 import jakarta.validation.ConstraintViolation;
@@ -13,9 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.validation.Validator;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class SolicitudService {
@@ -29,18 +34,20 @@ public class SolicitudService {
     private GrupoRepository grupoRepository;
     private final SolicitudCambioGrupoMapper SolicitudCambioGrupoMapper;
     private final SolicitudCambioMateriaMapper solicitudCambioMateriaMapper;
+    private final SolicitudMapper solicitudMapper;
     @Autowired
     public SolicitudService(SolicitudRepository solicitudRepository,
                             DecanaturaRepository decanaturaRepository,
                             EstudianteRepository estudianteRepository,
                             Validator validator,SolicitudCambioGrupoMapper solicitudCambioGrupoMapper,
-                            SolicitudCambioMateriaMapper solicitudCambioMateriaMapper) {
+                            SolicitudCambioMateriaMapper solicitudCambioMateriaMapper,SolicitudMapper solicitudMapper) {
         this.solicitudRepository = solicitudRepository;
         this.decanaturaRepository = decanaturaRepository;
         this.estudianteRepository = estudianteRepository;
         this.validator = validator;
         this.SolicitudCambioGrupoMapper = solicitudCambioGrupoMapper;
         this.solicitudCambioMateriaMapper = solicitudCambioMateriaMapper;
+        this.solicitudMapper = solicitudMapper;
     }
 
     public SolicitudCambioGrupoDTO crearSolicitudCambioGrupo(SolicitudCambioGrupoDTO dto) {
@@ -90,48 +97,29 @@ public class SolicitudService {
         solicitud.setGrupoCambio(grupoCambio);
         solicitud.setMateriaCambio(materiaNueva);
 
-        for(int asd,asd < 4,asd++){
 
-        }
 
         return solicitudCambioMateriaMapper.toDTO(solicitudRepository.save(solicitud));
     }
 
-    public List<Solicitud> consultarSolicitudes() {
-        return solicitudRepository.findAll();
+    public List<SolicitudDTO> consultarSolicitudes() {
+        List<Solicitud> solicitudes = solicitudRepository.findAll();
+        return solicitudes.stream().map(solicitudMapper::toDTO).collect(Collectors.toList());
     }
 
-    public Solicitud consultarSolicitudPorId(String id) {
-        return solicitudRepository.findById(id)
+    public SolicitudDTO consultarSolicitudPorId(String id) {
+        Solicitud s = solicitudRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));
+        return solicitudMapper.toDTO(s);
     }
 
-    public Solicitud actualizarEstadoSolicitud(String id, EstadoSolicitud nuevoEstado) {
+    public SolicitudDTO actualizarEstadoSolicitud(String id, EstadoSolicitud nuevoEstado) {
         Solicitud solicitud = solicitudRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));
 
         solicitud.setEstado(nuevoEstado);
-        return solicitudRepository.save(solicitud);
-    }
 
-    public Decanatura enviarSolicitudDecanatura(String decanaturaId, Solicitud solicitud) {
-        solicitudRepository.save(solicitud);
-
-        Decanatura decanatura = decanaturaRepository.findById(decanaturaId)
-                .orElseThrow(() -> new RuntimeException("Decanatura no encontrada"));
-        decanatura.getSolicitudes().add(solicitud);
-
-        return decanaturaRepository.save(decanatura);
-    }
-
-    public Estudiante enviarSolicitudEstudiante(String estudianteId, Solicitud solicitud) {
-        solicitudRepository.save(solicitud);
-
-        Estudiante estudiante = estudianteRepository.findById(estudianteId)
-                .orElseThrow(() -> new RuntimeException("estudiante no encontrado"));
-        estudiante.getSolicitudes().add(solicitud);
-
-        return estudianteRepository.save(estudiante);
+        return solicitudMapper.toDTO(solicitudRepository.save(solicitud));
     }
 
 

@@ -21,4 +21,9 @@ public class SolicitudCambioGrupoDTO extends SolicitudDTO {
 
     @NotNull(message = "El nuevo grupo no puede ser vacío")
     private GrupoDTO grupoCambio;
+
+    public String getTipo() {
+        return "CAMBIO_GRUPO";
+    }
+
 }

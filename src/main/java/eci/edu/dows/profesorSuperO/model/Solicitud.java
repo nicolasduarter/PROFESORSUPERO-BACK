@@ -2,6 +2,7 @@ package eci.edu.dows.profesorSuperO.model;
 
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.model.Enums.Facultades;
+import eci.edu.dows.profesorSuperO.model.Enums.TipoSolicitud;
 import eci.edu.dows.profesorSuperO.model.Observer.PeriodoObserver;
 import eci.edu.dows.profesorSuperO.service.Validadores.SolicitudValida;
 import lombok.Getter;
@@ -33,6 +34,7 @@ public abstract class Solicitud {
     @Transient
     private ArrayList<PeriodoObserver> observadores;
     private Facultad facultad;
+    protected TipoSolicitud tipoSolicitud;
 
     public Solicitud(String id, Estudiante estudiante, String motivo, LocalDate fecha) {
         this.id = id;

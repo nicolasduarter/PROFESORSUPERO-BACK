@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,4 +15,5 @@ import lombok.Setter;
 public class FacultadDTO {
     private String id;
     private String facultad;
+    private ArrayList<MateriaDTO> materias;
 }

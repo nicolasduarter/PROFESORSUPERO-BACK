@@ -1,5 +1,6 @@
 package eci.edu.dows.profesorSuperO.model;
 
+import eci.edu.dows.profesorSuperO.model.Enums.TipoSolicitud;
 import eci.edu.dows.profesorSuperO.service.Validadores.SolicitudValidaCambioGrupo;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,8 @@ public class SolicitudCambioGrupo extends Solicitud {
         this.materiaProblema = materiaProblema;
         this.grupo = grupo;
         this.grupoCambio = grupoCambio;
+        this.tipoSolicitud = TipoSolicitud.CAMBIO_GRUPO;
+
     }
 
 
