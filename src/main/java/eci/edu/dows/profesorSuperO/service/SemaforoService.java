@@ -24,7 +24,7 @@ public class SemaforoService {
     }
 
     public Semaforo crearSemaforo(SemaforoDTO dto, Estudiante estudiante) {
-        Semaforo semaforo = semaforoMapper.toClass(dto);
+        Semaforo semaforo = semaforoMapper.toSemaforo(dto);
         semaforo.setFacultad(estudiante.getFacultad());
         estudiante.setSemaforo(semaforo);
         return semaforo;
