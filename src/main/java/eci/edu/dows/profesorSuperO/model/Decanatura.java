@@ -1,12 +1,9 @@
 package eci.edu.dows.profesorSuperO.model;
 
-import eci.edu.dows.profesorSuperO.model.Enums.Facultades;
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Document("Decanatura")
 public class Decanatura extends Usuario {
