@@ -1,8 +1,12 @@
 package eci.edu.dows.profesorSuperO.service;
-import eci.edu.dows.profesorSuperO.model.*;
+
+import eci.edu.dows.profesorSuperO.Util.GrupoMapper;
+import eci.edu.dows.profesorSuperO.model.Estudiante;
+import eci.edu.dows.profesorSuperO.model.Grupo;
 import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
 import eci.edu.dows.profesorSuperO.model.Observer.GruposObserver;
-import eci.edu.dows.profesorSuperO.repository.*;
+import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
+import eci.edu.dows.profesorSuperO.repository.GrupoRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,61 +14,69 @@ public class GrupoService {
 
     private final EstudianteRepository estudianteRepository;
     private final GrupoRepository grupoRepository;
-
+    private final GrupoMapper grupoMapper;
 
     public GrupoService(EstudianteRepository estudianteRepository,
-                        GrupoRepository grupoRepository) {
+                        GrupoRepository grupoRepository,
+                        GrupoMapper grupoMapper) {
         this.estudianteRepository = estudianteRepository;
         this.grupoRepository = grupoRepository;
-
+        this.grupoMapper = grupoMapper;
     }
 
-    public Grupo crearGrupo(GrupoDTO dto) {
-        Grupo grupo = new Grupo(dto.getIdGrupo(),
-                dto.getNombre(),
-                dto.getProfesor(),
-                dto.getCupo(),
-                dto.getMateria(),
-                dto.getCuposMax());
-
-
-        return grupoRepository.save(grupo);
+    public GrupoDTO crearGrupo(GrupoDTO dto) {
+        Grupo grupo = grupoMapper.toGrupo(dto);
+        Grupo grupoGuardado = grupoRepository.save(grupo);
+        return grupoMapper.toDTO(grupoGuardado);
     }
 
     public void eliminarGrupo(String id) {
-        Grupo grupo = grupoRepository.findById(id).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
+        Grupo grupo = grupoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
         grupoRepository.delete(grupo);
     }
 
-    public Grupo modificarCuposGrupo(String grupoId, int cupo) {
-        Grupo grupo = grupoRepository.findById(grupoId).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
-        grupo.setCupo(cupo);
+    public GrupoDTO modificarCuposGrupo(String grupoId, int cupo) {
+        Grupo grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
 
-        return grupoRepository.save(grupo);
+        grupo.setCupo(cupo);
+        Grupo grupoActualizado = grupoRepository.save(grupo);
+
+        return grupoMapper.toDTO(grupoActualizado);
     }
 
-    public Grupo agregarEstudianteAGrupo(String grupoId, String estudianteId) {
-        Grupo grupo = grupoRepository.findById(grupoId).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
-        Estudiante estudiante = estudianteRepository.findById(estudianteId).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+    public GrupoDTO agregarEstudianteAGrupo(String grupoId, String estudianteId) {
+        Grupo grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
+        Estudiante estudiante = estudianteRepository.findById(estudianteId)
+                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
 
         if (grupo.getCupo() <= 0) {
             throw new RuntimeException("El grupo ya está lleno");
         }
+
         grupo.getEstudiantes().add(estudiante);
-        grupo.setCupo(grupo.getCupo() + 1);
+        grupo.setCupo(grupo.getCupo() - 1);
+
         for (GruposObserver observador : grupo.getObservadores()) {
             observador.notificar(grupo);
         }
-        return grupoRepository.save(grupo);
+
+        Grupo grupoActualizado = grupoRepository.save(grupo);
+        return grupoMapper.toDTO(grupoActualizado);
     }
 
-    public Grupo eliminarEstudianteAGrupo(String grupoId, String estudianteId) {
-        Grupo grupo = grupoRepository.findById(grupoId).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
-        Estudiante estudiante = estudianteRepository.findById(estudianteId).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+    public GrupoDTO eliminarEstudianteAGrupo(String grupoId, String estudianteId) {
+        Grupo grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
+        Estudiante estudiante = estudianteRepository.findById(estudianteId)
+                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
 
         grupo.getEstudiantes().remove(estudiante);
         grupo.setCupo(grupo.getCupo() + 1);
 
-        return grupoRepository.save(grupo);
+        Grupo grupoActualizado = grupoRepository.save(grupo);
+        return grupoMapper.toDTO(grupoActualizado);
     }
 }
