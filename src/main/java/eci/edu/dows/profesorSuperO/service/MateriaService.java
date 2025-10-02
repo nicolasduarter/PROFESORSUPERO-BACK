@@ -22,9 +22,10 @@ public class MateriaService {
         this.materiaMapper = materiaMapper;
     }
 
-    public MateriaDTO guardarMateria(MateriaDTO materiaDTO) {
+    public MateriaDTO crearMateria(MateriaDTO materiaDTO) {
         Materia materia = materiaMapper.toMateria(materiaDTO);
-        return materiaMapper.toDto(materiaRepository.save(materia));
+        Materia materiaGuardada = materiaRepository.save(materia);
+        return materiaMapper.toDto(materiaGuardada);
     }
 
     public List<MateriaDTO> findByNombre(String nombre) {
@@ -36,7 +37,7 @@ public class MateriaService {
 
     public void eliminarMateriaPorId(String id) {
         if (!materiaRepository.existsById(id)) {
-            throw new NotFoundException("No existe la materia con ID " + id);
+            throw new NotFoundException("no se encontro materia con esa ID");
         }
         materiaRepository.deleteById(id);
     }
@@ -44,12 +45,12 @@ public class MateriaService {
     public MateriaDTO buscarPorId(String id) {
         return materiaRepository.findById(id)
                 .map(materiaMapper::toDto)
-                .orElseThrow(() -> new NotFoundException("Materia no encontrada con id: " + id));
+                .orElseThrow(() -> new NotFoundException("no se encontro materia con esa ID"));
     }
 
     public MateriaDTO actualizarCreditos(String id, int nuevosCreditos) {
         Materia materia = materiaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Materia no encontrada con id: " + id));
+                .orElseThrow(() -> new NotFoundException("no se encontro materia con esa ID"));
         materia.setCreditos(nuevosCreditos);
         Materia actualizada = materiaRepository.save(materia);
         return materiaMapper.toDto(actualizada);
@@ -57,7 +58,7 @@ public class MateriaService {
 
     public MateriaDTO actualizarNombre(String id, String nombre) {
         Materia materia = materiaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Materia no encontrada con id: " + id));
+                .orElseThrow(() -> new NotFoundException("no se encontro materia con esa ID"));
         materia.setNombre(nombre);
         Materia actualizada = materiaRepository.save(materia);
         return materiaMapper.toDto(actualizada);
@@ -65,7 +66,7 @@ public class MateriaService {
 
     public MateriaDTO agregarPrerequisito(String id, MateriaDTO materiaDTO) {
         Materia materia = materiaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Materia no encontrada con id: " + id));
+                .orElseThrow(() -> new NotFoundException("no se encontro materia con esa ID"));
         materia.agregarPrerequisito(materiaMapper.toMateria(materiaDTO));
         Materia actualizada = materiaRepository.save(materia);
         return materiaMapper.toDto(actualizada);
@@ -73,7 +74,7 @@ public class MateriaService {
 
     public MateriaDTO eliminarPrerequisito(String id, MateriaDTO materiaDTO) {
         Materia materia = materiaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Materia no encontrada con id: " + id));
+                .orElseThrow(() -> new NotFoundException("no se encontro materia con esa ID"));
         materia.eliminarPrerequisito(materiaMapper.toMateria(materiaDTO));
         Materia actualizada = materiaRepository.save(materia);
         return materiaMapper.toDto(actualizada);
@@ -81,7 +82,7 @@ public class MateriaService {
 
     public MateriaDTO agregarPrerequisitos(String id, List<MateriaDTO> materiasDTO) {
         Materia materia = materiaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Materia no encontrada con id: " + id));
+                .orElseThrow(() -> new NotFoundException("no se encontro materia con esa ID"));
         List<Materia> materias = materiasDTO.stream()
                 .map(materiaMapper::toMateria)
                 .toList();
@@ -92,7 +93,7 @@ public class MateriaService {
 
     public MateriaDTO eliminarPrerequisitos(String id, List<MateriaDTO> materiasDTO) {
         Materia materia = materiaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Materia no encontrada con id: " + id));
+                .orElseThrow(() -> new NotFoundException("no se encontro materia con esa ID"));
         List<Materia> materias = materiasDTO.stream()
                 .map(materiaMapper::toMateria)
                 .toList();
