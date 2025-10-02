@@ -1,9 +1,10 @@
 package eci.edu.dows.profesorSuperO.controller;
 
-import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
 import eci.edu.dows.profesorSuperO.service.ClaseService;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalTime;
 
 @RestController
 @RequestMapping("/api/clases")
@@ -16,32 +17,27 @@ public class ClaseController {
     }
 
     @PostMapping("/crear")
-    public Clase crearClase(@RequestBody ClaseDTO dto) {
+    public ClaseDTO crearClase(@RequestBody ClaseDTO dto) {
         return claseService.crearClase(dto);
     }
 
-    @PutMapping("/modificarHorario")
-    public Clase modificarHorarioClase(@RequestParam String claseId,
-                                       @RequestParam String horario) {
-        return claseService.modificarHorarioClase(claseId, horario);
+    @PutMapping("/modificarHoraInicio")
+    public ClaseDTO modificarHoraInicio(@RequestParam String claseId,
+                                        @RequestParam String inicio) {
+        LocalTime horaInicio = LocalTime.parse(inicio);
+        return claseService.modificarHoraInicio(claseId, horaInicio);
+    }
+
+    @PutMapping("/modificarHoraFin")
+    public ClaseDTO modificarHoraFin(@RequestParam String claseId,
+                                     @RequestParam String fin) {
+        LocalTime horaFin = LocalTime.parse(fin);
+        return claseService.modificarHoraFin(claseId, horaFin);
     }
 
     @PutMapping("/modificarSalon")
-    public Clase modificarSalonClase(@RequestParam String claseId,
-                                     @RequestParam String salon) {
+    public ClaseDTO modificarSalonClase(@RequestParam String claseId,
+                                        @RequestParam String salon) {
         return claseService.modificarSalonClase(claseId, salon);
     }
-
-    @PutMapping("/agregarEstudiante")
-    public Clase agregarEstudianteAClase(@RequestParam String claseId,
-                                         @RequestParam String estudianteId) {
-        return claseService.agregarEstudianteAClase(claseId, estudianteId);
-    }
-
-    @PutMapping("/eliminarEstudiante")
-    public Clase eliminarEstudianteDeClase(@RequestParam String claseId,
-                                           @RequestParam String estudianteId) {
-        return claseService.eliminarEstudianteDeClase(claseId, estudianteId);
-    }
 }
-
