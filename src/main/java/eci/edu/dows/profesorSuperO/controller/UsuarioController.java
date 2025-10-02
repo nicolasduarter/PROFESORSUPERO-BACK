@@ -16,31 +16,22 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping("/estudiantes")
-    public Usuario crearEstudiante(@RequestBody EstudianteDTO dto) {
+    public EstudianteDTO crearEstudiante(@RequestBody EstudianteDTO dto) {
        return  usuarioService.crearEstudiante(dto);
     }
 
         @PostMapping("/profesores")
-        public Usuario crearProfesor(@RequestBody ProfesorDTO dto) {
+        public ProfesorDTO crearProfesor(@RequestBody ProfesorDTO dto) {
             return usuarioService.crearProfesor(dto);
         }
 
-    @GetMapping("/verificar-usuario")
-    public boolean verificarUsuario(@RequestParam String id,
-                                    @RequestParam String correo,
-                                    @RequestParam String clave) {
-        return usuarioService.verificarUsuario(id, correo, clave);
-    }
+
 
     @DeleteMapping
     public void eliminarUsuario(@RequestParam String id) {
         usuarioService.eliminarUsuario(id);
     }
 
-    @PatchMapping("/usuario/{user}/clave/{contra}")
-    public void actualizarClave(@PathVariable String user, @PathVariable String contra) {
-        usuarioService.modificarClave(user, contra);
-    }
 
 
 
