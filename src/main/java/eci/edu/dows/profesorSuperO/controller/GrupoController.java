@@ -6,6 +6,12 @@ import eci.edu.dows.profesorSuperO.service.GrupoService;
 import org.springframework.web.bind.annotation.*;
 
 
+
+/**
+ Controlador de grupos
+ Tiene el CRUD completo para los grupos
+ Exlusivo para rol {Admin}
+ */
 @RestController
 @RequestMapping("/api/Grupos")
 public class GrupoController {
@@ -26,13 +32,13 @@ public class GrupoController {
         grupoService.eliminarGrupo(id);
     }
 
-    @PutMapping("/modificarCupo")
+    @PatchMapping("/modificarCupo")
     public GrupoDTO modificarCuposGrupo(@RequestParam String grupoId,
                                      @RequestParam int cupo) {
         return grupoService.modificarCuposGrupo(grupoId, cupo);
     }
 
-    @PutMapping("/agregarEstudiante")
+    @PatchMapping("/agregarEstudiante")
     public GrupoDTO agregarEstudianteAGrupo(@RequestParam String grupoId,
                                          @RequestParam String estudianteId) {
         return grupoService.agregarEstudianteAGrupo(grupoId, estudianteId);

@@ -3,42 +3,56 @@ package eci.edu.dows.profesorSuperO.controller;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.FacultadDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.model.Enums.Facultades;
 import eci.edu.dows.profesorSuperO.service.DecanaturaService;
 import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudCommand;
+import eci.edu.dows.profesorSuperO.service.SolicitudService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+
+/**
+ Controlador de Decanatura
+ Permite obtener solicitudes de su facultad
+ Permite cambiar el estado de una solicitud
+ Solo para el rol de decanatura
+ */
 @RestController
 @RequestMapping("/decanatura")
 public class DecanaturaController {
 
     private final DecanaturaService decanaturaService;
 
+
     public DecanaturaController(DecanaturaService decanaturaService) {
         this.decanaturaService = decanaturaService;
     }
 
     @GetMapping("/solicitudes/facultad/{facultad}")
-    public List<SolicitudDTO> obtenerSolicitudesPorFacultad(@PathVariable FacultadDTO facultad) {
-        return decanaturaService.obtenerSolicitudesPorFacultad(facultad);
+    public ResponseEntity<List<SolicitudDTO>> obtenerSolicitudesPorFacultad(@PathVariable FacultadDTO facultad) {
+        return ResponseEntity.ok(decanaturaService.obtenerSolicitudesPorFacultad(facultad));
     }
 
     @GetMapping("/solicitudes/prioridad/{prioridad}")
-    public List<SolicitudDTO> obtenerSolicitudesPorPrioridad(@PathVariable int prioridad) {
-        return decanaturaService.obtenerSolicitudesPorPrioridad(prioridad);
+    public ResponseEntity<List<SolicitudDTO>> obtenerSolicitudesPorPrioridad(@PathVariable int prioridad) {
+        return ResponseEntity.ok(decanaturaService.obtenerSolicitudesPorPrioridad(prioridad));
     }
 
     @GetMapping("/solicitudes/pendientes/facultad/{facultad}")
-    public List<SolicitudDTO> obtenerSolicitudesPendientes(@PathVariable FacultadDTO facultad) {
-        return decanaturaService.obtenerSolicitudesPendientes(facultad);
+    public ResponseEntity<List<SolicitudDTO>> obtenerSolicitudesPendientes(@PathVariable FacultadDTO facultad) {
+        return ResponseEntity.ok(decanaturaService.obtenerSolicitudesPendientes(facultad));
     }
 
-    @PutMapping("/solicitudes/{solicitudId}/accion")
-    public SolicitudDTO cambiarEstadoSolicitud(@PathVariable String solicitudId,
+    @PatchMapping("/solicitudes/{solicitudId}/accion")
+    public ResponseEntity<SolicitudDTO> cambiarEstadoSolicitud(@PathVariable String solicitudId,
                                             @RequestBody String accion) {
-        return decanaturaService.cambiarEstado(solicitudId, accion);
+        return ResponseEntity.ok(decanaturaService.cambiarEstado(solicitudId, accion));
     }
+
+
 }
 

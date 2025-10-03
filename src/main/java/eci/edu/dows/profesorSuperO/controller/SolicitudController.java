@@ -7,9 +7,20 @@ import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.service.SolicitudService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+
+/**
+ Controlador de Solicitudes
+ Permite crear Solicitudes según el tipo
+ Se pueden obtener las solicitudes
+ Y se pueden eliminar
+ Ninguna solicitud puede ser editada en este controlador
+ Esta funcionalidad la puede usar cualquier rol
+ */
 
 @RestController
 @RequestMapping("/api/solicitudes")
@@ -22,31 +33,24 @@ public class SolicitudController {
     }
 
     @PostMapping("/cambio-grupo")
-    public SolicitudCambioGrupoDTO crearSolicitudCambioGrupo(@Valid @RequestBody SolicitudCambioGrupoDTO dto) {
-        return solicitudService.crearSolicitudCambioGrupo(dto);
+    public ResponseEntity<SolicitudCambioGrupoDTO> crearSolicitudCambioGrupo(@Valid @RequestBody SolicitudCambioGrupoDTO dto) {
+        return ResponseEntity.ok(solicitudService.crearSolicitudCambioGrupo(dto));
     }
 
     @PostMapping("/cambio-materia")
-    public SolicitudCambioMateriaDTO crearSolicitudCambioMateria(@Valid @RequestBody SolicitudCambioMateriaDTO dto) {
-        return solicitudService.crearSolicitudCambioMateria(dto);
+    public ResponseEntity<SolicitudCambioMateriaDTO> crearSolicitudCambioMateria(@Valid @RequestBody SolicitudCambioMateriaDTO dto) {
+        return  ResponseEntity.ok(solicitudService.crearSolicitudCambioMateria(dto));
     }
 
     @GetMapping
-    public List<SolicitudDTO> consultarSolicitudes() {
-        return solicitudService.consultarSolicitudes();
+    public ResponseEntity<List<SolicitudDTO>> consultarSolicitudes() {
+        return  ResponseEntity.ok(solicitudService.consultarSolicitudes());
     }
 
     @GetMapping("/{id}")
-    public SolicitudDTO consultarSolicitudPorId(@PathVariable String id) {
-        return solicitudService.consultarSolicitudPorId(id);
+    public ResponseEntity<SolicitudDTO> consultarSolicitudPorId(@PathVariable String id) {
+        return  ResponseEntity.ok(solicitudService.consultarSolicitudPorId(id));
     }
-
-    @PutMapping("/{id}/estado")
-    public SolicitudDTO actualizarEstadoSolicitud(@PathVariable String id,
-                                               @RequestParam EstadoSolicitud nuevoEstado) {
-        return solicitudService.actualizarEstadoSolicitud(id, nuevoEstado);
-    }
-
 
     @DeleteMapping("/{id}")
     public void eliminarSolicitud(@PathVariable String id) {

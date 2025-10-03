@@ -1,5 +1,6 @@
 package eci.edu.dows.profesorSuperO.service;
 
+import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.repository.*;
 import org.springframework.stereotype.Service;
@@ -13,14 +14,15 @@ public class ConsultasService {
     private final EstudianteRepository estudianteRepository;
     private final GrupoRepository grupoRepository;
     private final SolicitudRepository solicitudRepository;
-
+    private final SemaforoService  semaforoService;
 
     public ConsultasService(EstudianteRepository estudianteRepository,
                             GrupoRepository grupoRepository,
-                            SolicitudRepository solicitudRepository) {
+                            SolicitudRepository solicitudRepository, SemaforoService semaforoService) {
         this.estudianteRepository = estudianteRepository;
         this.grupoRepository = grupoRepository;
         this.solicitudRepository = solicitudRepository;
+        this.semaforoService = semaforoService;
     }
 
 
@@ -44,6 +46,9 @@ public class ConsultasService {
     }
 
     public Semaforo consultarSemaforoEstudiante(String estudianteId) {
+        Estudiante e = estudianteRepository.findById(estudianteId).orElseThrow(() -> new NotFoundException("no se encontro estudiante con esa ID"))
+
+
         return estudianteRepository.findById(estudianteId)
                 .map(Estudiante::getSemaforo)
                 .orElse(null);
