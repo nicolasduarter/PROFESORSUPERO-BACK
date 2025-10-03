@@ -8,7 +8,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {ProfesorMapper.class, MateriaMapper.class, ClaseMapper.class})
 public interface GrupoMapper {
 
-    @Mapping(target = "estudiantesInscritos", expression = "java(grupo.getEstudiantes() != null ? grupo.getEstudiantes().size() : 0)")
     GrupoDTO toDTO(Grupo grupo);
     Grupo toGrupo(GrupoDTO dto);
 }
