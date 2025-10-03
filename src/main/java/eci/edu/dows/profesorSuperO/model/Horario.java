@@ -1,7 +1,9 @@
 package eci.edu.dows.profesorSuperO.model;
 
 import java.util.List;
+import lombok.Getter;
 
+@Getter
 public class Horario {
     private int semestre;
     private List<Grupo> grupos;
