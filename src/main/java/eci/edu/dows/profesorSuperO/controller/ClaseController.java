@@ -51,4 +51,5 @@ public class ClaseController {
     public void eliminarClase(@PathVariable String id) {
         claseService.eliminarClase(id);
     }
+
 }
