@@ -38,19 +38,19 @@ public class MateriaController {
         materiaService.eliminarMateriaPorId(id);
     }
 
-    @PostMapping("/id/{id}/creditos")
+    @PutMapping("/id/{id}/creditos")
     public MateriaDTO actualizarCreditos(@PathVariable String id,
                                          @RequestParam int creditos) {
         return materiaService.actualizarCreditos(id, creditos);
     }
 
-    @PostMapping("/id/{id}/nombre")
+    @PutMapping("/id/{id}/nombre")
     public MateriaDTO actualizarNombre(@PathVariable String id,
                                        @RequestParam String nombre) {
         return materiaService.actualizarNombre(id, nombre);
     }
 
-    @PostMapping("/{id}/prerequisitos")
+    @PutMapping("/{id}/prerequisitos")
     public MateriaDTO agregarPrerequisitos(@PathVariable String id,
                                            @RequestBody List<MateriaDTO> prerequisitos) {
         return materiaService.agregarPrerequisitos(id, prerequisitos);
@@ -62,7 +62,7 @@ public class MateriaController {
         return materiaService.eliminarPrerequisitos(id, prerequisitos);
     }
 
-    @PostMapping("/{id}/prerequisito")
+    @PutMapping("/{id}/prerequisito")
     public MateriaDTO agregarPrerequisito(@PathVariable String id,
                                           @RequestBody MateriaDTO prerequisito) {
         return materiaService.agregarPrerequisito(id, prerequisito);

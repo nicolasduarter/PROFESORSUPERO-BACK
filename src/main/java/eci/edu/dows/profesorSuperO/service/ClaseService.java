@@ -32,6 +32,13 @@ public class ClaseService {
         return claseMapper.toDTO(claseGuardada);
     }
 
+    public ClaseDTO buscarClasePorId(String claseId) {
+        Clase clase = claseRepository.findById(claseId)
+                .orElseThrow(() -> new RuntimeException("Clase no encontrada"));
+        return claseMapper.toDTO(clase);
+    }
+
+
     public ClaseDTO modificarHoraInicio(String claseId, LocalTime inicio) {
         Clase clase = claseRepository.findById(claseId)
                 .orElseThrow(() -> new RuntimeException("Clase no encontrada"));
@@ -58,4 +65,11 @@ public class ClaseService {
         Clase claseActualizada = claseRepository.save(clase);
         return claseMapper.toDTO(claseActualizada);
     }
+
+    public void eliminarClase(String claseId) {
+        Clase clase = claseRepository.findById(claseId)
+                .orElseThrow(() -> new RuntimeException("Clase no encontrada"));
+        claseRepository.delete(clase);
+    }
+
 }
