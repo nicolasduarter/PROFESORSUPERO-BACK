@@ -18,22 +18,18 @@ public class MateriaController {
     private MateriaService materiaService;
 
     @PostMapping
-    public MateriaDTO crearMateria(@RequestBody Materia materia) {
-       return materiaService.guardarMateria(materia);
+    public MateriaDTO crearMateria(@RequestBody MateriaDTO materia) {
+       return materiaService.crearMateria(materia);
     }
 
-    @DeleteMapping
-    public void eliminarMateria(@RequestBody Materia materia) {
-        materiaService.eliminarMateria(materia);
-    }
 
     @GetMapping("/id/{id}")
-    public Optional<Materia> obtenerMateriaPorID(@PathVariable String id) {
+    public MateriaDTO obtenerMateriaPorID(@PathVariable String id) {
         return materiaService.buscarPorId(id);
     }
 
     @GetMapping("/nombre/{nombre}")
-    public List<Materia> obtenerMateriasPorNombre(@PathVariable String nombre) {
+    public List<MateriaDTO> obtenerMateriasPorNombre(@PathVariable String nombre) {
         return materiaService.findByNombre(nombre);
     }
 
@@ -43,14 +39,11 @@ public class MateriaController {
     }
 
     @PutMapping("/materias")
-    public void actualizarMateria(@RequestBody Materia materia) {
-        materiaService.guardarMateria(materia);
+    public void actualizarMateria(@RequestBody MateriaDTO materia) {
+        materiaService.crearMateria(materia);
     }
 
-    @GetMapping("/estado")
-    public List<Materia> obtenerMateriasPorEstado(@RequestParam String estado) {
-        return materiaService.buscarPorEstado(estado);
-    }
+
 
     @PatchMapping("/id/{id}/creditos")
     public void actualizarCreditos(

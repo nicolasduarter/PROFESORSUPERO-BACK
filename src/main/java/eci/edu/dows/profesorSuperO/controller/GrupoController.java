@@ -17,7 +17,7 @@ public class GrupoController {
     }
 
     @PostMapping("/crearGrupo")
-    public Grupo crearGrupo(@RequestBody GrupoDTO dto) {
+    public GrupoDTO crearGrupo(@RequestBody GrupoDTO dto) {
         return grupoService.crearGrupo(dto);
     }
 
@@ -27,19 +27,19 @@ public class GrupoController {
     }
 
     @PutMapping("/modificarCupo")
-    public Grupo modificarCuposGrupo(@RequestParam String grupoId,
+    public GrupoDTO modificarCuposGrupo(@RequestParam String grupoId,
                                      @RequestParam int cupo) {
         return grupoService.modificarCuposGrupo(grupoId, cupo);
     }
 
     @PutMapping("/agregarEstudiante")
-    public Grupo agregarEstudianteAGrupo(@RequestParam String grupoId,
+    public GrupoDTO agregarEstudianteAGrupo(@RequestParam String grupoId,
                                          @RequestParam String estudianteId) {
         return grupoService.agregarEstudianteAGrupo(grupoId, estudianteId);
     }
 
     @DeleteMapping("/{grupoId}")
-    public Grupo eliminarEstudianteAGrupo(@RequestParam String grupoId,
+    public GrupoDTO eliminarEstudianteAGrupo(@RequestParam String grupoId,
                                           @RequestParam String estudianteId) {
         return grupoService.eliminarEstudianteAGrupo(grupoId, estudianteId);
     }

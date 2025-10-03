@@ -12,5 +12,9 @@ public class AceptarSolicitud implements AccionSolicitudCommand {
         solicitud.setEstado(EstadoSolicitud.APROBADA);
     }
 
+    @Override
+    public String getTipoSolicitud() {
+        return AccionesSolicitud.ACEPTAR.toString();
+    }
 
 }

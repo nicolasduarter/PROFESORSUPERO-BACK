@@ -11,4 +11,9 @@ public class DeclinarSolicitud implements AccionSolicitudCommand {
     public void accionSolicitud(Solicitud solicitud) {
         solicitud.setEstado(EstadoSolicitud.RECHAZADA);
     }
+
+    @Override
+    public String getTipoSolicitud() {
+        return AccionesSolicitud.DECLINAR.toString();
+    }
 }
