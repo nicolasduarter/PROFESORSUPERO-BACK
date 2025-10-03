@@ -81,6 +81,7 @@ class ClaseControllerTest {
                 .andExpect(jsonPath("$.idClase").value("1"));
     }
 
+
     @Test
     void eliminarClase_deberiaRetornarStatusOk() throws Exception {
         doNothing().when(claseService).eliminarClase("1");
