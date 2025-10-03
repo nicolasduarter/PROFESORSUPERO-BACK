@@ -3,74 +3,83 @@ package eci.edu.dows.profesorSuperO.controller;
 import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
 import eci.edu.dows.profesorSuperO.service.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/materias")
+@RequestMapping("/materias")
 public class MateriaController {
 
-    private final MateriaService materiaService;
-
     @Autowired
-    public MateriaController(MateriaService materiaService) {
-        this.materiaService = materiaService;
-    }
+    private MateriaService materiaService;
 
     @PostMapping("/crear")
-    public MateriaDTO crearMateria(@RequestBody MateriaDTO materiaDTO) {
-        return materiaService.crearMateria(materiaDTO);
+    public ResponseEntity<MateriaDTO> crearMateria(@RequestBody MateriaDTO materiaDTO) {
+        MateriaDTO creada = materiaService.crearMateria(materiaDTO);
+        return ResponseEntity.ok(creada);
     }
 
     @GetMapping("/id/{id}")
-    public MateriaDTO obtenerMateriaPorID(@PathVariable String id) {
-        return materiaService.buscarPorId(id);
+    public ResponseEntity<MateriaDTO> obtenerMateriaPorID(@PathVariable String id) {
+        MateriaDTO materia = materiaService.buscarPorId(id);
+        return ResponseEntity.ok(materia);
     }
 
     @GetMapping("/nombre/{nombre}")
-    public List<MateriaDTO> obtenerMateriasPorNombre(@PathVariable String nombre) {
-        return materiaService.findByNombre(nombre);
+    public ResponseEntity<List<MateriaDTO>> obtenerMateriasPorNombre(@PathVariable String nombre) {
+        List<MateriaDTO> materias = materiaService.findByNombre(nombre);
+        return ResponseEntity.ok(materias);
     }
 
     @DeleteMapping("/id/{id}")
-    public void borrarMateria(@PathVariable String id) {
+    public ResponseEntity<Void> borrarMateria(@PathVariable String id) {
         materiaService.eliminarMateriaPorId(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/id/{id}/creditos")
-    public MateriaDTO actualizarCreditos(@PathVariable String id,
-                                         @RequestParam int creditos) {
-        return materiaService.actualizarCreditos(id, creditos);
+    @PatchMapping("/id/{id}/creditos")
+    public ResponseEntity<MateriaDTO> actualizarCreditos(@PathVariable String id,
+                                                         @RequestParam int creditos) {
+        MateriaDTO actualizada = materiaService.actualizarCreditos(id, creditos);
+        return ResponseEntity.ok(actualizada);
     }
 
-    @PutMapping("/id/{id}/nombre")
-    public MateriaDTO actualizarNombre(@PathVariable String id,
-                                       @RequestParam String nombre) {
-        return materiaService.actualizarNombre(id, nombre);
+    @PatchMapping("/id/{id}/nombre")
+    public ResponseEntity<MateriaDTO> actualizarNombre(@PathVariable String id,
+                                                       @RequestParam String nombre) {
+        MateriaDTO actualizada = materiaService.actualizarNombre(id, nombre);
+        return ResponseEntity.ok(actualizada);
     }
 
-    @PutMapping("/{id}/prerequisitos")
-    public MateriaDTO agregarPrerequisitos(@PathVariable String id,
-                                           @RequestBody List<MateriaDTO> prerequisitos) {
-        return materiaService.agregarPrerequisitos(id, prerequisitos);
+    @PatchMapping("/{id}/prerequisitos")
+    public ResponseEntity<MateriaDTO> agregarPrerequisitos(@PathVariable String id,
+                                                           @RequestBody List<MateriaDTO> prerequisitos) {
+        MateriaDTO actualizada = materiaService.agregarPrerequisitos(id, prerequisitos);
+        return ResponseEntity.ok(actualizada);
     }
 
     @DeleteMapping("/{id}/prerequisitos")
-    public MateriaDTO eliminarPrerequisitos(@PathVariable String id,
-                                            @RequestBody List<MateriaDTO> prerequisitos) {
-        return materiaService.eliminarPrerequisitos(id, prerequisitos);
+    public ResponseEntity<MateriaDTO> eliminarPrerequisitos(@PathVariable String id,
+                                                            @RequestBody List<MateriaDTO> prerequisitos) {
+        MateriaDTO actualizada = materiaService.eliminarPrerequisitos(id, prerequisitos);
+        return ResponseEntity.ok(actualizada);
     }
 
-    @PutMapping("/{id}/prerequisito")
-    public MateriaDTO agregarPrerequisito(@PathVariable String id,
-                                          @RequestBody MateriaDTO prerequisito) {
-        return materiaService.agregarPrerequisito(id, prerequisito);
+    @PatchMapping("/{id}/prerequisito")
+    public ResponseEntity<MateriaDTO> agregarPrerequisito(@PathVariable String id,
+                                                          @RequestBody MateriaDTO prerequisito) {
+        MateriaDTO actualizada = materiaService.agregarPrerequisito(id, prerequisito);
+        return ResponseEntity.ok(actualizada);
     }
 
     @DeleteMapping("/{id}/prerequisito")
-    public MateriaDTO eliminarPrerequisito(@PathVariable String id,
-                                           @RequestBody MateriaDTO prerequisito) {
-        return materiaService.eliminarPrerequisito(id, prerequisito);
+    public ResponseEntity<MateriaDTO> eliminarPrerequisito(@PathVariable String id,
+                                                           @RequestBody MateriaDTO prerequisito) {
+        MateriaDTO actualizada = materiaService.eliminarPrerequisito(id, prerequisito);
+        return ResponseEntity.ok(actualizada);
     }
 }
+
+

@@ -66,20 +66,31 @@ public class GrupoController {
     }
 
 
-    @PutMapping("/{grupoId}/clases")
+    @PatchMapping("/{grupoId}/clases")
     public ResponseEntity<GrupoDTO> agregarClasesAGrupo(  @PathVariable String grupoId,
                                                           @RequestBody List<ClaseDTO> clases){
         GrupoDTO grupoActualizado = grupoService.agregarClasesAGrupo(grupoId, clases);
         return ResponseEntity.ok(grupoActualizado);
     }
 
-    @PutMapping("/{grupoId}/clases-Eliminanacion")
+    @PatchMapping("/{grupoId}/clases-Eliminanacion")
     public ResponseEntity<GrupoDTO> eliiminarClasesAGrupo(  @PathVariable String grupoId){
         GrupoDTO grupoActualizado = grupoService.eliminarClasesAGrupo(grupoId);
         return ResponseEntity.ok(grupoActualizado);
     }
 
 
+    @PatchMapping("/{grupoID}/cupo/{cupos}")
+    public ResponseEntity<GrupoDTO> modificarCuposMax(@PathVariable String grupoID,  @PathVariable int cupos){
+        GrupoDTO grupoActualizado = grupoService.modificarCuposMAXGrupo(grupoID,cupos);
+        return ResponseEntity.ok(grupoActualizado);
+    }
+
+    @PatchMapping("/{grupoID}/nombre/{nombre}")
+    public ResponseEntity<GrupoDTO> cambiarNombreAGrupo(@PathVariable String grupoID,  @PathVariable String nombre){
+        GrupoDTO grupoActualizado = grupoService.cambiarNombreAGrupo(grupoID,nombre);
+        return ResponseEntity.ok(grupoActualizado);
+    }
 
 
 }
