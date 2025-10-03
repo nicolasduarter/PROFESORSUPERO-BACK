@@ -2,7 +2,7 @@ package eci.edu.dows.profesorSuperO.service;
 
 
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
-import eci.edu.dows.profesorSuperO.model.Enums.Facultades;
+import eci.edu.dows.profesorSuperO.model.Facultad;
 import eci.edu.dows.profesorSuperO.model.Solicitud;
 import eci.edu.dows.profesorSuperO.repository.SolicitudRepository;
 import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudCommand;
@@ -27,8 +27,8 @@ public class DecanaturaService {
         this.rechazarSolicitud = rechazarSolicitud;
     }
 
-    public List<Solicitud> obtenerSolicitudesPorFacultad(Facultades facultad) {
-        return solicitudRepository.findByEstudiante_facultad(facultad);
+    public List<Solicitud> obtenerSolicitudesPorFacultad(Facultad facultad) {
+        return solicitudRepository.findByFacultad(facultad);
     }
 
     public Solicitud cambiarEstado(String solicitudId, AccionSolicitudCommand accion) {
@@ -47,8 +47,8 @@ public class DecanaturaService {
         return solicitudRepository.findByPrioridad(prioridad);
     }
 
-    public List<Solicitud> obtenerSolicitudesPendientes(Facultades facultad) {
-        List<Solicitud> todas = solicitudRepository.findByEstudiante_facultad(facultad);
+    public List<Solicitud> obtenerSolicitudesPendientes(Facultad facultad) {
+        List<Solicitud> todas = solicitudRepository.findByFacultad(facultad);
         return todas.stream()
                 .filter(s -> s.getEstado() == EstadoSolicitud.PENDIENTE)
                 .toList();

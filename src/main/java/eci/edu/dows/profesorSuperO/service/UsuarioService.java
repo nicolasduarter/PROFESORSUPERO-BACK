@@ -36,7 +36,7 @@ public class UsuarioService {
 
 
     public ProfesorDTO crearProfesor(ProfesorDTO dto) {
-        Profesor p = profesorMapper.toEntity(dto);
+        Profesor p = profesorMapper.toProfesor(dto);
 
         return profesorMapper.toDTO(profesorRepository.save(p));
     }
