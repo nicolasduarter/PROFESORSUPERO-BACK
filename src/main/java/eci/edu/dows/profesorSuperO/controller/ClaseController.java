@@ -21,6 +21,12 @@ public class ClaseController {
         return claseService.crearClase(dto);
     }
 
+    @GetMapping("/clases/{id}")
+    public ClaseDTO buscarClasePorId(@PathVariable String id) {
+        return claseService.buscarClasePorId(id);
+    }
+
+
     @PutMapping("/modificarHoraInicio")
     public ClaseDTO modificarHoraInicio(@RequestParam String claseId,
                                         @RequestParam String inicio) {
@@ -39,6 +45,11 @@ public class ClaseController {
     public ClaseDTO modificarSalonClase(@RequestParam String claseId,
                                         @RequestParam String salon) {
         return claseService.modificarSalonClase(claseId, salon);
+    }
+
+    @DeleteMapping("/{id}/clase")
+    public void eliminarClase(@PathVariable String id) {
+        claseService.eliminarClase(id);
     }
 
 }
