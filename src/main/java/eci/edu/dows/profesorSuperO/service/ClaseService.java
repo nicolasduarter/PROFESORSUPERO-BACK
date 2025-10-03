@@ -13,15 +13,12 @@ import java.time.LocalTime;
 @Service
 public class ClaseService {
 
-    private final EstudianteRepository estudianteRepository;
     private final ClaseRepository claseRepository;
     private final ClaseMapper claseMapper;
 
     @Autowired
-    public ClaseService(EstudianteRepository estudianteRepository,
-                        ClaseRepository claseRepository,
+    public ClaseService(ClaseRepository claseRepository,
                         ClaseMapper claseMapper) {
-        this.estudianteRepository = estudianteRepository;
         this.claseRepository = claseRepository;
         this.claseMapper = claseMapper;
     }
