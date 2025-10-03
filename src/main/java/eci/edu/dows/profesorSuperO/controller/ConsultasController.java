@@ -1,92 +1,70 @@
 package eci.edu.dows.profesorSuperO.controller;
 
-import eci.edu.dows.profesorSuperO.model.*;
-import eci.edu.dows.profesorSuperO.model.DTOS.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.HorarioDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.SemaforoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
 import eci.edu.dows.profesorSuperO.service.ConsultasService;
-import eci.edu.dows.profesorSuperO.Util.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-
-/**
- Controlador de Consultas
- Controlador exclusivo de consultas globales
- Cualquier rol puede usarlo
- */
 @RestController
 @RequestMapping("/api/consultas")
 public class ConsultasController {
 
     private final ConsultasService consultasService;
-    private final HorarioMapper horarioMapper;
-    private final SolicitudMapper solicitudMapper;
-    private final SemaforoMapper semaforoMapper;
-    private final ProfesorMapper profesorMapper;
-    private final GrupoMapper grupoMapper;
 
-    public ConsultasController(ConsultasService consultasService,
-                               HorarioMapper horarioMapper,
-                               SolicitudMapper solicitudMapper,
-                               SemaforoMapper semaforoMapper,
-                               ProfesorMapper profesorMapper,
-                               GrupoMapper grupoMapper) {
+    public ConsultasController(ConsultasService consultasService) {
         this.consultasService = consultasService;
-        this.horarioMapper = horarioMapper;
-        this.solicitudMapper = solicitudMapper;
-        this.semaforoMapper = semaforoMapper;
-        this.profesorMapper = profesorMapper;
-        this.grupoMapper = grupoMapper;
     }
 
     @GetMapping("/estudiante/{estudianteId}/ultimoHorario")
     public ResponseEntity<HorarioDTO> consultarUltimoHorarioEstudiante(@PathVariable String estudianteId) {
-        Horario horario = consultasService.consultarUltimoHorarioEstudiante(estudianteId);
-        return horario != null ? ResponseEntity.ok(horarioMapper.toDTO(horario) ): null;
+        var horario = consultasService.consultarUltimoHorarioEstudiante(estudianteId);
+        return horario != null
+                ? ResponseEntity.ok(consultasService.consultarHorariosEstudiante(estudianteId)
+                .stream().reduce((first, second) -> second).orElse(null))
+                : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/estudiante/{estudianteId}/horarios")
     public ResponseEntity<List<HorarioDTO>> consultarHorariosEstudiante(@PathVariable String estudianteId) {
-        List<Horario> horarios = consultasService.consultarHorariosEstudiante(estudianteId);
-        return horarios != null ? ResponseEntity.ok(horarios.stream()
-                .map(horarioMapper::toDTO)
-                .collect(Collectors.toList())) : null;
+        List<HorarioDTO> horarios = consultasService.consultarHorariosEstudiante(estudianteId);
+        return ResponseEntity.ok(horarios);
     }
 
     @GetMapping("/estudiante/{estudianteId}/solicitudes")
     public ResponseEntity<List<SolicitudDTO>> consultarSolicitudesEstudiante(@PathVariable String estudianteId) {
-        return ResponseEntity.ok(consultasService.consultarSolicitudesEstudiante(estudianteId)
-                .stream()
-                .map(solicitudMapper::toDTO)
-                .collect(Collectors.toList()));
+        List<SolicitudDTO> solicitudes = consultasService.consultarSolicitudesEstudiante(estudianteId);
+        return ResponseEntity.ok(solicitudes);
     }
 
     @GetMapping("/estudiante/{estudianteId}/semaforo")
     public ResponseEntity<SemaforoDTO> consultarSemaforoEstudiante(@PathVariable String estudianteId) {
-        Semaforo semaforo = consultasService.consultarSemaforoEstudiante(estudianteId);
-        return semaforo != null ? ResponseEntity.ok(semaforoMapper.toDTO(semaforo)) : null;
+        SemaforoDTO semaforo = consultasService.consultarSemaforoEstudiante(estudianteId);
+        return ResponseEntity.ok(semaforo);
     }
 
     @GetMapping("/grupo/{grupoId}/profesor")
     public ResponseEntity<ProfesorDTO> consultarProfesorGrupo(@PathVariable String grupoId) {
-        Profesor profesor = consultasService.consultarProfesorGrupo(grupoId);
-        return profesor != null ? ResponseEntity.ok(profesorMapper.toDTO(profesor)) : null;
+        Optional<ProfesorDTO> profesor = consultasService.consultarProfesorGrupo(grupoId);
+        return profesor.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/grupo/{grupoId}/cupos")
     public ResponseEntity<Integer> consultarCuposGrupo(@PathVariable String grupoId) {
-        return ResponseEntity.ok(consultasService.consultarCuposGrupo(grupoId));
+        int cupos = consultasService.consultarCuposGrupo(grupoId);
+        return ResponseEntity.ok(cupos);
     }
 
     @GetMapping("/grupo/{grupoId}")
     public ResponseEntity<GrupoDTO> obtenerGrupo(@PathVariable String grupoId) {
-        Grupo grupo = consultasService.obtenerGrupo(grupoId);
-        return grupo != null ? ResponseEntity.ok(grupoMapper.toDTO(grupo)) : null;
+        GrupoDTO grupo = consultasService.obtenerGrupo(grupoId);
+        return ResponseEntity.ok(grupo);
     }
 }
-
-
