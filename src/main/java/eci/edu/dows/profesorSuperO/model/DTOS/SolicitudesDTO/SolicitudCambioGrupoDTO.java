@@ -8,8 +8,7 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @SolicitudValidaCambioGrupo
 public class SolicitudCambioGrupoDTO extends SolicitudDTO {
 

@@ -17,5 +17,5 @@ public class SemaforoDTO {
     private int creditosFaltantes;
     private int materiasVistas;
     private int promedio;
-    private String facultad;
+    private FacultadDTO facultad;
 }

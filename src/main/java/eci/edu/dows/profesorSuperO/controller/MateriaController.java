@@ -1,6 +1,7 @@
 package eci.edu.dows.profesorSuperO.controller;
 
 
+import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
 import eci.edu.dows.profesorSuperO.model.Materia;
 import eci.edu.dows.profesorSuperO.service.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class MateriaController {
     private MateriaService materiaService;
 
     @PostMapping
-    public Materia crearMateria(@RequestBody Materia materia) {
+    public MateriaDTO crearMateria(@RequestBody Materia materia) {
        return materiaService.guardarMateria(materia);
     }
 

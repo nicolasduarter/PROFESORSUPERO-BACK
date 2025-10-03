@@ -8,8 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class EstudianteDTO extends UsuarioDTO{
     private FacultadDTO facultad;
     private int semestre;

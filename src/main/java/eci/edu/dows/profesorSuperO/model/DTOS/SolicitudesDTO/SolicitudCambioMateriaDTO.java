@@ -10,8 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class SolicitudCambioMateriaDTO extends SolicitudDTO {
 
     @NotNull(message = "La materia no puede ser vacía")
