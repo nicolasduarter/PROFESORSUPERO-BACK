@@ -40,4 +40,5 @@ public class ClaseController {
                                         @RequestParam String salon) {
         return claseService.modificarSalonClase(claseId, salon);
     }
+
 }

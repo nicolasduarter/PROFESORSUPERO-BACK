@@ -3,6 +3,7 @@ package eci.edu.dows.profesorSuperO.controller;
 import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
 import eci.edu.dows.profesorSuperO.service.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -63,9 +64,9 @@ public class MateriaController {
     }
 
     @PostMapping("/{id}/prerequisito")
-    public MateriaDTO agregarPrerequisito(@PathVariable String id,
-                                          @RequestBody MateriaDTO prerequisito) {
-        return materiaService.agregarPrerequisito(id, prerequisito);
+    public ResponseEntity<MateriaDTO> agregarPrerequisito(@PathVariable String id,
+                                                         @RequestBody MateriaDTO prerequisito) {
+        return  ResponseEntity.ok(materiaService.agregarPrerequisito(id, prerequisito));
     }
 
     @DeleteMapping("/{id}/prerequisito")
