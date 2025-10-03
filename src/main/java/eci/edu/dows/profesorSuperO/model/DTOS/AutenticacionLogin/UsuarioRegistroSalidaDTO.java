@@ -8,9 +8,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioLoginDTO {
-    private String usuario;
-    private String rol;
+@AllArgsConstructor
+public class UsuarioRegistroSalidaDTO {
+    String id;
+    String usuario;
+    String rol;
 }
