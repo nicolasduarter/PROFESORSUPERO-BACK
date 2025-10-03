@@ -1,10 +1,13 @@
 package eci.edu.dows.profesorSuperO.controller;
 
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
 import eci.edu.dows.profesorSuperO.service.GrupoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 /**
@@ -22,9 +25,9 @@ public class GrupoController {
         this.grupoService = grupoService;
     }
 
-    @PostMapping("/crearGrupo")
-    public GrupoDTO crearGrupo(@RequestBody GrupoDTO dto) {
-        return grupoService.crearGrupo(dto);
+    @PostMapping("/crear-Grupo")
+    public ResponseEntity<GrupoDTO> crearGrupo(@RequestBody GrupoDTO dto) {
+        return ResponseEntity.ok(grupoService.crearGrupo(dto));
     }
 
     @DeleteMapping("/eliminar/{id}")
@@ -32,23 +35,53 @@ public class GrupoController {
         grupoService.eliminarGrupo(id);
     }
 
-    @PatchMapping("/modificarCupo")
-    public GrupoDTO modificarCuposGrupo(@RequestParam String grupoId,
+    @PatchMapping("/modificar-Cupo")
+    public ResponseEntity<GrupoDTO> modificarCuposGrupo(@RequestParam String grupoId,
                                      @RequestParam int cupo) {
-        return grupoService.modificarCuposGrupo(grupoId, cupo);
+        return ResponseEntity.ok(grupoService.modificarCuposGrupo(grupoId, cupo));
     }
 
-    @PatchMapping("/agregarEstudiante")
-    public GrupoDTO agregarEstudianteAGrupo(@RequestParam String grupoId,
-                                         @RequestParam String estudianteId) {
-        return grupoService.agregarEstudianteAGrupo(grupoId, estudianteId);
+    @PatchMapping("/{grupoId}/Estudiante/{profesorId}")
+    public ResponseEntity<GrupoDTO> agregarEstudianteAGrupo(@PathVariable String grupoId,
+                                         @PathVariable String estudianteId) {
+        return ResponseEntity.ok(grupoService.agregarEstudianteAGrupo(grupoId, estudianteId));
     }
 
-    @DeleteMapping("/{grupoId}")
-    public GrupoDTO eliminarEstudianteAGrupo(@RequestParam String grupoId,
-                                          @RequestParam String estudianteId) {
-        return grupoService.eliminarEstudianteAGrupo(grupoId, estudianteId);
+    @PatchMapping("/{grupoId}/Estudiante")
+    public ResponseEntity<GrupoDTO> eliminarEstudianteAGrupo(@RequestParam String estudianteId, @PathVariable String grupoId) {
+        return ResponseEntity.ok(grupoService.eliminarEstudianteAGrupo(grupoId, estudianteId));
     }
+
+
+    @PatchMapping("/{grupoId}/profesor/{profesorId}")
+    public ResponseEntity<GrupoDTO> agregarProfesorAGrupo(@PathVariable String grupoId,
+                                                          @PathVariable String profesorId){
+        return ResponseEntity.ok(grupoService.agregarProfesorAGrupo(grupoId, profesorId));
+    }
+
+
+    @PatchMapping("/{grupoId}/Profesor")
+    public ResponseEntity<GrupoDTO> eliminarProfesorAGrupo(@PathVariable String grupoId){
+        return ResponseEntity.ok(grupoService.eliminarProfesorAGrupo(grupoId));
+    }
+
+
+    @PutMapping("/{grupoId}/clases")
+    public ResponseEntity<GrupoDTO> agregarClasesAGrupo(  @PathVariable String grupoId,
+                                                          @RequestBody List<ClaseDTO> clases){
+        GrupoDTO grupoActualizado = grupoService.agregarClasesAGrupo(grupoId, clases);
+        return ResponseEntity.ok(grupoActualizado);
+    }
+
+    @PutMapping("/{grupoId}/clases-Eliminanacion")
+    public ResponseEntity<GrupoDTO> eliiminarClasesAGrupo(  @PathVariable String grupoId){
+        GrupoDTO grupoActualizado = grupoService.eliminarClasesAGrupo(grupoId);
+        return ResponseEntity.ok(grupoActualizado);
+    }
+
+
+
+
 }
 
 
