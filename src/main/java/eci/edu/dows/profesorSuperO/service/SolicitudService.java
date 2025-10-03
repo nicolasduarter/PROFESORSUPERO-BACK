@@ -72,9 +72,6 @@ public class SolicitudService {
 
     }
 
-
-
-
     public SolicitudCambioMateriaDTO crearSolicitudCambioMateria(SolicitudCambioMateriaDTO dto) {
         Estudiante estudiante = estudianteRepository.findById(dto.getEstudiante().getId())
                 .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));

@@ -1,11 +1,13 @@
 package eci.edu.dows.profesorSuperO.model.DTOS;
 
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
+import eci.edu.dows.profesorSuperO.model.Estudiante;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -21,6 +23,7 @@ public class GrupoDTO {
     private int cuposMax;
     private int estudiantesInscritos;
     private List<ClaseDTO> clases;
+    private ArrayList<Estudiante> estudiantes;
 
 
 }

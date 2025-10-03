@@ -4,7 +4,7 @@ import eci.edu.dows.profesorSuperO.model.DTOS.FacultadDTO;
 import eci.edu.dows.profesorSuperO.model.Facultad;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {MateriaMapper.class})
 public interface FacultadMapper {
     Facultad toFacultad(FacultadDTO fdto);
     FacultadDTO toDTO(Facultad f);
