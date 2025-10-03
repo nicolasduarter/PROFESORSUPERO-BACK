@@ -39,13 +39,13 @@ public class MateriaController {
         materiaService.eliminarMateriaPorId(id);
     }
 
-    @PatchMapping("/id/{id}/creditos")
+    @PostMapping("/id/{id}/creditos")
     public MateriaDTO actualizarCreditos(@PathVariable String id,
                                          @RequestParam int creditos) {
         return materiaService.actualizarCreditos(id, creditos);
     }
 
-    @PatchMapping("/id/{id}/nombre")
+    @PostMapping("/id/{id}/nombre")
     public MateriaDTO actualizarNombre(@PathVariable String id,
                                        @RequestParam String nombre) {
         return materiaService.actualizarNombre(id, nombre);
