@@ -1,12 +1,23 @@
 package eci.edu.dows.profesorSuperO.service;
 
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
+import eci.edu.dows.profesorSuperO.Util.GrupoMapper;
+import eci.edu.dows.profesorSuperO.Util.HorarioMapper;
+import eci.edu.dows.profesorSuperO.Util.ProfesorMapper;
+import eci.edu.dows.profesorSuperO.Util.SolicitudMapper;
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.HorarioDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.SemaforoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
 import eci.edu.dows.profesorSuperO.repository.*;
+import jakarta.validation.constraints.Null;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ConsultasService {
@@ -15,14 +26,26 @@ public class ConsultasService {
     private final GrupoRepository grupoRepository;
     private final SolicitudRepository solicitudRepository;
     private final SemaforoService  semaforoService;
+    private final HorarioMapper  horarioMapper;
+    private final SolicitudMapper solicitudMapper;
+    private final ProfesorMapper profesorMapper;
+    private final GrupoMapper grupoMapper;
 
     public ConsultasService(EstudianteRepository estudianteRepository,
                             GrupoRepository grupoRepository,
-                            SolicitudRepository solicitudRepository, SemaforoService semaforoService) {
+                            SolicitudRepository solicitudRepository,
+                            SemaforoService semaforoService,
+                            HorarioMapper horarioMapper,
+                            SolicitudMapper solicitudMapper,ProfesorMapper profesorMapper,
+                            GrupoMapper grupoMapper) {
         this.estudianteRepository = estudianteRepository;
         this.grupoRepository = grupoRepository;
         this.solicitudRepository = solicitudRepository;
         this.semaforoService = semaforoService;
+        this.horarioMapper = horarioMapper;
+        this.solicitudMapper = solicitudMapper;
+        this.grupoMapper = grupoMapper;
+        this.profesorMapper = profesorMapper;
     }
 
 
@@ -35,29 +58,30 @@ public class ConsultasService {
         return null;
     }
 
-    public List<Horario> consultarHorariosEstudiante(String estudianteId) {
+    public List<HorarioDTO> consultarHorariosEstudiante(String estudianteId) {
         return estudianteRepository.findById(estudianteId)
                 .map(Estudiante::getHorarios)
-                .orElse(null);
+                .stream()
+                .flatMap(List::stream)
+                .map(horarioMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Solicitud> consultarSolicitudesEstudiante(String estudianteId) {
-        return solicitudRepository.findByEstudianteId(estudianteId);
+    public List<SolicitudDTO> consultarSolicitudesEstudiante(String estudianteId) {
+        return solicitudRepository.findByEstudianteId(estudianteId).stream().map(solicitudMapper::toDTO).collect(Collectors.toList());
     }
 
-    public Semaforo consultarSemaforoEstudiante(String estudianteId) {
-        Estudiante e = estudianteRepository.findById(estudianteId).orElseThrow(() -> new NotFoundException("no se encontro estudiante con esa ID"))
+    public SemaforoDTO consultarSemaforoEstudiante(String estudianteId) {
+        Estudiante e = estudianteRepository.findById(estudianteId)
+                .orElseThrow(() -> new NotFoundException("no se encontro estudiante con esa ID"));
 
-
-        return estudianteRepository.findById(estudianteId)
-                .map(Estudiante::getSemaforo)
-                .orElse(null);
+        return semaforoService.getSemaforoDTO(e);
     }
 
-    public Profesor consultarProfesorGrupo(String grupoId) {
+    public Optional<ProfesorDTO> consultarProfesorGrupo(String grupoId) {
         return grupoRepository.findById(grupoId)
                 .map(Grupo::getProfesor)
-                .orElse(null);
+                .map(profesorMapper::toDTO);
     }
 
     public int consultarCuposGrupo(String grupoId) {
@@ -66,8 +90,9 @@ public class ConsultasService {
                 .orElse(0);
     }
 
-    public Grupo obtenerGrupo(String id) {
-        return grupoRepository.findById(id).orElse(null);
+    public GrupoDTO obtenerGrupo(String id) {
+        Grupo g =  grupoRepository.findById(id).orElseThrow(() -> new NotFoundException("no se encontro grupo"));
+        return grupoMapper.toDTO(g);
     }
 
 }
