@@ -14,6 +14,6 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class FacultadDTO {
     private String id;
-    private String facultad;
+    private String facultadName;
     private ArrayList<MateriaDTO> materias;
 }

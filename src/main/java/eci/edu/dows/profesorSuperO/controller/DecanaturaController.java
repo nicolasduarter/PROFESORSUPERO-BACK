@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  Controlador de Decanatura
- Permite obtener solicitudes de su facultad
+ Permite obtener solicitudes de su facultadName
  Permite cambiar el estado de una solicitud
  Solo para el rol de decanatura
  */

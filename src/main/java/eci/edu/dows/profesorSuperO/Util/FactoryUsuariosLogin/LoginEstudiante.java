@@ -33,7 +33,7 @@ public class LoginEstudiante  implements LoginUsuario {
     public UsuarioLoginDTO loginUsuario(Usuario usuario) {
         Estudiante e = (Estudiante) usuario;
         UsuarioLoginDTO registroU = new UsuarioLoginDTO();
-        registroU.setUsuario(e.getUsuario());
+        registroU.setUsuario(e.getFullName());
         registroU.setRol(e.getPermiso().toString());
 
         return registroU;

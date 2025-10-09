@@ -12,6 +12,6 @@ import lombok.Setter;
 public abstract class UsuarioDTO {
     private String id;
     private String correo;
-    private String usuario;
+    private String fullName;
     private String permiso;
 }

@@ -28,9 +28,9 @@ public class MappersTest {
         assertEquals(eDto.getCorreo(),e.getCorreo());
         assertEquals(eDto.getSemestre(),e.getSemestre());
         assertEquals(eDto.getPermiso(),e.getPermiso().toString());
-        assertEquals(eDto.getUsuario(),e.getUsuario());
+        assertEquals(eDto.getUsuario(),e.getFullName());
         assertNotNull(eDto.getFacultad());
-        assertEquals(eDto.getFacultad().getFacultad(),e.getFacultad().getFacultad().toString());
+        assertEquals(eDto.getFacultad().getFacultad(),e.getFacultad().getFacultadName().toString());
 
     }
 }
