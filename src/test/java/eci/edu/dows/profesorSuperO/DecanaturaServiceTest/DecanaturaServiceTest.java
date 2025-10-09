@@ -14,6 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import java.util.*;
+import eci.edu.dows.profesorSuperO.model.Estudiante;
+import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
+import eci.edu.dows.profesorSuperO.Util.EstudianteMapper;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -31,6 +36,12 @@ class DecanaturaServiceTest {
 
     @Mock
     private FacultadMapper facultadMapper;
+
+    @Mock
+    private EstudianteRepository estudianteRepository;
+
+    @Mock
+    private EstudianteMapper estudianteMapper;
 
     @InjectMocks
     private DecanaturaService decanaturaService;
@@ -114,5 +125,28 @@ class DecanaturaServiceTest {
 
         assertEquals(1, result.size());
         assertEquals(dto, result.get(0));
+    }
+
+    @Test
+    void testVerInformacionEstudiante_success() {
+        Estudiante estudiante = mock(Estudiante.class);
+        EstudianteDTO dto = mock(EstudianteDTO.class);
+
+        when(estudianteRepository.findById("e1")).thenReturn(Optional.of(estudiante));
+        when(estudianteMapper.toDTO(estudiante)).thenReturn(dto);
+
+        EstudianteDTO result = decanaturaService.verInformacionEstudiante("e1");
+
+        assertNotNull(result);
+        assertEquals(dto, result);
+        verify(estudianteRepository).findById("e1");
+        verify(estudianteMapper).toDTO(estudiante);
+    }
+
+    @Test
+    void testVerInformacionEstudiante_notFound() {
+        when(estudianteRepository.findById("e2")).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> decanaturaService.verInformacionEstudiante("e2"));
+        verify(estudianteRepository).findById("e2");
     }
 }

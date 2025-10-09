@@ -13,7 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
+import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,6 +89,37 @@ class DecanaturaControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].estado").value("PENDIENTE"));
     }
+
+    @Test
+    void verInformacionEstudiante_deberiaRetornarEstudiante() throws Exception {
+        EstudianteDTO estudianteDTO = new EstudianteDTO();
+        estudianteDTO.setId("est1");
+        estudianteDTO.setCorreo("correo1@uni.edu");
+        estudianteDTO.setUsuario("ESTUDIANTE"); // tipo de usuario
+        estudianteDTO.setPermiso("BÁSICO");
+        estudianteDTO.setSemestre(5);
+
+        FacultadDTO facultad = new FacultadDTO();
+        facultad.setId("fac1");
+        facultad.setFacultad("Ingeniería");
+        estudianteDTO.setFacultad(facultad);
+
+        when(decanaturaService.verInformacionEstudiante("est1")).thenReturn(estudianteDTO);
+
+        mockMvc.perform(get("/decanatura/estudiantes/{estudianteId}", "est1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("est1"))
+                .andExpect(jsonPath("$.correo").value("correo1@uni.edu"))
+                .andExpect(jsonPath("$.usuario").value("ESTUDIANTE"))
+                .andExpect(jsonPath("$.permiso").value("BÁSICO"))
+                .andExpect(jsonPath("$.semestre").value(5))
+                .andExpect(jsonPath("$.facultad.id").value("fac1"))
+                .andExpect(jsonPath("$.facultad.facultad").value("Ingeniería"));
+
+        verify(decanaturaService).verInformacionEstudiante("est1");
+    }
+
 
     //@Test
     //void cambiarEstadoSolicitud_deberiaRetornarEstado() throws Exception {

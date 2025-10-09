@@ -1,6 +1,7 @@
 package eci.edu.dows.profesorSuperO.service;
 
 
+import eci.edu.dows.profesorSuperO.Util.EstudianteMapper;
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.Util.FacultadMapper;
 import eci.edu.dows.profesorSuperO.Util.SolicitudMapper;
@@ -9,9 +10,11 @@ import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.model.Facultad;
 import eci.edu.dows.profesorSuperO.model.Solicitud;
+import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
 import eci.edu.dows.profesorSuperO.repository.SolicitudRepository;
 import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudCommand;
 import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudFactory;
+import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,16 +25,22 @@ public class DecanaturaService {
     private final AccionSolicitudFactory accionSolicitudFactory;
     private final SolicitudMapper solicitudMapper;
     private final FacultadMapper facultadMapper;
+    private final EstudianteRepository estudianteRepository;
+    private final EstudianteMapper estudianteMapper;
 
 
     public DecanaturaService(SolicitudRepository solicitudRepository,
                              AccionSolicitudFactory accionSolicitudFactory,
                              SolicitudMapper solicitudMapper,
-                             FacultadMapper facultadMapper) {
+                             FacultadMapper facultadMapper, EstudianteRepository estudianteRepository,
+                             EstudianteMapper estudianteMapper) {
         this.solicitudRepository = solicitudRepository;
         this.accionSolicitudFactory = accionSolicitudFactory;
         this.solicitudMapper = solicitudMapper;
         this.facultadMapper = facultadMapper;
+        this.estudianteRepository = estudianteRepository;
+        this.estudianteMapper = estudianteMapper;
+
     }
 
 
@@ -66,5 +75,10 @@ public class DecanaturaService {
         return requestsList.stream().
                 filter(s->s.getEstado() == EstadoSolicitud.PENDIENTE).
                 map(solicitudMapper::toDTO).collect(Collectors.toList());
+    }
+    public EstudianteDTO verInformacionEstudiante(String estudianteId) {
+        var estudiante = estudianteRepository.findById(estudianteId)
+                .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
+        return estudianteMapper.toDTO(estudiante);
     }
 }

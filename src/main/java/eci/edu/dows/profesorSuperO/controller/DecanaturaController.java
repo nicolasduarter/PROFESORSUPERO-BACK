@@ -10,6 +10,8 @@ import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudCommand;
 import eci.edu.dows.profesorSuperO.service.SolicitudService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
+
 
 import java.util.List;
 
@@ -59,6 +61,11 @@ public class DecanaturaController {
         return ResponseEntity.ok(decanaturaService.cambiarEstado(solicitudId, accion));
     }
 
+    @GetMapping("/estudiantes/{estudianteId}")
+    public ResponseEntity<EstudianteDTO> verInformacionEstudiante(@PathVariable String estudianteId) {
+        EstudianteDTO estudianteDTO = decanaturaService.verInformacionEstudiante(estudianteId);
+        return ResponseEntity.ok(estudianteDTO);
+    }
 
 }
 
