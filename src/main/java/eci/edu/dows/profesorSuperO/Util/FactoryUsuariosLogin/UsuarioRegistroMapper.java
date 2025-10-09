@@ -13,9 +13,9 @@ public interface UsuarioRegistroMapper {
     UsuarioRegistroMapper INSTANCE = Mappers.getMapper(UsuarioRegistroMapper.class);
 
     @Mapping(source = "correo", target = "correo")
-    @Mapping(source = "usuario", target = "usuario")
+    @Mapping(source = "fullName", target = "fullName")
     @Mapping(source = "permiso", target = "permiso")
-    @Mapping(source = "facultad", target = "facultad")
+    @Mapping(source = "facultadName", target = "facultadName")
     @Mapping(source = "semestre", target = "semestre")
     EstudianteDTO usuarioRegistroDTOToEstudianteDTO(UsuarioRegistroDTO usuarioRegistroDTO);
 }

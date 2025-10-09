@@ -16,10 +16,10 @@ public class Facultad {
     @Id
     private String id;
     private ArrayList<Materia> materias;
-    private Facultades facultad;
+    private Facultades facultadName;
 
-    public Facultad(Facultades facultad) {
-        this.facultad = facultad;
+    public Facultad(Facultades facultadName) {
+        this.facultadName = facultadName;
         this.materias = new ArrayList<>();
     }
 

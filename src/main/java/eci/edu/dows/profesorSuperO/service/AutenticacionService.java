@@ -45,7 +45,7 @@ public class AutenticacionService {
 
     public UsuarioRegistroSalidaDTO registrarUsuario(UsuarioRegistroDTO usuarioRegistroDTO) {
         if (credencialRepository.findByUsuario(usuarioRegistroDTO.getUsuario()).isPresent()) {
-            throw new RuntimeException("Ya existe una cuenta con ese usuario");
+            throw new RuntimeException("Ya existe una cuenta con ese fullName");
         }
 
         LoginUsuario estrategia = loginUsuariosFactory.obtenerEstrategia(usuarioRegistroDTO.getPermiso());

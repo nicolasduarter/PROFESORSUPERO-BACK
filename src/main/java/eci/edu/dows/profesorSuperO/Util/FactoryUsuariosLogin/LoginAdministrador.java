@@ -11,7 +11,7 @@ public class LoginAdministrador  implements LoginUsuario{
     public UsuarioLoginDTO loginUsuario(Usuario usuario) {
         Administrador e = (Administrador) usuario;
         UsuarioLoginDTO registroU = new UsuarioLoginDTO();
-        registroU.setUsuario(e.getUsuario());
+        registroU.setUsuario(e.getFullName());
         registroU.setRol(e.getPermiso().toString());
 
         return registroU;

@@ -18,13 +18,13 @@ public abstract class Usuario {
 
     @Indexed(unique = true)
     private String correo;
-    private String usuario;
+    private String fullName;
     @Transient
     private Permisos permiso;
 
-    public Usuario(String usuario,Permisos permiso, String correo, String id) {
+    public Usuario(String fullName, Permisos permiso, String correo, String id) {
         this.id = id;
-        this.usuario = usuario;
+        this.fullName = fullName;
         this.permiso = permiso;
         this.correo = correo;
     }
