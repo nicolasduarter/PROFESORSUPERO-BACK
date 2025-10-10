@@ -13,7 +13,7 @@ public interface UsuarioRegistroMapper {
     UsuarioRegistroMapper INSTANCE = Mappers.getMapper(UsuarioRegistroMapper.class);
 
     @Mapping(source = "correo", target = "correo")
-    @Mapping(source = "usuario", target = "fullName")
+    @Mapping(source = "fullName", target = "fullName")
     @Mapping(source = "permiso", target = "permiso")
     @Mapping(source = "facultad", target = "facultad")
     @Mapping(source = "semestre", target = "semestre")

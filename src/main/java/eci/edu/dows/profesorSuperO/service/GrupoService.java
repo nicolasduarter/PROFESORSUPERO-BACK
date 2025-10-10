@@ -134,7 +134,7 @@ public class GrupoService {
         return grupoMapper.toDTO(grupoActualizado);
     }
 
-    public GrupoDTO modificarCuposMAXGrupo(String grupoId, int cupo) {
+    public GrupoDTO updateMaximumCapacity(String grupoId, int cupo) {
         Grupo grupo = grupoRepository.findById(grupoId)
                 .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
 
@@ -142,5 +142,20 @@ public class GrupoService {
         Grupo grupoActualizado = grupoRepository.save(grupo);
 
         return grupoMapper.toDTO(grupoActualizado);
+    }
+
+    public GrupoDTO getMaximumCapacity(String grupoId) {
+        Grupo grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
+        return  grupoMapper.toDTO(grupo);
+    }
+
+
+    public GrupoDTO deleteStudentOfGroup(String grupoId,String studentId){
+        Grupo grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
+        grupo.getEstudiantes().removeIf(estudiante -> estudiante.getId().equals(studentId));
+
+        return   grupoMapper.toDTO(grupoRepository.save(grupo));
     }
 }

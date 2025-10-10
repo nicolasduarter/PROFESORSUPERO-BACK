@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UsuarioRegistroDTO {
     private String correo;
-    private String usuario;
+    private String fullName;
     private String permiso;
     private FacultadDTO facultad;
     private int semestre;
