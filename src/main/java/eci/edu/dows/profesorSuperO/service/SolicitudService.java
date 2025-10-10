@@ -126,5 +126,21 @@ public class SolicitudService {
 
         solicitudRepository.delete(solicitud);
     }
+
+
+    public SolicitudDTO responderInformacionAdicional(String solicitudId, String texto) {
+        Solicitud solicitud = solicitudRepository.findById(solicitudId)
+                .orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));
+
+        if (solicitud.getEstado() != EstadoSolicitud.INFORMACION_ADICIONAL) {
+            throw new RuntimeException("La solicitud no está en estado de información adicional");
+        }
+
+        solicitud.setInfoAdicionalEstudiante(texto);
+        solicitud.setEstado(EstadoSolicitud.PENDIENTE); // vuelve a pendiente para revisión
+
+        return solicitudMapper.toDTO(solicitudRepository.save(solicitud));
+    }
+
 }
 

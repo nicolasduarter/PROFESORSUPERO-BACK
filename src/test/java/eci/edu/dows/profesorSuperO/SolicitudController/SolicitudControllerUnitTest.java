@@ -94,4 +94,23 @@ class SolicitudControllerUnitTest {
         verify(solicitudService).eliminarSolicitud(id);
         verifyNoMoreInteractions(solicitudService);
     }
+
+    @Test
+    void responderInformacionAdicional_devuelveOkYBody() {
+        String id = "sol123";
+        String texto = "Adjunto los documentos solicitados";
+        SolicitudDTO esperado = new SolicitudDTO();
+        esperado.setId(id);
+        esperado.setInfoAdicionalEstudiante(texto);
+
+        when(solicitudService.responderInformacionAdicional(id, texto)).thenReturn(esperado);
+
+
+        ResponseEntity<SolicitudDTO> resp = controller.responderInformacionAdicional(id, texto);
+
+        assertEquals(HttpStatus.OK, resp.getStatusCode());
+        assertSame(esperado, resp.getBody());
+        verify(solicitudService).responderInformacionAdicional(id, texto);
+    }
+
 }

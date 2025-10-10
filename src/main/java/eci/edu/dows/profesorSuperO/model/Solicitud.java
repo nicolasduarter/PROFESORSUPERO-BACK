@@ -36,6 +36,8 @@ public abstract class Solicitud {
     private Facultad facultad;
     protected TipoSolicitud tipoSolicitud;
 
+    private String infoAdicionalEstudiante;
+
     public Solicitud(String id, Estudiante estudiante, String motivo, LocalDate fecha) {
         this.id = id;
         this.estado = EstadoSolicitud.PENDIENTE;

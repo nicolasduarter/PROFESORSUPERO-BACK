@@ -56,5 +56,11 @@ public class SolicitudController {
     public void eliminarSolicitud(@PathVariable String id) {
         solicitudService.eliminarSolicitud(id);
     }
+
+    @PatchMapping("/{solicitudId}/respuesta")
+    public ResponseEntity<SolicitudDTO> responderInformacionAdicional(@PathVariable String solicitudId, @RequestBody String texto) {
+        return ResponseEntity.ok(solicitudService.responderInformacionAdicional(solicitudId, texto));
+    }
+
 }
 

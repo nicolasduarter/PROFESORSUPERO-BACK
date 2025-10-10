@@ -22,4 +22,5 @@ public  class SolicitudDTO {
     private LocalDate fecha;
     private int prioridad;
     private String tipoSolicitud;
+    private String infoAdicionalEstudiante;
 }

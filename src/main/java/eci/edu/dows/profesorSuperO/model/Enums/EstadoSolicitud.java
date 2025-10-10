@@ -3,5 +3,6 @@ package eci.edu.dows.profesorSuperO.model.Enums;
 public enum EstadoSolicitud {
     PENDIENTE,
     APROBADA,
-    RECHAZADA
+    RECHAZADA,
+    INFORMACION_ADICIONAL
 }
