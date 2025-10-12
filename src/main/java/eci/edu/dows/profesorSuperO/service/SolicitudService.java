@@ -110,6 +110,9 @@ public class SolicitudService {
         return solicitudMapper.toDTO(s);
     }
 
+
+
+
     public SolicitudDTO actualizarEstadoSolicitud(String id, EstadoSolicitud nuevoEstado) {
         Solicitud solicitud = solicitudRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));

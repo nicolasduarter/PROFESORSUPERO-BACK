@@ -49,11 +49,12 @@ public class ConsultasService {
     }
 
 
-    public Horario consultarUltimoHorarioEstudiante(String estudianteId) {
+    public HorarioDTO consultarUltimoHorarioEstudiante(String estudianteId) {
         Optional<Estudiante> estudiante = estudianteRepository.findById(estudianteId);
         if (estudiante.isPresent()&& !estudiante.get().getHorarios().isEmpty()) {
             List<Horario> horarios = estudiante.get().getHorarios();
-            return horarios.get(horarios.size() - 1);
+            Horario h = horarios.get(horarios.size() - 1);
+            return horarioMapper.toDTO(h);
         }
         return null;
     }
@@ -67,6 +68,11 @@ public class ConsultasService {
                 .collect(Collectors.toList());
     }
 
+    public SolicitudDTO consultarSolicitudPorEstudiante(String idStudent,String idSolicitud) {
+        List<Solicitud> s = solicitudRepository.findByEstudianteId(idStudent).stream().toList();
+        Solicitud solicitud = s.stream().filter(soli-> soli.getId().equals(idSolicitud)).findFirst().orElse(null);
+        return  solicitudMapper.toDTO(solicitud);
+    }
     public List<SolicitudDTO> consultarSolicitudesEstudiante(String estudianteId) {
         return solicitudRepository.findByEstudianteId(estudianteId).stream().map(solicitudMapper::toDTO).collect(Collectors.toList());
     }
