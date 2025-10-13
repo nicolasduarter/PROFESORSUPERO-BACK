@@ -67,4 +67,5 @@ public class ConsultasController {
         GrupoDTO grupo = consultasService.obtenerGrupo(grupoId);
         return ResponseEntity.ok(grupo);
     }
+
 }
