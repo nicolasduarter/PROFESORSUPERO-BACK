@@ -1,7 +1,7 @@
 package eci.edu.dows.profesorSuperO.DecanaturaControllerTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eci.edu.dows.profesorSuperO.controller.DecanaturaController;
+import eci.edu.dows.profesorSuperO.controller.Usuarios.DecanaturaController;
 import eci.edu.dows.profesorSuperO.model.DTOS.FacultadDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.service.DecanaturaService;
@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.*;

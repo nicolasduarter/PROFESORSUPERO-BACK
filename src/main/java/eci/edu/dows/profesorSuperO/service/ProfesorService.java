@@ -63,7 +63,7 @@ public class ProfesorService {
      */
 
     //Completamente
-    public ProfesorDTO updateTeacher(EstudianteDTO dto){
+    public ProfesorDTO updateTeacher(ProfesorDTO dto){
         Usuario u = usuarioRepository.findById(dto.getId()).orElseThrow(()->new NotFoundException("Usuario no encontrado"));
 
         if(isProfesorBoolean(u)){

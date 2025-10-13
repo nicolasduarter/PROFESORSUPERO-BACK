@@ -20,6 +20,7 @@ import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudCommand;
 import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudFactory;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -101,8 +102,18 @@ public class DecanaturaService {
 
     public CalendarioAcademicoDTO createAcademicCalendar(CalendarioAcademicoDTO calendarioAcademicoDTO) {
         CalendarioAcademico c = calendarioAcademicoMapper.toClass(calendarioAcademicoDTO);
+        c.setActivo(true);
+        desactivarCalendarios();
         return calendarioAcademicoMapper.toDTO(calendarioRepository.save(c));
     }
+
+    @Transactional
+    protected void desactivarCalendarios(){
+        List<CalendarioAcademico> calendarios = calendarioRepository.findAll();
+        calendarios.stream().filter(CalendarioAcademico::isActivo)
+                .forEach(cale -> {cale.setActivo(false); calendarioRepository.save(cale);});
+    }
+
 
     public CalendarioAcademicoDTO updateFinalDay(String finalDay, String id) {
         LocalDate f = LocalDate.parse(finalDay);
@@ -116,7 +127,6 @@ public class DecanaturaService {
         LocalDate f = LocalDate.parse(startDay);
         CalendarioAcademico c = calendarioRepository.findById(id).orElseThrow(() -> new NotFoundException("Calendario no encontrado"));
         c.setStart(f);
-
         return  calendarioAcademicoMapper.toDTO(calendarioRepository.save(c));
     }
 

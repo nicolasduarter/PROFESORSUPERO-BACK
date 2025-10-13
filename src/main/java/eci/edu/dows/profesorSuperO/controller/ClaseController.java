@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/clases")
@@ -18,38 +19,53 @@ public class ClaseController {
         this.claseService = claseService;
     }
 
-    @PostMapping("/crear")
+    @PostMapping
     public ClaseDTO crearClase(@RequestBody ClaseDTO dto) {
         return claseService.crearClase(dto);
     }
 
-    @GetMapping("/clases/{id}")
+    @GetMapping("/{id}")
     public ClaseDTO buscarClasePorId(@PathVariable String id) {
         return claseService.buscarClasePorId(id);
     }
 
-
-    @PutMapping("/modificarHoraInicio")
-    public ClaseDTO modificarHoraInicio(@RequestParam String claseId,
-                                        @RequestParam String inicio) {
-        LocalTime horaInicio = LocalTime.parse(inicio);
-        return claseService.modificarHoraInicio(claseId, horaInicio);
+    @PutMapping("/{id}")
+    public ClaseDTO updateClass(@PathVariable String id, @RequestBody ClaseDTO dto) {
+        dto.setIdClase(id);
+        return claseService.updateClass(dto);
     }
 
-    @PutMapping("/modificarHoraFin")
-    public ClaseDTO modificarHoraFin(@RequestParam String claseId,
-                                     @RequestParam String fin) {
-        LocalTime horaFin = LocalTime.parse(fin);
-        return claseService.modificarHoraFin(claseId, horaFin);
+
+    @PatchMapping("/{id}/hora-inicio")
+    public ClaseDTO modificarHoraInicio(@PathVariable String id,
+                                        @RequestBody Map<String, String> body) {
+        LocalTime horaInicio = LocalTime.parse(body.get("horaInicio"));
+        return claseService.modificarHoraInicio(id, horaInicio);
     }
 
-    @PutMapping("/modificarSalon")
-    public ClaseDTO modificarSalonClase(@RequestParam String claseId,
-                                        @RequestParam String salon) {
-        return claseService.modificarSalonClase(claseId, salon);
+    @PatchMapping("/{id}/hora-fin")
+    public ClaseDTO modificarHoraFin(@PathVariable String id,
+                                     @RequestBody Map<String, String> body) {
+        LocalTime horaFin = LocalTime.parse(body.get("horaFin"));
+        return claseService.modificarHoraFin(id, horaFin);
     }
 
-    @DeleteMapping("/{id}/clase")
+    @PatchMapping("/{id}/salon")
+    public ClaseDTO modificarSalonClase(@PathVariable String id,
+                                        @RequestBody Map<String, String> body) {
+        String salon = body.get("salon");
+        return claseService.modificarSalonClase(id, salon);
+    }
+
+    @PatchMapping("/{id}/dia-semana")
+    public ClaseDTO updateDayOfWeekClase(@PathVariable String id,
+                                         @RequestBody Map<String, String> body) {
+        String diaSemana = body.get("diaSemana");
+        return claseService.updateDayOfWeekClase(id, diaSemana);
+    }
+
+
+    @DeleteMapping("/{id}")
     public void eliminarClase(@PathVariable String id) {
         claseService.eliminarClase(id);
     }
