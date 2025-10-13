@@ -1,6 +1,7 @@
 package eci.edu.dows.profesorSuperO.controller;
 
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.HistorialDecisionDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
@@ -50,6 +51,21 @@ public class SolicitudController {
     @GetMapping("/{id}")
     public ResponseEntity<SolicitudDTO> consultarSolicitudPorId(@PathVariable String id) {
         return  ResponseEntity.ok(solicitudService.consultarSolicitudPorId(id));
+    }
+
+    @GetMapping("/{id}/historial-decisiones")
+    public ResponseEntity<List<HistorialDecisionDTO>> consultarHistorialDecisiones(@PathVariable String id) {
+        return ResponseEntity.ok(solicitudService.consultarHistorialDecisiones(id));
+    }
+
+    @PutMapping("/{id}/estado")
+    public ResponseEntity<SolicitudDTO> actualizarEstadoSolicitud(
+            @PathVariable String id,
+            @RequestParam EstadoSolicitud nuevoEstado,
+            @RequestParam(required = false) String comentario,
+            @RequestParam String usuario) {
+
+        return ResponseEntity.ok(solicitudService.actualizarEstadoSolicitud(id, nuevoEstado, comentario, usuario));
     }
 
     @DeleteMapping("/{id}")

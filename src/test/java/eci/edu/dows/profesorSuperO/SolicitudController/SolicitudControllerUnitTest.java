@@ -1,9 +1,11 @@
 package eci.edu.dows.profesorSuperO.SolicitudController;
 
 import eci.edu.dows.profesorSuperO.controller.SolicitudController;
+import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.HistorialDecisionDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.service.SolicitudService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -83,6 +86,48 @@ class SolicitudControllerUnitTest {
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertSame(esperado, resp.getBody());
         verify(solicitudService).consultarSolicitudPorId(id);
+    }
+
+    @Test
+    public void testConsultarHistorialDecisiones() {
+        // Given
+        String solicitudId = "SOL-123";
+        List<HistorialDecisionDTO> historialMock = Arrays.asList(
+                new HistorialDecisionDTO("HIST-1", EstadoSolicitud.PENDIENTE, EstadoSolicitud.APROBADA,
+                        "Documentación completa", "profesor@eci.edu.co", LocalDateTime.now()),
+                new HistorialDecisionDTO("HIST-2", EstadoSolicitud.APROBADA, EstadoSolicitud.RECHAZADA,
+                        "Falta documentación", "decano@eci.edu.co", LocalDateTime.now())
+        );
+
+        when(solicitudService.consultarHistorialDecisiones(solicitudId)).thenReturn(historialMock);
+
+        ResponseEntity<List<HistorialDecisionDTO>> response = controller.consultarHistorialDecisiones(solicitudId);
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(2, response.getBody().size());
+        verify(solicitudService, times(1)).consultarHistorialDecisiones(solicitudId);
+    }
+
+    @Test
+    public void testActualizarEstadoSolicitudConHistorial() {
+        String solicitudId = "SOL-123";
+        EstadoSolicitud nuevoEstado = EstadoSolicitud.APROBADA;
+        String comentario = "Test de comentario";
+        String usuario = "test@eci.edu.co";
+
+        SolicitudDTO solicitudMock = new SolicitudDTO();
+        solicitudMock.setId(solicitudId);
+        solicitudMock.setEstado("APROBADA");
+
+        when(solicitudService.actualizarEstadoSolicitud(solicitudId, nuevoEstado, comentario, usuario))
+                .thenReturn(solicitudMock);
+
+        ResponseEntity<SolicitudDTO> response = controller.actualizarEstadoSolicitud(
+                solicitudId, nuevoEstado, comentario, usuario);
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals("APROBADA", response.getBody().getEstado());
+        verify(solicitudService, times(1)).actualizarEstadoSolicitud(solicitudId, nuevoEstado, comentario, usuario);
     }
 
     @Test
