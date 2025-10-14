@@ -1,6 +1,11 @@
 package eci.edu.dows.profesorSuperO.controller;
 
 import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
+import eci.edu.dows.profesorSuperO.model.Estudiante;
+import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
+import eci.edu.dows.profesorSuperO.repository.GrupoRepository;
+import eci.edu.dows.profesorSuperO.service.GrupoService;
+import eci.edu.dows.profesorSuperO.service.MateriaEstudianteService;
 import eci.edu.dows.profesorSuperO.service.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +19,8 @@ public class MateriaController {
 
     @Autowired
     private MateriaService materiaService;
+    @Autowired
+    private MateriaEstudianteService materiaEstudianteService;
 
     @PostMapping("/crear")
     public ResponseEntity<MateriaDTO> crearMateria(@RequestBody MateriaDTO materiaDTO) {
@@ -79,6 +86,13 @@ public class MateriaController {
                                                            @RequestBody MateriaDTO prerequisito) {
         MateriaDTO actualizada = materiaService.eliminarPrerequisito(id, prerequisito);
         return ResponseEntity.ok(actualizada);
+    }
+
+    @PostMapping("/estudiantes/{estudianteId}/materias/{materiaId}")
+    public ResponseEntity<String> asignarMateria(@PathVariable String estudianteId,
+                                                 @PathVariable String materiaId) {
+        materiaEstudianteService.asignarMateriaYGrupo(estudianteId, materiaId);
+        return ResponseEntity.ok("Materia y grupo asignados exitosamente");
     }
 }
 

@@ -1,10 +1,11 @@
 package eci.edu.dows.profesorSuperO.service;
 
+import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoMateria;
-import eci.edu.dows.profesorSuperO.model.Estudiante;
-import eci.edu.dows.profesorSuperO.model.Materia;
-import eci.edu.dows.profesorSuperO.model.MateriaEstudiante;
+import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
+import eci.edu.dows.profesorSuperO.repository.GrupoRepository;
 import eci.edu.dows.profesorSuperO.repository.MateriaEstudianteRepository;
+import eci.edu.dows.profesorSuperO.repository.MateriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,15 @@ import java.util.Optional;
 
 @Service
 public class MateriaEstudianteService {
+    @Autowired
+    private EstudianteRepository estudianteRepository;
+    @Autowired
+    private MateriaRepository materiaRepository;
+    @Autowired
+    private GrupoRepository grupoRepository;
+    @Autowired
+    private GrupoService grupoService;
+
     private final MateriaEstudianteRepository materiaEstudianteRepository;
 
     @Autowired
@@ -77,6 +87,24 @@ public class MateriaEstudianteService {
         return materiaEstudianteRepository.findByEstudiante_Id(idEstudiante);
     }
 
+    public MateriaEstudiante asignarMateriaYGrupo(String idEstudiante, String idMateria) {
+        Estudiante estudiante = estudianteRepository.findById(idEstudiante)
+                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado."));
+
+        Materia materia = materiaRepository.findById(idMateria)
+                .orElseThrow(() -> new RuntimeException("Materia no encontrada."));
+
+        Grupo grupoDisponible = grupoRepository.findAll().stream()
+                .filter(g -> g.getMateria() != null &&
+                        g.getMateria().getId().equals(idMateria) &&
+                        g.getCupo() > 0)
+                .findAny().orElseThrow(() -> new RuntimeException("No hay grupos disponibles para esta materia."));
+
+        MateriaEstudiante materiaEstudiante = crearInscripcionMateria(estudiante, materia);
+        grupoService.agregarEstudianteAGrupo(grupoDisponible.getIdGrupo(), idEstudiante);
+
+        return materiaEstudiante;
+    }
 
 
 }

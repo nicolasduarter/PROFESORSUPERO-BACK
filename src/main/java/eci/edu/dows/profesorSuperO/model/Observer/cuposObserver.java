@@ -19,5 +19,4 @@ public class cuposObserver implements GruposObserver {
         mensajes.add(respuesta);
         System.out.println(respuesta);
     }
-
 }
