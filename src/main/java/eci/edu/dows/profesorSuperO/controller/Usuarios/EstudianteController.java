@@ -1,4 +1,4 @@
-package eci.edu.dows.profesorSuperO.controller;
+package eci.edu.dows.profesorSuperO.controller.Usuarios;
 
 import eci.edu.dows.profesorSuperO.model.DTOS.HorarioDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SemaforoDTO;
@@ -123,9 +123,29 @@ public class EstudianteController {
         return ResponseEntity.ok(consultasService.consultarSemaforoEstudiante(idEstudiante));
     }
 
+
+
+    /**
+     * Solicitudes
+     */
+
+    @PostMapping("/solicitudes/cambio-materia")
+    public ResponseEntity<SolicitudCambioMateriaDTO> crearSolicitudCambioMateria(@Valid @RequestBody SolicitudCambioMateriaDTO dto) {
+
+        return ResponseEntity.ok(solicitudService.crearSolicitudCambioMateria(dto));
+    }
+
+
+
+    @PostMapping("/solicitudes/cambio-grupo")
+    public ResponseEntity<SolicitudCambioGrupoDTO> crearSolicitudCambioGrupo(@Valid @RequestBody SolicitudCambioGrupoDTO dto) {
+        return ResponseEntity.ok(solicitudService.crearSolicitudCambioGrupo(dto));
+    }
+
+
     @GetMapping("/{idEstudiante}/solicitudes/{idSolicitud}/estado")
     public ResponseEntity<SolicitudDTO> getRequestStatus(@PathVariable String idEstudiante,
-            @PathVariable String idSolicitud) {
+                                                         @PathVariable String idSolicitud) {
         return ResponseEntity.ok(consultasService.consultarSolicitudPorEstudiante(idEstudiante,idSolicitud));
 
     }
@@ -134,25 +154,5 @@ public class EstudianteController {
     public ResponseEntity<List<SolicitudDTO>> getRequestHistory(@PathVariable String idEstudiante) {
         return ResponseEntity.ok(consultasService.consultarSolicitudesEstudiante(idEstudiante));
     }
-
-    /**
-     * Solicitudes
-     */
-
-
-    @PostMapping("/solicitudes/cambio-materia")
-    public ResponseEntity<SolicitudCambioMateriaDTO> crearSolicitudCambioMateria(@Valid @RequestBody SolicitudCambioMateriaDTO dto) {
-
-        return ResponseEntity.ok(solicitudService.crearSolicitudCambioMateria(dto));
-    }
-
-    @PostMapping("/solicitudes/cambio-grupo")
-    public ResponseEntity<SolicitudCambioGrupoDTO> crearSolicitudCambioGrupo(@Valid @RequestBody SolicitudCambioGrupoDTO dto) {
-        return ResponseEntity.ok(solicitudService.crearSolicitudCambioGrupo(dto));
-    }
-
-
-
-
 
 }

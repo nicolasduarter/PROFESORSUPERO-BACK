@@ -184,11 +184,18 @@ public class GrupoService {
     }
 
 
-    public GrupoDTO deleteStudentOfGroup(String grupoId,String studentId){
+
+
+    public GrupoDTO deleteStudentOfGroup(String grupoId, String estudianteId) {
         Grupo grupo = grupoRepository.findById(grupoId)
                 .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
-        grupo.getEstudiantes().removeIf(estudiante -> estudiante.getId().equals(studentId));
+        Estudiante estudiante = estudianteRepository.findById(estudianteId)
+                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
 
-        return   grupoMapper.toDTO(grupoRepository.save(grupo));
+        grupo.getEstudiantes().remove(estudiante);
+        grupo.setCupo(grupo.getCupo() + 1);
+
+        Grupo grupoActualizado = grupoRepository.save(grupo);
+        return grupoMapper.toDTO(grupoActualizado);
     }
 }

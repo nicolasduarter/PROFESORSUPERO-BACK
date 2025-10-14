@@ -118,7 +118,7 @@ public class DecanoService {
     }
 
     //By Faculty
-    public DecanaturaDTO updateStudentByFaculty(String id, String idFaculty){
+    public DecanaturaDTO updateDeanByFaculty(String id, String idFaculty){
         Usuario u = usuarioRepository.findById(id).orElseThrow(()->new NotFoundException("Usuario no encontrado"));
         if(isDeanBoolean(u)){
             Decanatura decano = (Decanatura) u;
@@ -133,7 +133,7 @@ public class DecanoService {
 
 
     //By full name
-    public DecanaturaDTO updateStudentByFullName(String id, String name){
+    public DecanaturaDTO updateDeanByFullName(String id, String name){
         Usuario u = usuarioRepository.findById(id).orElseThrow(()->new NotFoundException("Usuario no encontrado"));
         if(isDeanBoolean(u)){
             Decanatura decano = (Decanatura) u;
@@ -147,7 +147,7 @@ public class DecanoService {
      * Delete
      */
 
-    public void deleteStudent(String id) {
+    public void deleteDean(String id) {
         usuarioRepository.deleteById(id);
     }
 
