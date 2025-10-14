@@ -62,30 +62,63 @@ public class GrupoService {
         Estudiante estudiante = estudianteRepository.findById(estudianteId)
                 .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
 
-        if (grupo.getCupo() <= 0) {
-            throw new RuntimeException("El grupo ya está lleno");
+        if (grupo.getEstudiantes().contains(estudiante)) {
+            throw new RuntimeException("El estudiante ya está en el grupo");
+        }
+        if (grupo.getListaEspera().contains(estudiante)) {
+            throw new RuntimeException("El estudiante ya está en la lista de espera");
         }
 
-        grupo.getEstudiantes().add(estudiante);
-        grupo.setCupo(grupo.getCupo() - 1);
+        if (grupo.getCupo() > 0) {
+            grupo.getEstudiantes().add(estudiante);
+            grupo.setCupo(grupo.getCupo() - 1);
+        } else {
+            grupo.getListaEspera().add(estudiante);
+        }
 
         for (GruposObserver observador : grupo.getObservadores()) {
             observador.notificar(grupo);
         }
-
         Grupo grupoActualizado = grupoRepository.save(grupo);
         return grupoMapper.toDTO(grupoActualizado);
+    }
+
+    public List<Estudiante> consultarListaEspera(String grupoId) {
+        Grupo grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
+
+        return grupo.getListaEspera();
     }
 
     public GrupoDTO eliminarEstudianteAGrupo(String grupoId, String estudianteId) {
         Grupo grupo = grupoRepository.findById(grupoId)
                 .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
-        Estudiante estudiante = estudianteRepository.findById(estudianteId)
-                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
-
-        grupo.getEstudiantes().remove(estudiante);
+        boolean estudianteRemovido = grupo.getEstudiantes().removeIf(est -> est.getId().equals(estudianteId));
+        if (!estudianteRemovido) {
+            throw new RuntimeException("Estudiante no encontrado en el grupo");
+        }
         grupo.setCupo(grupo.getCupo() + 1);
+        if (!grupo.getListaEspera().isEmpty()) {
+            Estudiante primerEnEspera = grupo.getListaEspera().remove(0);
+            grupo.getEstudiantes().add(primerEnEspera);
+            grupo.setCupo(grupo.getCupo() - 1);
+        }
 
+        for (GruposObserver observador : grupo.getObservadores()) {
+            observador.notificar(grupo);
+        }
+        Grupo grupoActualizado = grupoRepository.save(grupo);
+        return grupoMapper.toDTO(grupoActualizado);
+    }
+
+    public GrupoDTO eliminarDeListaEspera(String grupoId, String estudianteId) {
+        Grupo grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
+        boolean removido = grupo.getListaEspera().removeIf(estudiante ->
+                estudiante.getId().equals(estudianteId));
+        if (!removido) {
+            throw new RuntimeException("Estudiante no encontrado en lista de espera");
+        }
         Grupo grupoActualizado = grupoRepository.save(grupo);
         return grupoMapper.toDTO(grupoActualizado);
     }
