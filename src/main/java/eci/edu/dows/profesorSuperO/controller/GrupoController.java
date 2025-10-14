@@ -84,6 +84,16 @@ public class GrupoController {
         return ResponseEntity.ok(grupoActualizado);
     }
 
+    @GetMapping("/{grupoId}/lista-espera")
+    public ResponseEntity<List<Estudiante>> consultarListaEspera(@PathVariable String grupoId) {
+        return ResponseEntity.ok(grupoService.consultarListaEspera(grupoId));
+    }
+
+    @DeleteMapping("/{grupoId}/lista-espera/{estudianteId}")
+    public ResponseEntity<GrupoDTO> eliminarDeListaEspera(@PathVariable String grupoId,
+                                                          @PathVariable String estudianteId) {
+        return ResponseEntity.ok(grupoService.eliminarDeListaEspera(grupoId, estudianteId));
+    }
 
     @PatchMapping("/{grupoID}/cupo/{cupos}")
     public ResponseEntity<GrupoDTO> modificarCuposMax(@PathVariable String grupoID,  @PathVariable int cupos){

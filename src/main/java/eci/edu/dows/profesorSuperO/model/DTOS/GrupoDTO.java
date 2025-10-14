@@ -24,6 +24,7 @@ public class GrupoDTO {
     private int cuposMax;
     private List<ClaseDTO> clases;
     private ArrayList<EstudianteDTO> estudiantes;
+    private ArrayList<EstudianteDTO> listaEspera;
 
 
 }
