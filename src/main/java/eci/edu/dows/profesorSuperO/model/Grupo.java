@@ -24,6 +24,8 @@ public class Grupo {
     private int cupo;
     @DBRef
     private ArrayList<Estudiante> estudiantes;
+    @DBRef
+    private ArrayList<Estudiante> listaEspera;
     private ArrayList<Clase> clases;
     @Transient
     private ArrayList<GruposObserver> observadores;
@@ -40,6 +42,7 @@ public class Grupo {
         this.profesor = profesor;
         this.cupo = cupo;
         this.estudiantes = new ArrayList<>();
+        this.listaEspera = new ArrayList<>();
         this.clases = new ArrayList<>();
         this.observadores = new ArrayList<>();
         this.materia = materia;

@@ -4,7 +4,6 @@ package eci.edu.dows.profesorSuperO.service;
 import eci.edu.dows.profesorSuperO.Util.EstudianteMapper;
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
-import eci.edu.dows.profesorSuperO.model.Enums.Facultades;
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
 import eci.edu.dows.profesorSuperO.model.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Facultad;
@@ -37,7 +36,7 @@ public class EstudianteService {
      *Create
     */
 
-    public EstudianteDTO crearEstudiante(EstudianteDTO dto) {
+    public EstudianteDTO createStudent(EstudianteDTO dto) {
         Estudiante estudiante = estudianteMapper.toEstudiante(dto);
 
         return estudianteMapper.toDTO(estudianteRepository.save(estudiante));
@@ -68,15 +67,11 @@ public class EstudianteService {
     }
 
     //By Faculty
-    public List<EstudianteDTO> getStudentByFaculty(String faculty){
-        Facultades facultades;
-        try{
-            facultades = Facultades.valueOf(faculty.toUpperCase());
-        }catch(Exception e){
-            throw new NotFoundException("Facultad no encontrada");
-        }
+    public List<EstudianteDTO> getStudentByFaculty(String idFaculty){
+        Facultad f = facultadRepository.findById(idFaculty)
+                .orElseThrow(() -> new NotFoundException("Facultad no encontrada"));
 
-        List<Estudiante> listaCompleta = estudianteRepository.findByFacultadFacultadName(facultades);
+        List<Estudiante> listaCompleta = estudianteRepository.findByFacultadFacultadName(f.getFacultadName());
 
         return listaCompleta.stream().map(estudianteMapper::toDTO).collect(Collectors.toList());
     }

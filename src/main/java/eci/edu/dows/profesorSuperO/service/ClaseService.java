@@ -8,7 +8,9 @@ import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.List;
 
 @Service
 public class ClaseService {
@@ -62,6 +64,39 @@ public class ClaseService {
         Clase claseActualizada = claseRepository.save(clase);
         return claseMapper.toDTO(claseActualizada);
     }
+
+    public ClaseDTO updateDayOfWeekClase(String claseId, String dayOfWeek) {
+        DayOfWeek d = DayOfWeek.valueOf(dayOfWeek);
+        Clase clase = claseRepository.findById(claseId)
+                .orElseThrow(() -> new RuntimeException("Clase no encontrada"));
+        clase.setDiaSemana(d);
+        Clase claseActualizada = claseRepository.save(clase);
+        return claseMapper.toDTO(claseActualizada);
+    }
+
+
+
+    public ClaseDTO updateClass(ClaseDTO dto) {
+        Clase clase = claseRepository.findById(dto.getIdClase())
+                .orElseThrow(() -> new RuntimeException("Clase no encontrada"));
+        clase.setSalon(dto.getSalon());
+        clase.setHoraInicio(dto.getHoraInicio());
+        clase.setHoraFin(dto.getHoraFin());
+        clase.setDiaSemana(dto.getDiaSemana());
+        Clase claseActualizada = claseRepository.save(clase);
+        return claseMapper.toDTO(claseActualizada);
+    }
+
+
+    public void deleteClassByDay( String day) {
+        DayOfWeek d = DayOfWeek.valueOf(day);
+        List<Clase> clase = claseRepository.findByDiaSemana(d);
+
+        claseRepository.deleteAll(clase);
+
+    }
+
+
 
     public void eliminarClase(String claseId) {
         Clase clase = claseRepository.findById(claseId)

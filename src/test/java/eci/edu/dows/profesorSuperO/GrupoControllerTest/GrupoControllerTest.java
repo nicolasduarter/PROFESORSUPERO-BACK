@@ -3,6 +3,7 @@ package eci.edu.dows.profesorSuperO.GrupoControllerTest;
 import eci.edu.dows.profesorSuperO.controller.GrupoController;
 import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.Estudiante;
 import eci.edu.dows.profesorSuperO.service.GrupoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -64,7 +65,7 @@ class GrupoControllerUnitTest {
         GrupoDTO esperado = mock(GrupoDTO.class);
         when(grupoService.modificarCuposGrupo(grupoId, cupo)).thenReturn(esperado);
 
-        ResponseEntity<GrupoDTO> respuesta = controller.modificarCuposGrupo(grupoId, cupo);
+        ResponseEntity<GrupoDTO> respuesta = controller.modificarCuposMax(grupoId, cupo);
 
         assertEquals(HttpStatus.OK, respuesta.getStatusCode());
         assertSame(esperado, respuesta.getBody());
@@ -85,19 +86,19 @@ class GrupoControllerUnitTest {
         verify(grupoService).agregarEstudianteAGrupo(grupoId, estudianteId);
     }
 
-    @Test
-    void eliminarEstudianteAGrupo_devuelveOkYBody() {
-        String grupoId = "g1";
-        String estudianteId = "e2";
-        GrupoDTO esperado = mock(GrupoDTO.class);
-        when(grupoService.eliminarEstudianteAGrupo(grupoId, estudianteId)).thenReturn(esperado);
-
-        ResponseEntity<GrupoDTO> respuesta = controller.eliminarEstudianteAGrupo(estudianteId, grupoId);
-
-        assertEquals(HttpStatus.OK, respuesta.getStatusCode());
-        assertSame(esperado, respuesta.getBody());
-        verify(grupoService).eliminarEstudianteAGrupo(grupoId, estudianteId);
-    }
+//    @Test
+//    void eliminarEstudianteAGrupo_devuelveOkYBody() {
+//        String grupoId = "g1";
+//        String estudianteId = "e2";
+//        GrupoDTO esperado = mock(GrupoDTO.class);
+//        when(grupoService.eliminarEstudianteAGrupo(grupoId, estudianteId)).thenReturn(esperado);
+//
+//        ResponseEntity<GrupoDTO> respuesta = controller.eliminarEstudianteAGrupo(estudianteId, grupoId);
+//
+//        assertEquals(HttpStatus.OK, respuesta.getStatusCode());
+//        assertSame(esperado, respuesta.getBody());
+//        verify(grupoService).eliminarEstudianteAGrupo(grupoId, estudianteId);
+//    }
 
     @Test
     void agregarProfesorAGrupo_devuelveOkYBody() {
@@ -119,7 +120,7 @@ class GrupoControllerUnitTest {
         GrupoDTO esperado = mock(GrupoDTO.class);
         when(grupoService.eliminarProfesorAGrupo(grupoId)).thenReturn(esperado);
 
-        ResponseEntity<GrupoDTO> respuesta = controller.eliminarProfesorAGrupo(grupoId);
+        ResponseEntity<GrupoDTO> respuesta = controller.eliminarProfesorDeGrupo(grupoId);
 
         assertEquals(HttpStatus.OK, respuesta.getStatusCode());
         assertSame(esperado, respuesta.getBody());
@@ -146,10 +147,82 @@ class GrupoControllerUnitTest {
         GrupoDTO esperado = mock(GrupoDTO.class);
         when(grupoService.eliminarClasesAGrupo(grupoId)).thenReturn(esperado);
 
-        ResponseEntity<GrupoDTO> respuesta = controller.eliiminarClasesAGrupo(grupoId);
+        ResponseEntity<GrupoDTO> respuesta = controller.eliminarClasesDeGrupo(grupoId);
 
         assertEquals(HttpStatus.OK, respuesta.getStatusCode());
         assertSame(esperado, respuesta.getBody());
         verify(grupoService).eliminarClasesAGrupo(grupoId);
+    }
+
+    // ✅ AGREGAR ESTOS TESTS NUEVOS a tu clase existente:
+
+    @Test
+    void consultarListaEspera_devuelveListaEstudiantes() {
+        // Arrange
+        String grupoId = "grupo-123";
+        List<Estudiante> listaEsperaMock = Arrays.asList(
+                mock(Estudiante.class),
+                mock(Estudiante.class)
+        );
+        when(grupoService.consultarListaEspera(grupoId)).thenReturn(listaEsperaMock);
+
+        // Act
+        ResponseEntity<List<Estudiante>> respuesta = controller.consultarListaEspera(grupoId);
+
+        // Assert
+        assertEquals(HttpStatus.OK, respuesta.getStatusCode());
+        assertSame(listaEsperaMock, respuesta.getBody());
+        verify(grupoService).consultarListaEspera(grupoId);
+    }
+
+    @Test
+    void eliminarDeListaEspera_devuelveOkYBody() {
+        // Arrange
+        String grupoId = "grupo-123";
+        String estudianteId = "estudiante-456";
+        GrupoDTO esperado = mock(GrupoDTO.class);
+        when(grupoService.eliminarDeListaEspera(grupoId, estudianteId)).thenReturn(esperado);
+
+        // Act
+        ResponseEntity<GrupoDTO> respuesta = controller.eliminarDeListaEspera(grupoId, estudianteId);
+
+        // Assert
+        assertEquals(HttpStatus.OK, respuesta.getStatusCode());
+        assertSame(esperado, respuesta.getBody());
+        verify(grupoService).eliminarDeListaEspera(grupoId, estudianteId);
+    }
+
+    @Test
+    void agregarEstudianteAGrupo_conListaEspera_llamaServicioCorrectamente() {
+        // Arrange
+        String grupoId = "grupo-123";
+        String estudianteId = "estudiante-456";
+        GrupoDTO esperado = mock(GrupoDTO.class);
+        when(grupoService.agregarEstudianteAGrupo(grupoId, estudianteId)).thenReturn(esperado);
+
+        // Act
+        ResponseEntity<GrupoDTO> respuesta = controller.agregarEstudianteAGrupo(grupoId, estudianteId);
+
+        // Assert
+        assertEquals(HttpStatus.OK, respuesta.getStatusCode());
+        assertSame(esperado, respuesta.getBody());
+        verify(grupoService).agregarEstudianteAGrupo(grupoId, estudianteId);
+    }
+
+    @Test
+    void eliminarEstudianteAGrupo_conPromocionAutomatica_llamaServicioCorrectamente() {
+        // Arrange
+        String grupoId = "grupo-123";
+        String estudianteId = "estudiante-456";
+        GrupoDTO esperado = mock(GrupoDTO.class);
+        when(grupoService.eliminarEstudianteAGrupo(grupoId, estudianteId)).thenReturn(esperado);
+
+        // Act
+        ResponseEntity<GrupoDTO> respuesta = controller.eliminarEstudianteAGrupo(estudianteId, grupoId);
+
+        // Assert
+        assertEquals(HttpStatus.OK, respuesta.getStatusCode());
+        assertSame(esperado, respuesta.getBody());
+        verify(grupoService).eliminarEstudianteAGrupo(grupoId, estudianteId);
     }
 }

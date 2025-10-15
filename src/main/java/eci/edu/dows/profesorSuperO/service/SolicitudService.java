@@ -5,6 +5,7 @@ import eci.edu.dows.profesorSuperO.Util.SolicitudCambioGrupoMapper;
 import eci.edu.dows.profesorSuperO.Util.SolicitudCambioMateriaMapper;
 import eci.edu.dows.profesorSuperO.Util.SolicitudMapper;
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.HistorialDecisionDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
@@ -28,6 +29,7 @@ public class SolicitudService {
     private final SolicitudRepository solicitudRepository;
     private final DecanaturaRepository decanaturaRepository;
     private final EstudianteRepository estudianteRepository;
+    private final HistorialDecisionRepository historialDecisionRepository;
     private final Validator validator;
     private CalendarioRepository calendarioRepository;
     private MateriaRepository materiaRepository;
@@ -40,7 +42,9 @@ public class SolicitudService {
                             DecanaturaRepository decanaturaRepository,
                             EstudianteRepository estudianteRepository,
                             Validator validator,SolicitudCambioGrupoMapper solicitudCambioGrupoMapper,
-                            SolicitudCambioMateriaMapper solicitudCambioMateriaMapper,SolicitudMapper solicitudMapper) {
+                            SolicitudCambioMateriaMapper solicitudCambioMateriaMapper,
+                            SolicitudMapper solicitudMapper,
+                            HistorialDecisionRepository historialDecisionRepository) {
         this.solicitudRepository = solicitudRepository;
         this.decanaturaRepository = decanaturaRepository;
         this.estudianteRepository = estudianteRepository;
@@ -48,6 +52,7 @@ public class SolicitudService {
         this.SolicitudCambioGrupoMapper = solicitudCambioGrupoMapper;
         this.solicitudCambioMateriaMapper = solicitudCambioMateriaMapper;
         this.solicitudMapper = solicitudMapper;
+        this.historialDecisionRepository = historialDecisionRepository;
     }
 
     public SolicitudCambioGrupoDTO crearSolicitudCambioGrupo(SolicitudCambioGrupoDTO dto) {
@@ -110,15 +115,44 @@ public class SolicitudService {
         return solicitudMapper.toDTO(s);
     }
 
-    public SolicitudDTO actualizarEstadoSolicitud(String id, EstadoSolicitud nuevoEstado) {
+    public List<HistorialDecisionDTO> consultarHistorialDecisiones(String solicitudId) {
+        List<HistorialDecision> historial = historialDecisionRepository
+                .findBySolicitudIdOrderByFechaDecisionDesc(solicitudId);
+
+        return historial.stream()
+                .map(this::convertirHistorialADTO)
+                .collect(Collectors.toList());
+    }
+
+
+    public SolicitudDTO actualizarEstadoSolicitud(String id, EstadoSolicitud nuevoEstado, String comentario, String usuario) {
         Solicitud solicitud = solicitudRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));
 
+        EstadoSolicitud estadoAnterior = solicitud.getEstado();
+        if (!estadoAnterior.equals(nuevoEstado)) {
+            registrarDecisionEnHistorial(solicitud, estadoAnterior, nuevoEstado, comentario, usuario);
+        }
         solicitud.setEstado(nuevoEstado);
-
         return solicitudMapper.toDTO(solicitudRepository.save(solicitud));
     }
 
+    private void registrarDecisionEnHistorial(Solicitud solicitud, EstadoSolicitud estadoAnterior,
+                                              EstadoSolicitud estadoNuevo, String comentario, String usuario) {
+        HistorialDecision decision = new HistorialDecision(solicitud, estadoAnterior, estadoNuevo, comentario, usuario);
+        historialDecisionRepository.save(decision);
+    }
+
+    private HistorialDecisionDTO convertirHistorialADTO(HistorialDecision historial) {
+        return new HistorialDecisionDTO(
+                historial.getId(),
+                historial.getEstadoAnterior(),
+                historial.getEstadoNuevo(),
+                historial.getComentario(),
+                historial.getUsuario(),
+                historial.getFechaDecision()
+        );
+    }
 
     public void eliminarSolicitud(String id) {
         Solicitud solicitud = solicitudRepository.findById(id)

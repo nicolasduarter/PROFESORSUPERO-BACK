@@ -1,10 +1,13 @@
 package eci.edu.dows.profesorSuperO.model;
 
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-
+@Getter
+@Setter
 @Document("Decanatura")
 public class Decanatura extends Usuario {
 

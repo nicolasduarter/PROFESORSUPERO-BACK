@@ -20,5 +20,5 @@ public class CalendarioAcademico{
     private String id;
     private LocalDate start;
     private LocalDate end;
-
+    private boolean activo;
 }

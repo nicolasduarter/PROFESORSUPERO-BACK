@@ -44,7 +44,7 @@ public class AutenticacionService {
     }
 
     public UsuarioRegistroSalidaDTO registrarUsuario(UsuarioRegistroDTO usuarioRegistroDTO) {
-        if (credencialRepository.findByUsuario(usuarioRegistroDTO.getUsuario()).isPresent()) {
+        if (credencialRepository.findByUsuario(usuarioRegistroDTO.getFullName()).isPresent()) {
             throw new RuntimeException("Ya existe una cuenta con ese fullName");
         }
 

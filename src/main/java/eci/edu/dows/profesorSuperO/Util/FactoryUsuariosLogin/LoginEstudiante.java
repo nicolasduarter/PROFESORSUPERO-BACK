@@ -50,12 +50,12 @@ public class LoginEstudiante  implements LoginUsuario {
         estudiante = estudianteRepository.save(estudiante);
 
         Credencial cred = new Credencial();
-        cred.setUsuario(usuarioRegistroDTO.getUsuario());
+        cred.setUsuario(usuarioRegistroDTO.getFullName());
         cred.setConstra(usuarioRegistroDTO.getContra());
         cred.setUsuarioId(estudiante.getId());
 
         UsuarioRegistroSalidaDTO salida  = new UsuarioRegistroSalidaDTO();
-        salida.setUsuario(usuarioRegistroDTO.getUsuario());
+        salida.setUsuario(usuarioRegistroDTO.getFullName());
         salida.setId(estudiante.getId());
         salida.setRol(estudiante.getPermiso().toString());
 
