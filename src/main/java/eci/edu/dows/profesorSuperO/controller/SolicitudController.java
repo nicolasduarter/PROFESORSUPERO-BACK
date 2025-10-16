@@ -47,6 +47,13 @@ public class SolicitudController {
         return  ResponseEntity.ok(solicitudService.consultarSolicitudes());
     }
 
+    /*
+    @GetMapping
+    public ResponseEntity<List<SolicitudDTO>> consultarSolicitudesExcepcionales(){
+        return ResponseEntity.ok(solicitudService.consultarSolicitudes()); -> Falta añadir el 'filtro' para las solicitudes únicamente excepcionales.
+    }
+    */
+
     @GetMapping("/{id}")
     public ResponseEntity<SolicitudDTO> consultarSolicitudPorId(@PathVariable String id) {
         return  ResponseEntity.ok(solicitudService.consultarSolicitudPorId(id));
