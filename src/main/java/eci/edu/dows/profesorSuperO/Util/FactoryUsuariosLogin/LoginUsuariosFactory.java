@@ -18,7 +18,7 @@ public class LoginUsuariosFactory {
                         e -> {
                             if (e instanceof LoginEstudiante) return Permisos.ESTUDIANTE.toString();
                             if (e instanceof LoginDecanatura) return Permisos.DECANATURA.toString();
-                            if (e instanceof LoginAdministrador) return Permisos.ADMINNISTRADOR.toString();
+                            if (e instanceof LoginAdministrador) return Permisos.ADMINISTRATOR.toString();
                             throw new RuntimeException("Tipo no encontrado");
                         },
                         e -> e

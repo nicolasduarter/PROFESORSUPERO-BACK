@@ -1,7 +1,8 @@
 package eci.edu.dows.profesorSuperO.model.Enums;
 
 public enum Permisos {
-    ADMINNISTRADOR,
+    ADMINISTRATOR,
     ESTUDIANTE,
-    DECANATURA
+    DECANATURA,
+    PROFESOR,
 }

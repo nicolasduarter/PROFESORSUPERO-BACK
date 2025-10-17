@@ -9,4 +9,7 @@ public interface UsuarioRepository extends MongoRepository<Usuario, String> {
     Optional<Usuario> findByCorreo(String correo);
     Optional<Usuario> findByFullName(String fullName);
     Optional<Usuario> findByPermiso(Permisos permiso);
+
+    long countByPermiso(Permisos permiso);
+
 }
