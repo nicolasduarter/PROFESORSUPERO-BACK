@@ -184,6 +184,11 @@ public class GrupoService {
     }
 
 
+    public GrupoDTO getActualCapacity(String grupoId) {
+        Grupo grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
+        return  grupoMapper.toDTO(grupo);
+    }
 
 
     public GrupoDTO deleteStudentOfGroup(String grupoId, String estudianteId) {
@@ -198,4 +203,6 @@ public class GrupoService {
         Grupo grupoActualizado = grupoRepository.save(grupo);
         return grupoMapper.toDTO(grupoActualizado);
     }
+
+
 }
