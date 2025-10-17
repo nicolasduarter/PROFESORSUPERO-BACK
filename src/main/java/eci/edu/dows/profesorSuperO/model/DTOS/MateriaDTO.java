@@ -13,6 +13,5 @@ import java.util.List;
 public class MateriaDTO {
     private String id;
     private String nombre;
-    private Boolean estado;
     private int  creditos;
 }
