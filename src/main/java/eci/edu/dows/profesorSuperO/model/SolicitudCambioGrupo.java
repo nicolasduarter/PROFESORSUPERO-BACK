@@ -27,6 +27,4 @@ public class SolicitudCambioGrupo extends Solicitud {
         this.tipoSolicitud = TipoSolicitud.CAMBIO_GRUPO;
 
     }
-
-
 }
