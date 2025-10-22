@@ -1,7 +1,7 @@
 package eci.edu.dows.profesorSuperO.Util.FactoryUsuariosLogin;
 
 
-import eci.edu.dows.profesorSuperO.Util.EstudianteMapper;
+import eci.edu.dows.profesorSuperO.Util.Mappers.EstudianteMapper;
 import eci.edu.dows.profesorSuperO.model.Credencial;
 import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioLoginDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioRegistroDTO;

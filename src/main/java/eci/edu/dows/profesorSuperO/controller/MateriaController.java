@@ -1,7 +1,7 @@
 package eci.edu.dows.profesorSuperO.controller;
 
 import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
-import eci.edu.dows.profesorSuperO.service.MateriaService;
+import eci.edu.dows.profesorSuperO.service.Interfaces.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +12,13 @@ import java.util.List;
 @RequestMapping("/materias")
 public class MateriaController {
 
+    private final MateriaService materiaService;
     @Autowired
-    private MateriaService materiaService;
+    public MateriaController(MateriaService materiaService) {
+        this.materiaService = materiaService;
+    }
+
+
 
     @PostMapping("/crear")
     public ResponseEntity<MateriaDTO> crearMateria(@RequestBody MateriaDTO materiaDTO) {

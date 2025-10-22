@@ -1,13 +1,13 @@
 package eci.edu.dows.profesorSuperO.controller;
 
-import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.HistorialDecisionDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
-import eci.edu.dows.profesorSuperO.service.SolicitudService;
+import eci.edu.dows.profesorSuperO.service.Interfaces.SolicitudService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +29,7 @@ public class SolicitudController {
 
     private final SolicitudService solicitudService;
 
+    @Autowired
     public SolicitudController(SolicitudService solicitudService) {
         this.solicitudService = solicitudService;
     }
@@ -73,9 +74,10 @@ public class SolicitudController {
         solicitudService.eliminarSolicitud(id);
     }
 
-    @PatchMapping("/{solicitudId}/respuesta")
-    public ResponseEntity<SolicitudDTO> responderInformacionAdicional(@PathVariable String solicitudId, @RequestBody String texto) {
-        return ResponseEntity.ok(solicitudService.responderInformacionAdicional(solicitudId, texto));
+
+    @PatchMapping("/{solicitudId}/informacion-adicional")
+    public ResponseEntity<SolicitudDTO> uptadeRequestInfoAdditional(@PathVariable String solicitudId, @RequestBody String texto) {
+        return ResponseEntity.ok(solicitudService.agregarInformacionAdicional(solicitudId, texto));
     }
 
 }

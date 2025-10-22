@@ -3,7 +3,7 @@ package eci.edu.dows.profesorSuperO.ClaseControllerTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eci.edu.dows.profesorSuperO.controller.ClaseController;
 import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
-import eci.edu.dows.profesorSuperO.service.ClaseService;
+import eci.edu.dows.profesorSuperO.service.Implementaciones.ClaseServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -27,7 +27,7 @@ class ClaseControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private ClaseService claseService;
+    private ClaseServiceImpl claseServiceImpl;
 
     @InjectMocks
     private ClaseController claseController;
@@ -48,7 +48,7 @@ class ClaseControllerTest {
 
     @Test
     void crearClase_deberiaRetornarClaseCreada() throws Exception {
-        when(claseService.crearClase(any(ClaseDTO.class))).thenReturn(claseDTO);
+        when(claseServiceImpl.crearClase(any(ClaseDTO.class))).thenReturn(claseDTO);
 
         mockMvc.perform(post("/api/clases/crear")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -60,7 +60,7 @@ class ClaseControllerTest {
 
     @Test
     void buscarClasePorId_deberiaRetornarClase() throws Exception {
-        when(claseService.buscarClasePorId("1")).thenReturn(claseDTO);
+        when(claseServiceImpl.buscarClasePorId("1")).thenReturn(claseDTO);
 
         mockMvc.perform(get("/api/clases/clases/1"))
                 .andExpect(status().isOk())
@@ -72,7 +72,7 @@ class ClaseControllerTest {
     void modificarHoraInicio_deberiaActualizarHora() throws Exception {
         ClaseDTO claseActualizada = new ClaseDTO();
         claseActualizada.setIdClase("1");
-        when(claseService.modificarHoraInicio(eq("1"), any(LocalTime.class))).thenReturn(claseActualizada);
+        when(claseServiceImpl.modificarHoraInicio(eq("1"), any(LocalTime.class))).thenReturn(claseActualizada);
 
         mockMvc.perform(put("/api/clases/modificarHoraInicio")
                         .param("claseId", "1")
@@ -84,7 +84,7 @@ class ClaseControllerTest {
 
     @Test
     void eliminarClase_deberiaRetornarStatusOk() throws Exception {
-        doNothing().when(claseService).eliminarClase("1");
+        doNothing().when(claseServiceImpl).eliminarClase("1");
 
         mockMvc.perform(delete("/api/clases/1/clase"))
                 .andExpect(status().isOk());

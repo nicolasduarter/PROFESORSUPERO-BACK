@@ -4,8 +4,11 @@ import eci.edu.dows.profesorSuperO.model.DTOS.CalendarioAcademicoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.FacultadDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.DecanaturaDTO;
-import eci.edu.dows.profesorSuperO.service.DecanaturaService;
-import eci.edu.dows.profesorSuperO.service.DecanoService;
+import eci.edu.dows.profesorSuperO.service.Implementaciones.DecanaturaServiceImpl;
+import eci.edu.dows.profesorSuperO.service.Implementaciones.DecanoServiceImpl;
+import eci.edu.dows.profesorSuperO.service.Interfaces.DecanaturaService;
+import eci.edu.dows.profesorSuperO.service.Interfaces.DecanoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
@@ -27,7 +30,9 @@ public class DecanaturaController {
 
     private final DecanaturaService decanaturaService;
     private final DecanoService decanoService;
-    public DecanaturaController(DecanaturaService decanaturaService,  DecanoService decanoService) {
+
+    @Autowired
+    public DecanaturaController(DecanaturaServiceImpl decanaturaService, DecanoServiceImpl decanoService) {
         this.decanaturaService = decanaturaService;
         this.decanoService = decanoService;
     }
@@ -114,6 +119,10 @@ public class DecanaturaController {
         return ResponseEntity.ok(decanaturaService.obtenerSolicitudesPendientes(facultadDTO));
     }
 
+    @GetMapping("/facultades/{facultadId}/solicitudes")
+    public  ResponseEntity<List<SolicitudDTO>> getSolicitudesPorFacultadyOrden(@PathVariable String facultadId) {
+        return ResponseEntity.ok(decanaturaService.obtenerSolicitudesPorOrdenFacultad(facultadId));
+    }
 
     @PatchMapping("/solicitudes/{solicitudId}/estado")
     public ResponseEntity<SolicitudDTO> cambiarEstadoSolicitud(@PathVariable String solicitudId,

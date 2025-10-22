@@ -3,7 +3,7 @@ package eci.edu.dows.profesorSuperO.MateriaControllerTest;
 
 import eci.edu.dows.profesorSuperO.controller.MateriaController;
 import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
-import eci.edu.dows.profesorSuperO.service.MateriaService;
+import eci.edu.dows.profesorSuperO.service.Implementaciones.MateriaServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 class MateriaControllerUnitTest {
 
     @Mock
-    private MateriaService materiaService;
+    private MateriaServiceImpl materiaServiceImpl;
 
     @InjectMocks
     private MateriaController controller;
@@ -35,13 +35,13 @@ class MateriaControllerUnitTest {
 
         MateriaDTO entrada = mock(MateriaDTO.class);
         MateriaDTO esperado = mock(MateriaDTO.class);
-        when(materiaService.crearMateria(entrada)).thenReturn(esperado);
+        when(materiaServiceImpl.crearMateria(entrada)).thenReturn(esperado);
 
         ResponseEntity<MateriaDTO> resp = controller.crearMateria(entrada);
 
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertSame(esperado, resp.getBody());
-        verify(materiaService).crearMateria(entrada);
+        verify(materiaServiceImpl).crearMateria(entrada);
     }
 
     @Test
@@ -49,13 +49,13 @@ class MateriaControllerUnitTest {
 
         String id = "m1";
         MateriaDTO esperado = mock(MateriaDTO.class);
-        when(materiaService.buscarPorId(id)).thenReturn(esperado);
+        when(materiaServiceImpl.buscarPorId(id)).thenReturn(esperado);
 
         ResponseEntity<MateriaDTO> resp = controller.obtenerMateriaPorID(id);
 
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertSame(esperado, resp.getBody());
-        verify(materiaService).buscarPorId(id);
+        verify(materiaServiceImpl).buscarPorId(id);
     }
 
     @Test
@@ -63,13 +63,13 @@ class MateriaControllerUnitTest {
 
         String nombre = "Calculo";
         List<MateriaDTO> esperado = Arrays.asList(mock(MateriaDTO.class), mock(MateriaDTO.class));
-        when(materiaService.findByNombre(nombre)).thenReturn(esperado);
+        when(materiaServiceImpl.findByNombre(nombre)).thenReturn(esperado);
 
         ResponseEntity<List<MateriaDTO>> resp = controller.obtenerMateriasPorNombre(nombre);
 
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertSame(esperado, resp.getBody());
-        verify(materiaService).findByNombre(nombre);
+        verify(materiaServiceImpl).findByNombre(nombre);
     }
 
     @Test
@@ -81,7 +81,7 @@ class MateriaControllerUnitTest {
 
         assertEquals(HttpStatus.NO_CONTENT, resp.getStatusCode());
         assertNull(resp.getBody());
-        verify(materiaService).eliminarMateriaPorId(id);
+        verify(materiaServiceImpl).eliminarMateriaPorId(id);
     }
 
     @Test
@@ -90,13 +90,13 @@ class MateriaControllerUnitTest {
         String id = "m1";
         int creditos = 4;
         MateriaDTO esperado = mock(MateriaDTO.class);
-        when(materiaService.actualizarCreditos(id, creditos)).thenReturn(esperado);
+        when(materiaServiceImpl.actualizarCreditos(id, creditos)).thenReturn(esperado);
 
         ResponseEntity<MateriaDTO> resp = controller.actualizarCreditos(id, creditos);
 
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertSame(esperado, resp.getBody());
-        verify(materiaService).actualizarCreditos(id, creditos);
+        verify(materiaServiceImpl).actualizarCreditos(id, creditos);
     }
 
     @Test
@@ -105,13 +105,13 @@ class MateriaControllerUnitTest {
         String id = "m1";
         String nombre = "Programacion";
         MateriaDTO esperado = mock(MateriaDTO.class);
-        when(materiaService.actualizarNombre(id, nombre)).thenReturn(esperado);
+        when(materiaServiceImpl.actualizarNombre(id, nombre)).thenReturn(esperado);
 
         ResponseEntity<MateriaDTO> resp = controller.actualizarNombre(id, nombre);
 
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertSame(esperado, resp.getBody());
-        verify(materiaService).actualizarNombre(id, nombre);
+        verify(materiaServiceImpl).actualizarNombre(id, nombre);
     }
 
     @Test
@@ -120,13 +120,13 @@ class MateriaControllerUnitTest {
         String id = "m1";
         List<MateriaDTO> prereqs = Arrays.asList(mock(MateriaDTO.class));
         MateriaDTO esperado = mock(MateriaDTO.class);
-        when(materiaService.agregarPrerequisitos(id, prereqs)).thenReturn(esperado);
+        when(materiaServiceImpl.agregarPrerequisitos(id, prereqs)).thenReturn(esperado);
 
         ResponseEntity<MateriaDTO> resp = controller.agregarPrerequisitos(id, prereqs);
 
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertSame(esperado, resp.getBody());
-        verify(materiaService).agregarPrerequisitos(id, prereqs);
+        verify(materiaServiceImpl).agregarPrerequisitos(id, prereqs);
     }
 
     @Test
@@ -135,13 +135,13 @@ class MateriaControllerUnitTest {
         String id = "m1";
         List<MateriaDTO> prereqs = Arrays.asList(mock(MateriaDTO.class));
         MateriaDTO esperado = mock(MateriaDTO.class);
-        when(materiaService.eliminarPrerequisitos(id, prereqs)).thenReturn(esperado);
+        when(materiaServiceImpl.eliminarPrerequisitos(id, prereqs)).thenReturn(esperado);
 
         ResponseEntity<MateriaDTO> resp = controller.eliminarPrerequisitos(id, prereqs);
 
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertSame(esperado, resp.getBody());
-        verify(materiaService).eliminarPrerequisitos(id, prereqs);
+        verify(materiaServiceImpl).eliminarPrerequisitos(id, prereqs);
     }
 
     @Test
@@ -149,13 +149,13 @@ class MateriaControllerUnitTest {
         String id = "m1";
         MateriaDTO prereq = mock(MateriaDTO.class);
         MateriaDTO esperado = mock(MateriaDTO.class);
-        when(materiaService.agregarPrerequisito(id, prereq)).thenReturn(esperado);
+        when(materiaServiceImpl.agregarPrerequisito(id, prereq)).thenReturn(esperado);
 
         ResponseEntity<MateriaDTO> resp = controller.agregarPrerequisito(id, prereq);
 
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertSame(esperado, resp.getBody());
-        verify(materiaService).agregarPrerequisito(id, prereq);
+        verify(materiaServiceImpl).agregarPrerequisito(id, prereq);
     }
 
     @Test
@@ -163,12 +163,12 @@ class MateriaControllerUnitTest {
         String id = "m1";
         MateriaDTO prereq = mock(MateriaDTO.class);
         MateriaDTO esperado = mock(MateriaDTO.class);
-        when(materiaService.eliminarPrerequisito(id, prereq)).thenReturn(esperado);
+        when(materiaServiceImpl.eliminarPrerequisito(id, prereq)).thenReturn(esperado);
 
         ResponseEntity<MateriaDTO> resp = controller.eliminarPrerequisito(id, prereq);
 
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertSame(esperado, resp.getBody());
-        verify(materiaService).eliminarPrerequisito(id, prereq);
+        verify(materiaServiceImpl).eliminarPrerequisito(id, prereq);
     }
 }

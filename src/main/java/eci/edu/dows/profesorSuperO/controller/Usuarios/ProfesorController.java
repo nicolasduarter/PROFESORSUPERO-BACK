@@ -1,8 +1,9 @@
 package eci.edu.dows.profesorSuperO.controller.Usuarios;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
-import eci.edu.dows.profesorSuperO.service.ProfesorService;
+import eci.edu.dows.profesorSuperO.service.Implementaciones.ProfesorServiceImpl;
+import eci.edu.dows.profesorSuperO.service.Interfaces.ProfesorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,8 @@ public class ProfesorController {
 
     private final ProfesorService profesorService;
 
-    public ProfesorController(ProfesorService profesorService) {
+    @Autowired
+    public ProfesorController(ProfesorServiceImpl profesorService) {
         this.profesorService = profesorService;
     }
 

@@ -1,7 +1,7 @@
 package eci.edu.dows.profesorSuperO.MappersTests;
 
 
-import eci.edu.dows.profesorSuperO.Util.EstudianteMapper;
+import eci.edu.dows.profesorSuperO.Util.Mappers.EstudianteMapper;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
 import eci.edu.dows.profesorSuperO.model.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Facultad;

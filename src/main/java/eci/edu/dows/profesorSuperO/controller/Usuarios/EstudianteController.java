@@ -6,7 +6,12 @@ import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrup
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
-import eci.edu.dows.profesorSuperO.service.*;
+import eci.edu.dows.profesorSuperO.service.Implementaciones.ConsultasServiceImpl;
+import eci.edu.dows.profesorSuperO.service.Implementaciones.EstudianteServiceImpl;
+import eci.edu.dows.profesorSuperO.service.Implementaciones.SolicitudServiceImpl;
+import eci.edu.dows.profesorSuperO.service.Interfaces.ConsultasService;
+import eci.edu.dows.profesorSuperO.service.Interfaces.EstudianteService;
+import eci.edu.dows.profesorSuperO.service.Interfaces.SolicitudService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +27,7 @@ public class EstudianteController {
     private final ConsultasService consultasService;
 
     @Autowired
-    public EstudianteController(SolicitudService solicitudService, EstudianteService estudianteService,ConsultasService consultasService) {
+    public EstudianteController(SolicitudServiceImpl solicitudService, EstudianteServiceImpl estudianteService, ConsultasServiceImpl consultasService) {
         this.solicitudService = solicitudService;
         this.estudianteService = estudianteService;
         this.consultasService = consultasService;

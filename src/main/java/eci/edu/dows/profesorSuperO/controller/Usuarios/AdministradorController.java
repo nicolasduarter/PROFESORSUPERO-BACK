@@ -3,7 +3,9 @@ package eci.edu.dows.profesorSuperO.controller.Usuarios;
 
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.AdminDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.newRolUserDTO;
-import eci.edu.dows.profesorSuperO.service.AdministradorService;
+import eci.edu.dows.profesorSuperO.service.Implementaciones.AdministradorServiceImpl;
+import eci.edu.dows.profesorSuperO.service.Interfaces.AdministradorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,8 @@ public class AdministradorController {
 
     private final AdministradorService administradorService;
 
-    public  AdministradorController(AdministradorService administradorService) {
+    @Autowired
+    public  AdministradorController(AdministradorServiceImpl administradorService) {
         this.administradorService = administradorService;
     }
 

@@ -7,7 +7,7 @@
 //import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 //import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
 //import eci.edu.dows.profesorSuperO.model.Horario;
-//import eci.edu.dows.profesorSuperO.service.ConsultasService;
+//import eci.edu.dows.profesorSuperO.service.Implementaciones.ConsultasService;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 //import org.mockito.InjectMocks;

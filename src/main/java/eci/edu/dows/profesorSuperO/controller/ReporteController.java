@@ -1,7 +1,10 @@
 package eci.edu.dows.profesorSuperO.controller;
 
+import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
 import eci.edu.dows.profesorSuperO.model.Grupo;
-import eci.edu.dows.profesorSuperO.service.ReporteService;
+import eci.edu.dows.profesorSuperO.service.Implementaciones.ReporteServiceImpl;
+import eci.edu.dows.profesorSuperO.service.Interfaces.ReporteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,8 +15,9 @@ public class ReporteController {
 
     private final ReporteService reporteService;
 
-    public ReporteController(ReporteService reporteService) {
-        this.reporteService = reporteService;
+    @Autowired
+    public ReporteController(ReporteService reporteServiceImpl) {
+        this.reporteService = reporteServiceImpl;
     }
 
     @GetMapping("/tasa-aprobacion")
@@ -27,7 +31,7 @@ public class ReporteController {
     }
 
     @GetMapping("/grupos-mas-solicitados")
-    public List<Grupo> getGruposMasSolicitados(@RequestParam(defaultValue = "3") int cantidad) {
+    public List<GrupoDTO> getGruposMasSolicitados(@RequestParam(defaultValue = "3") int cantidad) {
         return reporteService.gruposMasSolicitados(cantidad);
     }
 }

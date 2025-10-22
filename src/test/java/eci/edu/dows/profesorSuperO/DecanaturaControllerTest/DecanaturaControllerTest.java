@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import eci.edu.dows.profesorSuperO.controller.Usuarios.DecanaturaController;
 import eci.edu.dows.profesorSuperO.model.DTOS.FacultadDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
-import eci.edu.dows.profesorSuperO.service.DecanaturaService;
+import eci.edu.dows.profesorSuperO.service.Implementaciones.DecanaturaServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -27,7 +27,7 @@ class DecanaturaControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private DecanaturaService decanaturaService;
+    private DecanaturaServiceImpl decanaturaServiceImpl;
 
     @InjectMocks
     private DecanaturaController decanaturaController;
@@ -58,7 +58,7 @@ class DecanaturaControllerTest {
 
     @Test
     void obtenerSolicitudesPorFacultad_deberiaRetornarLista() throws Exception {
-        when(decanaturaService.obtenerSolicitudesPorFacultad(any(FacultadDTO.class)))
+        when(decanaturaServiceImpl.obtenerSolicitudesPorFacultad(any(FacultadDTO.class)))
                 .thenReturn(List.of(solicitudDTO));
 
         mockMvc.perform(get("/decanatura/solicitudes/facultad/{facultad}", facultadDTO)
@@ -70,7 +70,7 @@ class DecanaturaControllerTest {
 
     @Test
     void obtenerSolicitudesPorPrioridad_deberiaRetornarLista() throws Exception {
-        when(decanaturaService.obtenerSolicitudesPorPrioridad(2))
+        when(decanaturaServiceImpl.obtenerSolicitudesPorPrioridad(2))
                 .thenReturn(List.of(solicitudDTO));
 
         mockMvc.perform(get("/decanatura/solicitudes/prioridad/{prioridad}", 2))
@@ -80,7 +80,7 @@ class DecanaturaControllerTest {
 
     @Test
     void obtenerSolicitudesPendientes_deberiaRetornarLista() throws Exception {
-        when(decanaturaService.obtenerSolicitudesPendientes(any(FacultadDTO.class)))
+        when(decanaturaServiceImpl.obtenerSolicitudesPendientes(any(FacultadDTO.class)))
                 .thenReturn(List.of(solicitudDTO));
 
         mockMvc.perform(get("/decanatura/solicitudes/pendientes/facultad/{facultad}", facultadDTO)
@@ -103,7 +103,7 @@ class DecanaturaControllerTest {
         facultad.setFacultadName("Ingeniería de Sistemas");
         estudianteDTO.setFacultad(facultad);
 
-        when(decanaturaService.verInformacionEstudiante("est1")).thenReturn(estudianteDTO);
+        when(decanaturaServiceImpl.verInformacionEstudiante("est1")).thenReturn(estudianteDTO);
 
         mockMvc.perform(get("/decanatura/estudiantes/{estudianteId}", "est1")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -116,7 +116,7 @@ class DecanaturaControllerTest {
                 .andExpect(jsonPath("$.facultad.id").value("fac1"))
                 .andExpect(jsonPath("$.facultad.facultadName").value("Ingeniería de Sistemas"));
 
-        verify(decanaturaService).verInformacionEstudiante("est1");
+        verify(decanaturaServiceImpl).verInformacionEstudiante("est1");
     }
 
 
