@@ -3,11 +3,11 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
 import eci.edu.dows.profesorSuperO.Util.Mappers.AdministradorMapper;
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
-import eci.edu.dows.profesorSuperO.model.Administrador;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Administrador;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.AdminDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.newRolUserDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
-import eci.edu.dows.profesorSuperO.model.Usuario;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Usuario;
 import eci.edu.dows.profesorSuperO.repository.UsuarioRepository;
 import eci.edu.dows.profesorSuperO.service.Interfaces.AdministradorService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoMateria;
-import eci.edu.dows.profesorSuperO.model.Estudiante;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Materia;
 import eci.edu.dows.profesorSuperO.model.MateriaEstudiante;
 import eci.edu.dows.profesorSuperO.repository.MateriaEstudianteRepository;

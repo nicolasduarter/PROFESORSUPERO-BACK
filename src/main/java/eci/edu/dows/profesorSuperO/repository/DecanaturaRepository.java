@@ -1,6 +1,6 @@
 package eci.edu.dows.profesorSuperO.repository;
 
-import eci.edu.dows.profesorSuperO.model.Decanatura;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Decanatura;
 import eci.edu.dows.profesorSuperO.model.Facultad;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

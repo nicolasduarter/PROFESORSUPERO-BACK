@@ -1,7 +1,7 @@
 package eci.edu.dows.profesorSuperO.repository;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
-import eci.edu.dows.profesorSuperO.model.Enums.Facultades;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.time.LocalDate;

@@ -1,6 +1,8 @@
 package eci.edu.dows.profesorSuperO.model;
 
 import eci.edu.dows.profesorSuperO.model.Observer.GruposObserver;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Profesor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;

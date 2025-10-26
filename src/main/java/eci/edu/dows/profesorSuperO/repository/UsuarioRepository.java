@@ -1,6 +1,6 @@
 package eci.edu.dows.profesorSuperO.repository;
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
-import eci.edu.dows.profesorSuperO.model.Usuario;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Usuario;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

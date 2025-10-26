@@ -6,8 +6,8 @@ import eci.edu.dows.profesorSuperO.Util.Mappers.ProfesorMapper;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
 
-import eci.edu.dows.profesorSuperO.model.Profesor;
-import eci.edu.dows.profesorSuperO.model.Usuario;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Profesor;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Usuario;
 import eci.edu.dows.profesorSuperO.repository.ProfesorRepository;
 import eci.edu.dows.profesorSuperO.repository.UsuarioRepository;
 import eci.edu.dows.profesorSuperO.service.Interfaces.ProfesorService;

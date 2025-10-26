@@ -1,10 +1,10 @@
 package eci.edu.dows.profesorSuperO.Util.FactoryUsuariosLogin;
 
-import eci.edu.dows.profesorSuperO.model.Administrador;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Administrador;
 import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioLoginDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioRegistroDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioRegistroSalidaDTO;
-import eci.edu.dows.profesorSuperO.model.Usuario;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Usuario;
 
 public class LoginAdministrador  implements LoginUsuario{
     @Override

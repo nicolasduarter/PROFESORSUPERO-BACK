@@ -2,7 +2,6 @@ package eci.edu.dows.profesorSuperO.model.DTOS;
 
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
-import eci.edu.dows.profesorSuperO.model.Estudiante;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

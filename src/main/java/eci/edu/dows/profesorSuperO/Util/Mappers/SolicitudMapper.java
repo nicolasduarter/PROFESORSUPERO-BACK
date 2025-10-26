@@ -3,9 +3,9 @@ package eci.edu.dows.profesorSuperO.Util.Mappers;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
-import eci.edu.dows.profesorSuperO.model.Solicitud;
-import eci.edu.dows.profesorSuperO.model.SolicitudCambioGrupo;
-import eci.edu.dows.profesorSuperO.model.SolicitudCambioMateria;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioGrupo;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioMateria;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 

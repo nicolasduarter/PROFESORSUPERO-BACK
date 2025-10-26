@@ -2,9 +2,6 @@ package eci.edu.dows.profesorSuperO.service.Validadores;
 
 import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
-import eci.edu.dows.profesorSuperO.model.Materia;
-import eci.edu.dows.profesorSuperO.model.SolicitudCambioGrupo;
-import eci.edu.dows.profesorSuperO.model.SolicitudCambioMateria;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

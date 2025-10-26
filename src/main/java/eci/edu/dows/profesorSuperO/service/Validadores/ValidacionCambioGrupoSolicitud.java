@@ -1,13 +1,9 @@
 package eci.edu.dows.profesorSuperO.service.Validadores;
 
-import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
-import eci.edu.dows.profesorSuperO.model.SolicitudCambioGrupo;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-
-import java.time.LocalDate;
 
 public class ValidacionCambioGrupoSolicitud implements ConstraintValidator<SolicitudValidaCambioGrupo, SolicitudCambioGrupoDTO> {
 

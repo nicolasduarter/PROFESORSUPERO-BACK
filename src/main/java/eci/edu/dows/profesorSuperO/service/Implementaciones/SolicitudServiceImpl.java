@@ -10,6 +10,10 @@ import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrup
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioGrupo;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioMateria;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.repository.*;
 import eci.edu.dows.profesorSuperO.service.Interfaces.SolicitudService;
 import org.springframework.beans.factory.annotation.Autowired;

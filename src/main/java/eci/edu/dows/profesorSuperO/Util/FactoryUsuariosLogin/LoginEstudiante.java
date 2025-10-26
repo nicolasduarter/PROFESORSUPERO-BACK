@@ -7,8 +7,8 @@ import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioLoginDTO
 import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioRegistroDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioRegistroSalidaDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
-import eci.edu.dows.profesorSuperO.model.Estudiante;
-import eci.edu.dows.profesorSuperO.model.Usuario;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Usuario;
 import eci.edu.dows.profesorSuperO.repository.CredencialRepository;
 import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -11,6 +11,8 @@ import eci.edu.dows.profesorSuperO.model.DTOS.HorarioDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SemaforoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.repository.*;
 import eci.edu.dows.profesorSuperO.service.Interfaces.ConsultasService;
 import org.springframework.beans.factory.annotation.Autowired;

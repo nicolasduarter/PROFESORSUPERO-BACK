@@ -6,6 +6,8 @@ import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.DecanaturaDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Decanatura;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Usuario;
 import eci.edu.dows.profesorSuperO.repository.DecanaturaRepository;
 import eci.edu.dows.profesorSuperO.repository.FacultadRepository;
 import eci.edu.dows.profesorSuperO.repository.UsuarioRepository;
@@ -46,6 +48,7 @@ public class DecanoServiceImpl implements DecanoService {
     //by id
     public DecanaturaDTO getDeanById(String id){
         Usuario u = usuarioRepository.findById(id).orElseThrow(()->new NotFoundException("Usuario no encontrado"));
+        System.out.println("Usuario encontrado: " + u.getClass().getName());
         return isDean(u);
     }
 

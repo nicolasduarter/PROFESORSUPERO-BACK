@@ -1,6 +1,6 @@
 package eci.edu.dows.profesorSuperO.Util.Mappers;
 
-import eci.edu.dows.profesorSuperO.model.Administrador;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Administrador;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.AdminDTO;
 import org.mapstruct.Mapper;
 

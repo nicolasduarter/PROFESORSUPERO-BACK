@@ -1,12 +1,10 @@
-package eci.edu.dows.profesorSuperO.model;
+package eci.edu.dows.profesorSuperO.model.Usuarios;
 
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.List;
 @Getter
 @Setter
 @Document("Profesor")

@@ -1,8 +1,11 @@
-package eci.edu.dows.profesorSuperO.model;
+package eci.edu.dows.profesorSuperO.model.Solicitudes;
 
 import eci.edu.dows.profesorSuperO.model.Enums.TipoSolicitud;
-import eci.edu.dows.profesorSuperO.service.Validadores.SolicitudValidaCambioMateria;
+import eci.edu.dows.profesorSuperO.model.Grupo;
+import eci.edu.dows.profesorSuperO.model.Materia;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -11,6 +14,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @TypeAlias("solicitudCambioMateria")
 public class SolicitudCambioMateria extends  Solicitud {
     @DBRef

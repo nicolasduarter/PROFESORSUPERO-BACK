@@ -1,6 +1,6 @@
 package eci.edu.dows.profesorSuperO.Util.Mappers;
 
-import eci.edu.dows.profesorSuperO.model.Decanatura;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Decanatura;
 import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.DecanaturaDTO;
 import org.mapstruct.Mapper;
 

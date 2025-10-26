@@ -8,7 +8,7 @@ import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.LoginRequestDTO
 import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioLoginDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioRegistroDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioRegistroSalidaDTO;
-import eci.edu.dows.profesorSuperO.model.Usuario;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Usuario;
 import eci.edu.dows.profesorSuperO.repository.CredencialRepository;
 import eci.edu.dows.profesorSuperO.repository.UsuarioRepository;
 import eci.edu.dows.profesorSuperO.service.Interfaces.AutenticacionService;

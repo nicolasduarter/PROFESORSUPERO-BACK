@@ -12,7 +12,7 @@ import eci.edu.dows.profesorSuperO.model.DTOS.FacultadDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.model.Facultad;
-import eci.edu.dows.profesorSuperO.model.Solicitud;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
 import eci.edu.dows.profesorSuperO.repository.CalendarioRepository;
 import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
 import eci.edu.dows.profesorSuperO.repository.FacultadRepository;

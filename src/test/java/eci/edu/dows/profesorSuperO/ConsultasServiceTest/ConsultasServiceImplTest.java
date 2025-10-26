@@ -6,7 +6,7 @@
 //import eci.edu.dows.profesorSuperO.Util.Mappers.HorarioMapper;
 //import eci.edu.dows.profesorSuperO.Util.Mappers.ProfesorMapper;
 //import eci.edu.dows.profesorSuperO.Util.Mappers.SolicitudMapper;
-//import eci.edu.dows.profesorSuperO.model.Estudiante;
+//import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 //import eci.edu.dows.profesorSuperO.model.Grupo;
 //import eci.edu.dows.profesorSuperO.model.Horario;
 //import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;

@@ -4,7 +4,7 @@ import eci.edu.dows.profesorSuperO.Util.Mappers.SemaforoMapper;
 import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.SemaforoDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoMateria;
-import eci.edu.dows.profesorSuperO.service.Interfaces.ReporteService;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.service.Interfaces.SemaforoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
