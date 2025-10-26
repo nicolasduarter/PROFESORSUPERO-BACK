@@ -6,7 +6,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = {GrupoMapper.class})
 public interface HorarioMapper {
-
     Horario toHorario(HorarioDTO dto);
     HorarioDTO toDTO(Horario entity);
 }
