@@ -74,7 +74,7 @@ public class MateriaController {
 
     @PatchMapping("/{id}/prerequisito")
     public ResponseEntity<MateriaDTO> agregarPrerequisito(@PathVariable String id,
-                                                          @RequestBody MateriaDTO prerequisito) {
+                                                          @RequestBody String prerequisito) {
         MateriaDTO actualizada = materiaService.agregarPrerequisito(id, prerequisito);
         return ResponseEntity.ok(actualizada);
     }

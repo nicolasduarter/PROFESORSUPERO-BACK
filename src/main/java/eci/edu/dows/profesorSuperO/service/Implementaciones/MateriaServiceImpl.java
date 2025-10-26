@@ -65,13 +65,18 @@ public class MateriaServiceImpl implements MateriaService {
         return materiaMapper.toDto(actualizada);
     }
 
-    public MateriaDTO agregarPrerequisito(String id, MateriaDTO materiaDTO) {
+    public MateriaDTO agregarPrerequisito(String id, String prerequisitoId) {
         Materia materia = materiaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("no se encontro materia con esa ID"));
-        materia.agregarPrerequisito(materiaMapper.toMateria(materiaDTO));
+                .orElseThrow(() -> new NotFoundException("No se encontró la materia con esa ID"));
+
+        Materia prerequisito = materiaRepository.findById(prerequisitoId)
+                .orElseThrow(() -> new NotFoundException("No se encontró la materia prerequisito con esa ID"));
+
+        materia.agregarPrerequisito(prerequisito);
         Materia actualizada = materiaRepository.save(materia);
         return materiaMapper.toDto(actualizada);
     }
+
 
     public MateriaDTO eliminarPrerequisito(String id, MateriaDTO materiaDTO) {
         Materia materia = materiaRepository.findById(id)
