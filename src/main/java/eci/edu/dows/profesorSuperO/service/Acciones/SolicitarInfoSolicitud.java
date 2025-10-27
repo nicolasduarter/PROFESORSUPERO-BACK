@@ -13,7 +13,7 @@ public class SolicitarInfoSolicitud implements AccionSolicitudCommand {
     }
 
     @Override
-    public String getTipoSolicitud() {
-        return AccionesSolicitud.SOLICITAR_INFO.toString();
+    public AccionesSolicitud getTipoSolicitud() {
+        return AccionesSolicitud.SOLICITAR_INFO;
     }
 }

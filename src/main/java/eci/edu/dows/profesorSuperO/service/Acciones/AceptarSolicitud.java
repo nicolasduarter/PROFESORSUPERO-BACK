@@ -13,8 +13,8 @@ public class AceptarSolicitud implements AccionSolicitudCommand {
     }
 
     @Override
-    public String getTipoSolicitud() {
-        return AccionesSolicitud.ACEPTAR.toString().toLowerCase();
+    public AccionesSolicitud getTipoSolicitud() {
+        return AccionesSolicitud.ACEPTAR;
     }
 
 }

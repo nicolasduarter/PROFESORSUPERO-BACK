@@ -18,6 +18,9 @@ import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioGrupo;
 import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioMateria;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.repository.*;
+import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudCommand;
+import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudFactory;
+import eci.edu.dows.profesorSuperO.service.Acciones.AccionesSolicitud;
 import eci.edu.dows.profesorSuperO.service.Interfaces.SolicitudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +46,9 @@ public class SolicitudServiceImpl implements SolicitudService {
     private final SolicitudCambioGrupoMapper SolicitudCambioGrupoMapper;
     private final SolicitudCambioMateriaMapper solicitudCambioMateriaMapper;
     private final SolicitudMapper solicitudMapper;
+    private final AccionSolicitudFactory accionSolicitudFactory;
+
+
 
     @Autowired
     public SolicitudServiceImpl(SolicitudRepository solicitudRepository,
@@ -55,7 +61,7 @@ public class SolicitudServiceImpl implements SolicitudService {
                                 HistorialDecisionRepository historialDecisionRepository,
                                 FacultadRepository facultadRepository,
                                 MateriaRepository materiaRepository,
-                                GrupoRepository grupoRepository) {
+                                GrupoRepository grupoRepository, AccionSolicitudFactory accionSolicitudFactory) {
         this.solicitudRepository = solicitudRepository;
         this.decanaturaRepository = decanaturaRepository;
         this.estudianteRepository = estudianteRepository;
@@ -67,6 +73,7 @@ public class SolicitudServiceImpl implements SolicitudService {
         this.facultadRepository = facultadRepository;
         this.materiaRepository = materiaRepository;
         this.grupoRepository = grupoRepository;
+        this.accionSolicitudFactory = accionSolicitudFactory;
     }
 
 
@@ -103,9 +110,29 @@ public class SolicitudServiceImpl implements SolicitudService {
         if (!estadoAnterior.equals(nuevoEstado)) {
             registrarDecisionEnHistorial(solicitud, estadoAnterior, nuevoEstado, comentario, usuario);
         }
+        AccionesSolicitud s = accionSegunEstado(nuevoEstado);
+
+        if(s != null) {
+            AccionSolicitudCommand comando = accionSolicitudFactory.obtenerComando(s);
+            comando.accionSolicitud(solicitud);
+        }
+
         solicitud.setEstado(nuevoEstado);
         return solicitudMapper.toDTO(solicitudRepository.save(solicitud));
     }
+
+    private AccionesSolicitud accionSegunEstado(EstadoSolicitud estado) {
+        if(EstadoSolicitud.APROBADA.equals(estado)){
+            return AccionesSolicitud.ACEPTAR;
+        }else if(EstadoSolicitud.RECHAZADA.equals(estado)){
+            return AccionesSolicitud.DECLINAR;
+        } else if (EstadoSolicitud.INFORMACION_ADICIONAL.equals(estado)) {
+            return AccionesSolicitud.SOLICITAR_INFO;
+        }
+        return null;
+    }
+
+
 
     private void registrarDecisionEnHistorial(Solicitud solicitud, EstadoSolicitud estadoAnterior,
                                               EstadoSolicitud estadoNuevo, String comentario, String usuario) {

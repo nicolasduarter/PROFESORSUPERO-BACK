@@ -4,5 +4,5 @@ import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
 
 public interface AccionSolicitudCommand {
     void accionSolicitud(Solicitud solicitud);
-    String getTipoSolicitud();
+    AccionesSolicitud getTipoSolicitud();
 }

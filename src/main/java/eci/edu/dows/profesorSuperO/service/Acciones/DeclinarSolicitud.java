@@ -13,7 +13,7 @@ public class DeclinarSolicitud implements AccionSolicitudCommand {
     }
 
     @Override
-    public String getTipoSolicitud() {
-        return AccionesSolicitud.DECLINAR.toString();
+    public AccionesSolicitud getTipoSolicitud() {
+        return AccionesSolicitud.DECLINAR;
     }
 }

@@ -4,12 +4,13 @@ import eci.edu.dows.profesorSuperO.model.DTOS.Request.CalendarioAcademicoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.FacultadDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.service.Acciones.AccionesSolicitud;
 
 import java.util.List;
 
 public interface DecanaturaService {
 
-    SolicitudDTO cambiarEstado(String solicitudId, String accion);
+    SolicitudDTO cambiarEstado(String solicitudId, AccionesSolicitud accion);
 
     List<SolicitudDTO> obtenerSolicitudesPorFacultad(FacultadDTO facultadDTO);
 

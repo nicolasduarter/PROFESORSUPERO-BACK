@@ -4,6 +4,7 @@ import eci.edu.dows.profesorSuperO.model.DTOS.Request.CalendarioAcademicoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.FacultadDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.DecanaturaDTO;
+import eci.edu.dows.profesorSuperO.service.Acciones.AccionesSolicitud;
 import eci.edu.dows.profesorSuperO.service.Implementaciones.DecanaturaServiceImpl;
 import eci.edu.dows.profesorSuperO.service.Implementaciones.DecanoServiceImpl;
 import eci.edu.dows.profesorSuperO.service.Interfaces.DecanaturaService;
@@ -126,7 +127,7 @@ public class DecanaturaController {
 
     @PatchMapping("/solicitudes/{solicitudId}/estado")
     public ResponseEntity<SolicitudDTO> cambiarEstadoSolicitud(@PathVariable String solicitudId,
-                                                               @RequestBody String estado) {
+                                                               @RequestParam AccionesSolicitud estado) {
         return ResponseEntity.ok(decanaturaService.cambiarEstado(solicitudId, estado));
     }
 

@@ -20,6 +20,7 @@ import eci.edu.dows.profesorSuperO.repository.SolicitudRepository;
 import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudCommand;
 import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudFactory;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.service.Acciones.AccionesSolicitud;
 import eci.edu.dows.profesorSuperO.service.Interfaces.DecanaturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,7 +64,7 @@ public class DecanaturaServiceImpl implements DecanaturaService  {
 
 
 
-    public SolicitudDTO cambiarEstado(String solicitudId, String accion) {
+    public SolicitudDTO cambiarEstado(String solicitudId, AccionesSolicitud accion) {
         Solicitud solicitud = solicitudRepository.findById(solicitudId)
                 .orElseThrow(() -> new NotFoundException("Solicitud no encontrada"));
 
