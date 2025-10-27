@@ -1,6 +1,6 @@
 package eci.edu.dows.profesorSuperO.controller;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.ClaseDTO;
 import eci.edu.dows.profesorSuperO.service.Interfaces.ClaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

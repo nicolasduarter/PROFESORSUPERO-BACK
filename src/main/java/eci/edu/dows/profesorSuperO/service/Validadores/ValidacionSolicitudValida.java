@@ -2,7 +2,7 @@ package eci.edu.dows.profesorSuperO.service.Validadores;
 
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.model.CalendarioAcademico;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudDTO;
 
 import eci.edu.dows.profesorSuperO.repository.CalendarioRepository;
 import jakarta.validation.ConstraintValidator;

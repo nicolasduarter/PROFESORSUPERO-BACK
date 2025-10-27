@@ -15,40 +15,37 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 @Getter
 @Setter
 @Document("Solicitud")
 public abstract class Solicitud {
-
     @Id
     private String id;
+
     @Indexed
     private EstadoSolicitud estado;
-    @DBRef
-    private Estudiante estudiante;
+
+    private String estudianteId;
+    private String facultadId;
+
     private String motivo;
     @Indexed
     private LocalDate fecha;
     private int prioridad;
     @Transient
     private ArrayList<PeriodoObserver> observadores;
-    private Facultad facultad;
     protected TipoSolicitud tipoSolicitud;
-
     private String infoAdicionalEstudiante;
 
-    public Solicitud(String id, Estudiante estudiante, String motivo, LocalDate fecha) {
+    public Solicitud(String id, String estudianteId, String facultadId, String motivo, LocalDate fecha) {
         this.id = id;
         this.estado = EstadoSolicitud.PENDIENTE;
-        this.estudiante = estudiante;
+        this.estudianteId = estudianteId;
+        this.facultadId = facultadId;
         this.motivo = motivo;
         this.fecha = fecha;
         this.prioridad = 0;
-        this.facultad = estudiante.getFacultad();
     }
 
     public Solicitud() {}
-
-
 }

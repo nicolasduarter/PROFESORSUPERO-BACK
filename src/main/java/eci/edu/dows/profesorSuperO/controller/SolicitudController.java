@@ -1,9 +1,11 @@
 package eci.edu.dows.profesorSuperO.controller;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.HistorialDecisionDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.HistorialDecisionDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudCambioGrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudCambioMateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.SoliGrupoTestDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.SoliMateriaTestDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.service.Interfaces.SolicitudService;
 import jakarta.validation.Valid;
@@ -35,14 +37,17 @@ public class SolicitudController {
     }
 
     @PostMapping("/cambio-grupo")
-    public ResponseEntity<SolicitudCambioGrupoDTO> crearSolicitudCambioGrupo(@Valid @RequestBody SolicitudCambioGrupoDTO dto) {
+    public ResponseEntity<SolicitudCambioGrupoDTO> crearSolicitudCambioGrupo(@Valid @RequestBody SoliGrupoTestDTO dto) {
         return ResponseEntity.ok(solicitudService.crearSolicitudCambioGrupo(dto));
     }
 
     @PostMapping("/cambio-materia")
-    public ResponseEntity<SolicitudCambioMateriaDTO> crearSolicitudCambioMateria(@Valid @RequestBody SolicitudCambioMateriaDTO dto) {
+    public ResponseEntity<SolicitudCambioMateriaDTO> crearSolicitudCambioMateria(@Valid @RequestBody SoliMateriaTestDTO dto) {
         return  ResponseEntity.ok(solicitudService.crearSolicitudCambioMateria(dto));
     }
+
+
+
 
     @GetMapping
     public ResponseEntity<List<SolicitudDTO>> consultarSolicitudes() {
@@ -79,6 +84,10 @@ public class SolicitudController {
     public ResponseEntity<SolicitudDTO> uptadeRequestInfoAdditional(@PathVariable String solicitudId, @RequestBody String texto) {
         return ResponseEntity.ok(solicitudService.agregarInformacionAdicional(solicitudId, texto));
     }
+
+
+
+
 
 }
 

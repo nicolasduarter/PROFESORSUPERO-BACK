@@ -17,17 +17,16 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @TypeAlias("solicitudCambioGrupo")
 public class SolicitudCambioGrupo extends Solicitud {
-    @DBRef
-    private Materia materiaProblema;
-    private Grupo grupo;
-    private Grupo grupoCambio;
+    private String materiaProblemaId;
+    private String grupoId;
+    private String grupoCambioId;
 
-    public SolicitudCambioGrupo(String id, Estudiante estudiante, String motivo, LocalDate fecha,
-                                Materia materiaProblema, Grupo grupo, Grupo grupoCambio) {
-        super(id, estudiante, motivo, fecha);
-        this.materiaProblema = materiaProblema;
-        this.grupo = grupo;
-        this.grupoCambio = grupoCambio;
+    public SolicitudCambioGrupo(String id, String estudianteId, String facultadId,String motivo, LocalDate fecha,
+                                String materiaProblema, String grupo, String grupoCambio) {
+        super(id, estudianteId, facultadId,motivo, fecha);
+        this.materiaProblemaId = materiaProblema;
+        this.grupoId = grupo;
+        this.grupoCambioId = grupoCambio;
         this.tipoSolicitud = TipoSolicitud.CAMBIO_GRUPO;
 
     }

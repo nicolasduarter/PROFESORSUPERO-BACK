@@ -8,5 +8,7 @@ import java.util.Optional;
 
 public interface DecanaturaRepository extends MongoRepository<Decanatura, String> {
     Optional<Decanatura> findByFacultad(Facultad facultad);
+    Optional<Decanatura> findByFacultad_Id(String facultadId);
+
 }
 

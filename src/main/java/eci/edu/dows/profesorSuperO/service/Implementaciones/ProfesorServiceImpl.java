@@ -3,7 +3,7 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.Util.Mappers.ProfesorMapper;
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.ProfesorDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
 
 import eci.edu.dows.profesorSuperO.model.Usuarios.Profesor;

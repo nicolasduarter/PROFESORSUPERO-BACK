@@ -1,8 +1,8 @@
 package eci.edu.dows.profesorSuperO.Util.Mappers;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudCambioGrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudCambioMateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
 import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioGrupo;
 import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioMateria;

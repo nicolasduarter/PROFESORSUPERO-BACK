@@ -1,7 +1,7 @@
 package eci.edu.dows.profesorSuperO.Util.Mappers;
 
 
-import eci.edu.dows.profesorSuperO.model.DTOS.SemaforoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SemaforoDTO;
 import eci.edu.dows.profesorSuperO.model.Semaforo;
 import org.mapstruct.Mapper;
 

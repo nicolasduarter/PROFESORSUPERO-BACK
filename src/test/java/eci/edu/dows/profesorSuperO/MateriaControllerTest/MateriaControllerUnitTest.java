@@ -2,7 +2,7 @@ package eci.edu.dows.profesorSuperO.MateriaControllerTest;
 
 
 import eci.edu.dows.profesorSuperO.controller.MateriaController;
-import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.MateriaDTO;
 import eci.edu.dows.profesorSuperO.service.Implementaciones.MateriaServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

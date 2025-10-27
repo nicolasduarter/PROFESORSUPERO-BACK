@@ -16,7 +16,6 @@ public class Decanatura extends Usuario {
 
     private Facultad facultad;
 
-
     public Decanatura(String usuario, Permisos permiso, String correo, String id, Facultad facultad) {
         super(usuario, permiso, correo, id);
         this.facultad = facultad;

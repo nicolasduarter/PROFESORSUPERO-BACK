@@ -1,9 +1,9 @@
 package eci.edu.dows.profesorSuperO.service.Interfaces;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.CalendarioAcademicoDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.FacultadDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.CalendarioAcademicoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.FacultadDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
 
 import java.util.List;
 

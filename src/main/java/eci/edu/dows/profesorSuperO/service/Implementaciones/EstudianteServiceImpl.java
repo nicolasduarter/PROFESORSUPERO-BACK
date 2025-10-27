@@ -3,7 +3,7 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
 import eci.edu.dows.profesorSuperO.Util.Mappers.EstudianteMapper;
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Facultad;
@@ -74,7 +74,8 @@ public class EstudianteServiceImpl implements EstudianteService {
         Facultad f = facultadRepository.findById(idFaculty)
                 .orElseThrow(() -> new NotFoundException("Facultad no encontrada"));
 
-        List<Estudiante> listaCompleta = estudianteRepository.findByFacultadFacultadName(f.getFacultadName());
+        List<Estudiante> listaCompleta = estudianteRepository.findByFacultadId(f.getId());
+
 
         return listaCompleta.stream().map(estudianteMapper::toDTO).collect(Collectors.toList());
     }

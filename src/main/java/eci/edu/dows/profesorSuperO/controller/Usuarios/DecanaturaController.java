@@ -1,9 +1,9 @@
 package eci.edu.dows.profesorSuperO.controller.Usuarios;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.CalendarioAcademicoDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.FacultadDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.DecanaturaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.CalendarioAcademicoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.FacultadDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.DecanaturaDTO;
 import eci.edu.dows.profesorSuperO.service.Implementaciones.DecanaturaServiceImpl;
 import eci.edu.dows.profesorSuperO.service.Implementaciones.DecanoServiceImpl;
 import eci.edu.dows.profesorSuperO.service.Interfaces.DecanaturaService;
@@ -11,7 +11,7 @@ import eci.edu.dows.profesorSuperO.service.Interfaces.DecanoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
 
 
 import java.util.List;
@@ -61,9 +61,9 @@ public class DecanaturaController {
         return ResponseEntity.ok(decanoService.getDeanByFullName(nombre));
     }
 
-    @GetMapping("/facultad/{id}")
-    public ResponseEntity<DecanaturaDTO> getDecanoPorFacultad(@PathVariable String id) {
-        return ResponseEntity.ok(decanoService.getDeanByFaculty(id));
+    @GetMapping("/facultad/{facultadId}")
+    public ResponseEntity<DecanaturaDTO> getDecanoPorFacultad(@PathVariable String facultadId) {
+        return ResponseEntity.ok(decanoService.getDeanByFaculty(facultadId));
     }
 
     @PutMapping("/{id}")

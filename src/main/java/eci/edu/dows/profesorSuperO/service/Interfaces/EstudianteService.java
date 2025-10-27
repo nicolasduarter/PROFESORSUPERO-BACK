@@ -1,6 +1,6 @@
 package eci.edu.dows.profesorSuperO.service.Interfaces;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
 
 import java.util.List;
 

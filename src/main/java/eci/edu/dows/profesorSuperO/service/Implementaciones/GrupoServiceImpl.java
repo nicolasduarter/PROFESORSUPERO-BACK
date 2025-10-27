@@ -1,11 +1,13 @@
 package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
+import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.Util.Mappers.ClaseMapper;
 import eci.edu.dows.profesorSuperO.Util.Mappers.GrupoMapper;
-import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO2;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.ClaseDTO;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Grupo;
-import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.GrupoDTO;
 import eci.edu.dows.profesorSuperO.model.Observer.GruposObserver;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Profesor;
 import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
@@ -196,16 +198,51 @@ public class GrupoServiceImpl implements GrupoService {
 
     public GrupoDTO deleteStudentOfGroup(String grupoId, String estudianteId) {
         Grupo grupo = grupoRepository.findById(grupoId)
-                .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
+                .orElseThrow(() -> new NotFoundException("Grupo no encontrado"));
         Estudiante estudiante = estudianteRepository.findById(estudianteId)
-                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+                .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
 
-        grupo.getEstudiantes().remove(estudiante);
-        grupo.setCupo(grupo.getCupo() + 1);
+        boolean removed = grupo.getEstudiantes().removeIf(e -> e.getId().equals(estudianteId));
 
-        Grupo grupoActualizado = grupoRepository.save(grupo);
-        return grupoMapper.toDTO(grupoActualizado);
+        if (removed) {
+            grupo.setCupo(grupo.getCupo() + 1);
+            Grupo grupoActualizado = grupoRepository.save(grupo);
+            return grupoMapper.toDTO(grupoActualizado);
+        } else {
+            throw new RuntimeException("El estudiante no estaba en el grupo");
+        }
     }
+
+    public GrupoDTO2 getMaximumCapacity2(String grupoId) {
+        Grupo grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
+
+        // Creamos el DTO manualmente
+        GrupoDTO2 dto = new GrupoDTO2();
+        dto.setId(grupo.getId());
+        dto.setNombre(grupo.getNombre());
+        dto.setCupo(grupo.getCupo());
+        dto.setCuposMax(grupo.getCuposMax());
+
+        // Extraemos solo los IDs de los DBRefs
+        if(grupo.getProfesor()!= null){
+            dto.setProfesorId(grupo.getProfesor().getId());
+        }
+        if(grupo.getMateria()!= null){
+            dto.setMateriaId(grupo.getMateria().getId());
+        }
+
+        if (grupo.getEstudiantes() != null) {
+            List<String> estudianteIds = grupo.getEstudiantes()
+                    .stream()
+                    .map(Estudiante::getId)
+                    .toList();
+            dto.setEstudianteIds(estudianteIds);
+        }
+
+        return dto;
+    }
+
 
 
 }

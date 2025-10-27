@@ -9,8 +9,9 @@ import java.util.List;
 
 public interface SolicitudRepository extends MongoRepository<Solicitud, String>{
     List<Solicitud> findByEstudianteId(String id);
-    List<Solicitud> findByFacultad(Facultad facultad);
+    //List<Solicitud> findByFacultad(Facultad facultad);
     List<Solicitud> findByEstado(EstadoSolicitud estado);
     List<Solicitud> findByFecha(LocalDate fecha);
     List<Solicitud> findByPrioridad(int prioridad);
+    List<Solicitud> findByFacultadId(String facultadId);
 }

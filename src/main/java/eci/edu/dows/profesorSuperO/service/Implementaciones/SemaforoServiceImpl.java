@@ -2,7 +2,7 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
 import eci.edu.dows.profesorSuperO.Util.Mappers.SemaforoMapper;
 import eci.edu.dows.profesorSuperO.model.*;
-import eci.edu.dows.profesorSuperO.model.DTOS.SemaforoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SemaforoDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoMateria;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.service.Interfaces.SemaforoService;

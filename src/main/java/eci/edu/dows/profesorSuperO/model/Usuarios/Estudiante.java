@@ -23,7 +23,7 @@ public class Estudiante extends Usuario {
 
     private int semestre;
     private ArrayList<Horario> horarios;
-    @DBRef
+    @DBRef(lazy = false)
     private Facultad facultad;
     private Semaforo semaforo;
 

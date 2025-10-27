@@ -1,6 +1,6 @@
 package eci.edu.dows.profesorSuperO.service.Interfaces;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.ClaseDTO;
 
 import java.time.LocalTime;
 
