@@ -14,6 +14,4 @@ import lombok.Setter;
 public class Horario {
     private int semestre;
     private List<Grupo> grupos;
-
-
 }

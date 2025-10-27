@@ -77,7 +77,4 @@ public class MateriaEstudianteServiceImpl implements MateriaEstudianteService {
     public List<MateriaEstudiante> obtenerHistorial(String idEstudiante) {
         return materiaEstudianteRepository.findByEstudiante_Id(idEstudiante);
     }
-
-
-
 }

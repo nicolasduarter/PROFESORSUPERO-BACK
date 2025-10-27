@@ -128,10 +128,11 @@ public class GrupoController {
 
 
     @GetMapping("/{grupoId}/capacidad-actual")
-    public ResponseEntity<GrupoDTO> getActualCapcity(@PathVariable String grupoId){
-        GrupoDTO grupoActualizado = grupoService.getActualCapacity(grupoId);
-        return ResponseEntity.ok(grupoActualizado);
+    public ResponseEntity<Integer> getActualCapacity(@PathVariable String grupoId) {
+        int cupo = grupoService.getActualCapacity(grupoId);
+        return ResponseEntity.ok(cupo);
     }
+
 
 }
 
