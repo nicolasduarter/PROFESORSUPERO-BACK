@@ -3,15 +3,19 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
 import eci.edu.dows.profesorSuperO.Util.Mappers.EstudianteMapper;
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SemaforoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
+import eci.edu.dows.profesorSuperO.model.Semaforo;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Facultad;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Usuario;
 import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
 import eci.edu.dows.profesorSuperO.repository.FacultadRepository;
+import eci.edu.dows.profesorSuperO.repository.SemaforoRepository;
 import eci.edu.dows.profesorSuperO.repository.UsuarioRepository;
 import eci.edu.dows.profesorSuperO.service.Interfaces.EstudianteService;
+import eci.edu.dows.profesorSuperO.service.Interfaces.SemaforoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +28,19 @@ public class EstudianteServiceImpl implements EstudianteService {
     private final EstudianteRepository estudianteRepository;
     private final EstudianteMapper estudianteMapper;
     private final FacultadRepository facultadRepository;
+    private final SemaforoService semaforoService;
 
     @Autowired
     public EstudianteServiceImpl(UsuarioRepository usuarioRepository,
                                  EstudianteRepository estudianteRepository,
-                                 EstudianteMapper estudianteMapper, FacultadRepository facultadRepository) {
+                                 EstudianteMapper estudianteMapper,
+                                 FacultadRepository facultadRepository,
+                                 SemaforoService semaforoService) {
         this.usuarioRepository = usuarioRepository;
         this.estudianteRepository = estudianteRepository;
         this.estudianteMapper = estudianteMapper;
         this.facultadRepository = facultadRepository;
+        this.semaforoService = semaforoService;
     }
 
     /**
@@ -41,6 +49,8 @@ public class EstudianteServiceImpl implements EstudianteService {
 
     public EstudianteDTO createStudent(EstudianteDTO dto) {
         Estudiante estudiante = estudianteMapper.toEstudiante(dto);
+        estudiante = estudianteRepository.save(estudiante);
+        semaforoService.crearSemaforo(estudiante);
 
         return estudianteMapper.toDTO(estudianteRepository.save(estudiante));
     }
