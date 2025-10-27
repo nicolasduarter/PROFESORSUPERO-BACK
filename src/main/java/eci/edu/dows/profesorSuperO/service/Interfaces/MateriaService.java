@@ -18,7 +18,7 @@ public interface MateriaService {
 
     MateriaDTO actualizarNombre(String id, String nombre);
 
-    MateriaDTO agregarPrerequisito(String id, MateriaDTO materiaDTO);
+    MateriaDTO agregarPrerequisito(String id, String prerequisito);
 
     MateriaDTO eliminarPrerequisito(String id, MateriaDTO materiaDTO);
 
