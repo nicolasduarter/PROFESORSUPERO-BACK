@@ -217,14 +217,12 @@ public class GrupoServiceImpl implements GrupoService {
         Grupo grupo = grupoRepository.findById(grupoId)
                 .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
 
-        // Creamos el DTO manualmente
         GrupoDTO2 dto = new GrupoDTO2();
         dto.setId(grupo.getId());
         dto.setNombre(grupo.getNombre());
         dto.setCupo(grupo.getCupo());
         dto.setCuposMax(grupo.getCuposMax());
 
-        // Extraemos solo los IDs de los DBRefs
         if(grupo.getProfesor()!= null){
             dto.setProfesorId(grupo.getProfesor().getId());
         }
