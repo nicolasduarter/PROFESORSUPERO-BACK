@@ -25,14 +25,13 @@ public class Estudiante extends Usuario {
     private ArrayList<Horario> horarios;
     @DBRef(lazy = false)
     private Facultad facultad;
-    private Semaforo semaforo;
+    private String semaforoId;
 
     public Estudiante(String usuario, Permisos permiso, String correo, String Id, Facultad facultad, int semestre) {
         super(usuario, permiso, correo, Id);
         this.semestre = semestre;
         this.horarios = new ArrayList<>();
         this.facultad = facultad;
-        this.semaforo = new Semaforo();
     }
 
 
