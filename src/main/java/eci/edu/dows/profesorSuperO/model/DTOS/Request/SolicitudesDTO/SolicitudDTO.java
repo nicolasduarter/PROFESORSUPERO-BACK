@@ -1,10 +1,8 @@
-package eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO;
+package eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
 import eci.edu.dows.profesorSuperO.service.Validadores.SolicitudValida;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -13,14 +11,15 @@ import java.time.LocalDate;
 @Setter
 
 @SolicitudValida
-public  class SolicitudDTO {
+public class SolicitudDTO {
 
     private String id;
     private String estado;
-    private EstudianteDTO estudiante;
+    private String estudianteId;
     private String motivo;
     private LocalDate fecha;
     private int prioridad;
     private String tipoSolicitud;
     private String infoAdicionalEstudiante;
+
 }

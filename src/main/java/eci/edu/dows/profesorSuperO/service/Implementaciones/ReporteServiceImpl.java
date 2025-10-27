@@ -5,7 +5,7 @@ import eci.edu.dows.profesorSuperO.Util.Mappers.HorarioMapper;
 import eci.edu.dows.profesorSuperO.Util.Mappers.ProfesorMapper;
 import eci.edu.dows.profesorSuperO.Util.Mappers.SolicitudMapper;
 import eci.edu.dows.profesorSuperO.model.*;
-import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.GrupoDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
 import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioGrupo;
@@ -77,9 +77,9 @@ public class ReporteServiceImpl implements ReporteService {
             Grupo grupoCambio = null;
 
             if (solicitud instanceof SolicitudCambioGrupo cambioGrupo) {
-                grupoCambio = cambioGrupo.getGrupoCambio();
+                grupoCambio = grupoRepository.findById(cambioGrupo.getGrupoCambioId()).orElse(null);
             } else if (solicitud instanceof SolicitudCambioMateria cambioMateria) {
-                grupoCambio = cambioMateria.getGrupoCambio();
+                grupoCambio = grupoRepository.findById(cambioMateria.getGrupoCambioId()).orElse(null);
             }
 
             if (grupoCambio != null) {

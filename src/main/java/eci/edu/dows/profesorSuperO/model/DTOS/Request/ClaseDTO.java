@@ -1,4 +1,4 @@
-package eci.edu.dows.profesorSuperO.model.DTOS;
+package eci.edu.dows.profesorSuperO.model.DTOS.Request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

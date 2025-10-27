@@ -1,7 +1,7 @@
-package eci.edu.dows.profesorSuperO.model.DTOS;
+package eci.edu.dows.profesorSuperO.model.DTOS.Request;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.ProfesorDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GrupoDTO {
-    private String idGrupo;
+    private String id;
     private String nombre;
     private ProfesorDTO profesor;
     private int cupo;

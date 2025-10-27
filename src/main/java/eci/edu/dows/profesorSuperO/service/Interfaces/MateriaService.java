@@ -1,6 +1,6 @@
 package eci.edu.dows.profesorSuperO.service.Interfaces;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.MateriaDTO;
 
 import java.util.List;
 

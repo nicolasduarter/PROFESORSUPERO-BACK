@@ -1,6 +1,6 @@
 package eci.edu.dows.profesorSuperO.Util.Mappers;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.MateriaDTO;
 import eci.edu.dows.profesorSuperO.model.Materia;
 import org.mapstruct.Mapper;
 

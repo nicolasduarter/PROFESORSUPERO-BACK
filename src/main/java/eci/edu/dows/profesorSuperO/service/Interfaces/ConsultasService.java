@@ -1,10 +1,10 @@
 package eci.edu.dows.profesorSuperO.service.Interfaces;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.HorarioDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SemaforoDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.ProfesorDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.HorarioDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SemaforoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.ProfesorDTO;
 
 import java.util.List;
 import java.util.Optional;

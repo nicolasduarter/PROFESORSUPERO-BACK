@@ -1,6 +1,6 @@
 package eci.edu.dows.profesorSuperO.Util.Mappers;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.GrupoDTO;
 import eci.edu.dows.profesorSuperO.model.Grupo;
 import org.mapstruct.Mapper;
 

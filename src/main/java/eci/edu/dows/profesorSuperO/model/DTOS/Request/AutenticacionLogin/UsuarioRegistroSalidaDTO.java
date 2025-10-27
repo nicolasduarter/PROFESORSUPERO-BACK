@@ -1,4 +1,4 @@
-package eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin;
+package eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin;
 
 
 import lombok.AllArgsConstructor;
@@ -10,7 +10,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginRequestDTO {
-    private String usuario;
-    private String contra;
+public class UsuarioRegistroSalidaDTO {
+    String id;
+    String usuario;
+    String rol;
 }

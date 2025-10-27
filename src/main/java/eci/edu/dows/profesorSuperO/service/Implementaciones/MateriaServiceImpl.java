@@ -2,7 +2,7 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.Util.Mappers.MateriaMapper;
-import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.MateriaDTO;
 import eci.edu.dows.profesorSuperO.model.Materia;
 import eci.edu.dows.profesorSuperO.repository.MateriaRepository;
 import eci.edu.dows.profesorSuperO.service.Interfaces.MateriaService;

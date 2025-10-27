@@ -2,10 +2,10 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
 import eci.edu.dows.profesorSuperO.Util.Mappers.ClaseMapper;
 import eci.edu.dows.profesorSuperO.Util.Mappers.GrupoMapper;
-import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.ClaseDTO;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Grupo;
-import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.GrupoDTO;
 import eci.edu.dows.profesorSuperO.model.Observer.GruposObserver;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Profesor;
 import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;

@@ -1,4 +1,4 @@
-package eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO;
+package eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO;
 
 public class newRolUserDTO {
     private String id;

@@ -1,4 +1,4 @@
-package eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO;
+package eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO;
 
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
 import lombok.AllArgsConstructor;

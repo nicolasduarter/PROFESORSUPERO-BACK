@@ -4,7 +4,7 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 import eci.edu.dows.profesorSuperO.Util.Mappers.DecanaturaMapper;
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.model.*;
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.DecanaturaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.DecanaturaDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Decanatura;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Usuario;

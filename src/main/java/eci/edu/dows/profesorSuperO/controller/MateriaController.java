@@ -1,6 +1,6 @@
 package eci.edu.dows.profesorSuperO.controller;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.MateriaDTO;
 import eci.edu.dows.profesorSuperO.service.Interfaces.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

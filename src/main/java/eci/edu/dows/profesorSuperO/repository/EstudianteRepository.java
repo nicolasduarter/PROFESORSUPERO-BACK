@@ -9,4 +9,5 @@ import java.util.List;
 public interface EstudianteRepository extends MongoRepository<Estudiante, String> {
     List<Estudiante> findByFacultadFacultadName(Facultades facultad);
     List<Estudiante> findBySemestre(int semestre);
+    List<Estudiante> findByFacultadId(String facultadId);
 }

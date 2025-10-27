@@ -1,4 +1,4 @@
-package eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin;
+package eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin;
 
 
 import lombok.AllArgsConstructor;

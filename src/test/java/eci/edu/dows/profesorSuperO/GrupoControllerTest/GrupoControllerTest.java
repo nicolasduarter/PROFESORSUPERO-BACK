@@ -1,8 +1,8 @@
 package eci.edu.dows.profesorSuperO.GrupoControllerTest;
 
 import eci.edu.dows.profesorSuperO.controller.GrupoController;
-import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.ClaseDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.GrupoDTO;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.service.Implementaciones.GrupoServiceImpl;
 import org.junit.jupiter.api.Test;
