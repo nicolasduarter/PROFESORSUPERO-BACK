@@ -85,9 +85,5 @@ public class SolicitudController {
         return ResponseEntity.ok(solicitudService.agregarInformacionAdicional(solicitudId, texto));
     }
 
-
-
-
-
 }
 
