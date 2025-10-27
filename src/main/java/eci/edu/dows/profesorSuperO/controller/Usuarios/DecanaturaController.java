@@ -61,9 +61,9 @@ public class DecanaturaController {
         return ResponseEntity.ok(decanoService.getDeanByFullName(nombre));
     }
 
-    @GetMapping("/facultad/{id}")
-    public ResponseEntity<DecanaturaDTO> getDecanoPorFacultad(@PathVariable String id) {
-        return ResponseEntity.ok(decanoService.getDeanByFaculty(id));
+    @GetMapping("/facultad/{facultadId}")
+    public ResponseEntity<DecanaturaDTO> getDecanoPorFacultad(@PathVariable String facultadId) {
+        return ResponseEntity.ok(decanoService.getDeanByFaculty(facultadId));
     }
 
     @PutMapping("/{id}")

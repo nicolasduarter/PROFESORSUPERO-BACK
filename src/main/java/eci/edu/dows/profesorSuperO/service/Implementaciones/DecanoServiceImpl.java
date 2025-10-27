@@ -15,6 +15,8 @@ import eci.edu.dows.profesorSuperO.service.Interfaces.DecanoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DecanoServiceImpl implements DecanoService {
     private final DecanaturaMapper decanaturaMapper;
@@ -71,7 +73,7 @@ public class DecanoServiceImpl implements DecanoService {
         Facultad f = facultadRepository.findById(facultyID)
                 .orElseThrow(() -> new NotFoundException("Facultad no encontrada"));
 
-        Decanatura d = decanaturaRepository.findByFacultad(f).orElseThrow(() -> new NotFoundException("Decanatura no encontrada"));
+        Decanatura d = usuarioRepository.findDecanaturaByFacultad_Id(facultyID).orElseThrow(() -> new NotFoundException("No hay decano en esta facultad"));
         return  decanaturaMapper.toDTO(d);
     }
 

@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = {MateriaMapper.class})
 public interface FacultadMapper {
-    Facultad toFacultad(FacultadDTO fdto);
+    Facultad toFacultad(FacultadDTO dto);
     FacultadDTO toDTO(Facultad f);
 }

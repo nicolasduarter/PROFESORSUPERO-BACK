@@ -26,9 +26,10 @@ public class Grupo {
     @DBRef
     private Profesor profesor;
     private int cupo;
-    @DBRef
+
+    @DBRef(lazy = false)
     private ArrayList<Estudiante> estudiantes;
-    @DBRef
+    @DBRef(lazy = false)
     private ArrayList<Estudiante> listaEspera;
     private ArrayList<Clase> clases;
     @Transient
@@ -36,7 +37,7 @@ public class Grupo {
 
     private int cuposMax;
 
-    @DBRef
+    @DBRef(lazy = false)
     private Materia materia;
 
 

@@ -10,6 +10,8 @@ import eci.edu.dows.profesorSuperO.model.CalendarioAcademico;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.CalendarioAcademicoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.FacultadDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
+import eci.edu.dows.profesorSuperO.model.Facultad;
 import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
 import eci.edu.dows.profesorSuperO.repository.CalendarioRepository;
 import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,11 +74,10 @@ public class DecanaturaServiceImpl implements DecanaturaService  {
     }
 
     public List<SolicitudDTO> obtenerSolicitudesPorFacultad(FacultadDTO facultadDTO) {
-//        Facultad facultad = facultadMapper.toFacultad(facultadDTO);
-//        List<Solicitud> requestsList = solicitudRepository.findByFacultad(facultad);
-//
-//        return requestsList.stream().map(solicitudMapper::toDTO).collect(Collectors.toList());
-        return null;
+        Facultad facultad = facultadMapper.toFacultad(facultadDTO);
+        List<Solicitud> requestsList = solicitudRepository.findByFacultadId(facultad.getId());
+
+        return requestsList.stream().map(solicitudMapper::toDTO).collect(Collectors.toList());
     }
 
 
@@ -85,15 +87,13 @@ public class DecanaturaServiceImpl implements DecanaturaService  {
     }
 
     public List<SolicitudDTO> obtenerSolicitudesPendientes(FacultadDTO facultadDTO) {
-//        Facultad facultad = facultadMapper.toFacultad(facultadDTO);
-//        List<Solicitud> requestsList = solicitudRepository.findByFacultad(facultad);
-//
-//
-//        return requestsList.stream().
-//                filter(s->s.getEstado() == EstadoSolicitud.PENDIENTE).
-//                map(solicitudMapper::toDTO).collect(Collectors.toList());
+        Facultad facultad = facultadMapper.toFacultad(facultadDTO);
+        List<Solicitud> requestsList = solicitudRepository.findByFacultadId(facultad.getId());
 
-        return null;
+
+        return requestsList.stream().
+                filter(s->s.getEstado() == EstadoSolicitud.PENDIENTE).
+                map(solicitudMapper::toDTO).collect(Collectors.toList());
 
     }
 
@@ -104,12 +104,12 @@ public class DecanaturaServiceImpl implements DecanaturaService  {
     }
 
     public List<SolicitudDTO> obtenerSolicitudesPorOrdenFacultad(String idFacultad){
-//        Facultad  f = facultadRepository.findById(idFacultad).orElseThrow(() -> new NotFoundException("Facultad no encontrada"));
-//        List<Solicitud> s = solicitudRepository.findByFacultad(f);
-//        s.sort(Comparator.comparing((Solicitud :: getFecha )));
-//        return s.stream().map(solicitudMapper::toDTO).collect(Collectors.toList());
+        Facultad  f = facultadRepository.findById(idFacultad).orElseThrow(() -> new NotFoundException("Facultad no encontrada"));
+        List<Solicitud> s = solicitudRepository.findByFacultadId(idFacultad);
 
-        return null;
+        s.sort(Comparator.comparing((Solicitud :: getFecha )));
+        return s.stream().map(solicitudMapper::toDTO).collect(Collectors.toList());
+
 
     }
 

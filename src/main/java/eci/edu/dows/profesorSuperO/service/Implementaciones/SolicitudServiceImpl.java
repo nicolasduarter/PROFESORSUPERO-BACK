@@ -156,7 +156,7 @@ public class SolicitudServiceImpl implements SolicitudService {
 
         Facultad f = estudiante.getFacultad();
 
-
+        Grupo g = grupoRepository.findById(dto.getGrupoId()).orElseThrow(() -> new NotFoundException("Grupo no encontrado"));
 
 
         SolicitudCambioMateria solicitud = new SolicitudCambioMateria();
