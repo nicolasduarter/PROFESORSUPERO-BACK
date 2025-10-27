@@ -28,18 +28,17 @@ public class Grupo {
     private int cupo;
 
     @DBRef(lazy = false)
-    private ArrayList<Estudiante> estudiantes;
+    private ArrayList<Estudiante> estudiantes = new ArrayList<>();
     @DBRef(lazy = false)
-    private ArrayList<Estudiante> listaEspera;
-    private ArrayList<Clase> clases;
+    private ArrayList<Estudiante> listaEspera = new ArrayList<>();
+    private ArrayList<Clase> clases = new ArrayList<>();
     @Transient
-    private ArrayList<GruposObserver> observadores;
+    private ArrayList<GruposObserver> observadores = new ArrayList<>();
 
     private int cuposMax;
 
     @DBRef(lazy = false)
     private Materia materia;
-
 
     public Grupo(String id, String nombre, Profesor profesor, int cupo, Materia materia, int cuposMax) {
         this.id = id;
