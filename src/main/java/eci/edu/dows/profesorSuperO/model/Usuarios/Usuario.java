@@ -21,7 +21,6 @@ public abstract class Usuario {
     @Indexed(unique = true)
     private String correo;
     private String fullName;
-    @Transient
     private Permisos permiso;
 
     public Usuario(String fullName, Permisos permiso, String correo, String id) {

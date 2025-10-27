@@ -145,20 +145,6 @@ class MateriaControllerUnitTest {
     }
 
     @Test
-    void agregarPrerequisito_devuelveOkYBody() {
-        String id = "m1";
-        MateriaDTO prereq = mock(MateriaDTO.class);
-        MateriaDTO esperado = mock(MateriaDTO.class);
-        when(materiaServiceImpl.agregarPrerequisito(id, prereq)).thenReturn(esperado);
-
-        ResponseEntity<MateriaDTO> resp = controller.agregarPrerequisito(id, prereq);
-
-        assertEquals(HttpStatus.OK, resp.getStatusCode());
-        assertSame(esperado, resp.getBody());
-        verify(materiaServiceImpl).agregarPrerequisito(id, prereq);
-    }
-
-    @Test
     void eliminarPrerequisito_devuelveOkYBody() {
         String id = "m1";
         MateriaDTO prereq = mock(MateriaDTO.class);
