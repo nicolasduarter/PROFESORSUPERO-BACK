@@ -37,7 +37,7 @@ public interface GrupoService {
 
     GrupoDTO getMaximumCapacity(String grupoId);
 
-    GrupoDTO getActualCapacity(String grupoId);
+    int getActualCapacity(String grupoId);
 
     GrupoDTO deleteStudentOfGroup(String grupoId, String estudianteId);
 
