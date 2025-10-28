@@ -17,7 +17,8 @@ public class CorsConfig {
         config.setAllowCredentials(true);
         config.setAllowedOrigins(Arrays.asList(
                 "http://localhost:5173",
-                "http://127.0.0.1:5173"
+                "http://127.0.0.1:5173",
+                "https://profesorsupero-front-he3o63pnq.vercel.app"
         ));
         config.addAllowedHeader("*");
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
