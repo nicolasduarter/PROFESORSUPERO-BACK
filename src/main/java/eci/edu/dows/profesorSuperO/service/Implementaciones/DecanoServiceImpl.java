@@ -97,7 +97,7 @@ public class DecanoServiceImpl implements DecanoService {
                 throw new NotFoundException("Permiso no encontrado");
             }
 
-            Facultad f = facultadRepository.findById(dto.getFacultad().getId())
+            Facultad f = facultadRepository.findById(dto.getFacultadDTO().getId())
                     .orElseThrow(() -> new NotFoundException("Facultad no encontrada"));
             decano.setFacultad(f);
             return decanaturaMapper.toDTO(decanaturaRepository.save(decano));

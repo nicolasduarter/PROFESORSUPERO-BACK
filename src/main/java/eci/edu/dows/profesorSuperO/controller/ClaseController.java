@@ -19,6 +19,9 @@ public class ClaseController {
         this.claseService = claseService;
     }
 
+
+
+
     @PostMapping
     public ClaseDTO crearClase(@RequestBody ClaseDTO dto) {
         return claseService.crearClase(dto);
