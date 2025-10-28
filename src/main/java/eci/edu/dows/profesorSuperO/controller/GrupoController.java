@@ -133,6 +133,14 @@ public class GrupoController {
         return ResponseEntity.ok(grupoActualizado);
     }
 
+
+
+    @PatchMapping("/{idGrupo}/estudiante/{idEstudiante2}")
+    public ResponseEntity<GrupoDTO> addGroupToStudent(@PathVariable String idGrupo, @PathVariable String idEstudiante2) {
+        GrupoDTO grupoActualizado = grupoService.asignarMateriaYGrupo(idEstudiante2, idGrupo);
+        return ResponseEntity.ok(grupoActualizado);
+    }
+
 }
 
 

@@ -67,11 +67,17 @@ public class DecanaturaServiceImpl implements DecanaturaService  {
     public SolicitudDTO cambiarEstado(String solicitudId, AccionesSolicitud accion) {
         Solicitud solicitud = solicitudRepository.findById(solicitudId)
                 .orElseThrow(() -> new NotFoundException("Solicitud no encontrada"));
+        try {
+            AccionSolicitudCommand comando = accionSolicitudFactory.obtenerComando(accion);
+            comando.accionSolicitud(solicitud);
+            solicitudRepository.save(solicitud);
+        } catch (RuntimeException ex) {
+            solicitud.setEstado(EstadoSolicitud.RECHAZADA);
+            solicitudRepository.save(solicitud);
+            throw ex;
+        }
 
-        AccionSolicitudCommand comando = accionSolicitudFactory.obtenerComando(accion);
-        comando.accionSolicitud(solicitud);
-
-        return solicitudMapper.toDTO(solicitudRepository.save(solicitud));
+        return solicitudMapper.toDTO(solicitud);
     }
 
     public List<SolicitudDTO> obtenerSolicitudesPorFacultad(FacultadDTO facultadDTO) {

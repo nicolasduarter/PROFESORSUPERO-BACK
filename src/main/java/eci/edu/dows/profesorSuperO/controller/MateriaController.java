@@ -85,6 +85,9 @@ public class MateriaController {
         MateriaDTO actualizada = materiaService.eliminarPrerequisito(id, prerequisito);
         return ResponseEntity.ok(actualizada);
     }
+
+
+
 }
 
 
