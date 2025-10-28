@@ -36,6 +36,16 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    - name: Configurar contenedor en App Service
+      run: |
+        az webapp config container set \
+          --name ${{ secrets.AZURE_WEBAPP_NAME }} \
+          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+          --docker-custom-image-name $REGISTRY/$IMAGE_NAME:${{ github.sha }} \
+          --docker-registry-server-url https://$REGISTRY \
+          --docker-registry-server-user ${{ secrets.ACR_USERNAME }} \
+          --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
+
     - name: Desplegar en Azure Web App
       uses: azure/webapps-deploy@v2
       with:
