@@ -1,5 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+# CD - Build and Deploy to Azure (Contenedor personalizado con buildx)
 
 name: CD - Build and Deploy to Azure
 
@@ -8,6 +7,7 @@ on:
     branches: [main]
 
 env:
+  # These are set as environment variables for the entire job
   REGISTRY: ${{ secrets.REGISTRY_LOGIN_SERVER }}
   IMAGE_NAME: sirha
 
@@ -16,9 +16,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # 1. Checkout the repository code
     - name: Checkout código
       uses: actions/checkout@v4
 
+    # 2. Login to Azure Container Registry (ACR)
     - name: Login en Azure Container Registry
       uses: azure/docker-login@v1
       with:
@@ -26,16 +28,39 @@ jobs:
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
 
-    - name: Build y push de imagen Docker
+    # 3. Build the Docker image using buildx and push to ACR
+    - name: Build y push con buildx
       run: |
-        docker build -t $REGISTRY/$IMAGE_NAME:${{ github.sha }} .
-        docker push $REGISTRY/$IMAGE_NAME:${{ github.sha }}
+        # Create and use a new builder instance for multi-platform build
+        docker buildx create --use
+        
+        # Build, tag (with the full commit SHA), and push the image.
+        # FIX: The tag argument is wrapped in quotes to prevent shell parsing errors.
+        docker buildx build --platform linux/amd64 \
+          --file Dockerfile \
+          --push \
+          -t "$REGISTRY/$IMAGE_NAME:${{ github.sha }}" .
 
-    - name: Desplegar en Azure Web App
-      uses: azure/webapps-deploy@v2
+    # 4. Login to Azure (Service Principal)
+    - name: Login en Azure
+      uses: azure/login@v1
       with:
-        app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-        images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/sirha:${{ github.sha }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    # 5. Configure the Azure App Service to use the new image
+    - name: Configurar contenedor en App Service
+      run: |
+        az webapp config container set \
+          --name ${{ secrets.AZURE_WEBAPP_NAME }} \
+          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+          --docker-custom-image-name $REGISTRY/$IMAGE_NAME:${{ github.sha }} \
+          --docker-registry-server-url https://$REGISTRY \
+          --docker-registry-server-user ${{ secrets.ACR_USERNAME }} \
+          --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
 
-          
+    # 6. Restart the App Service to pull the new image
+    - name: Reiniciar App Service
+      run: |
+        az webapp restart \
+          --name ${{ secrets.AZURE_WEBAPP_NAME }} \
+          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }}

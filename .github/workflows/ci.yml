@@ -18,7 +18,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Configurar JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '17'
@@ -42,9 +42,10 @@ jobs:
         -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
     - name: Guardar reporte de cobertura Jacoco
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: jacoco-report
         path: target/site/jacoco/
 
           
+
