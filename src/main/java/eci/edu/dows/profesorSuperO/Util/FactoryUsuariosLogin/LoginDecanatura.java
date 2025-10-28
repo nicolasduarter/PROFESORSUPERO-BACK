@@ -17,6 +17,10 @@ public class LoginDecanatura  implements LoginUsuario{
         registroU.setRol(e.getPermiso().toString());
         registroU.setId(e.getId());
 
+        if (e.getFacultad() != null) {
+            registroU.setFacultad(e.getFacultad());
+        }
+
         return registroU;
     }
 

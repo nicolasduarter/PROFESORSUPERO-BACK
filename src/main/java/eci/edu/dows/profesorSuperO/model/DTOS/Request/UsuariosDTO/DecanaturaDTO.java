@@ -1,5 +1,6 @@
 package eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO;
 
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.FacultadDTO;
 import eci.edu.dows.profesorSuperO.model.Facultad;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,5 +12,5 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DecanaturaDTO extends UsuarioDTO {
-    private Facultad facultad;
+    private FacultadDTO facultad;
 }

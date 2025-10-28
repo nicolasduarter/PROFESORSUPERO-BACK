@@ -110,15 +110,25 @@ public class SolicitudServiceImpl implements SolicitudService {
         if (!estadoAnterior.equals(nuevoEstado)) {
             registrarDecisionEnHistorial(solicitud, estadoAnterior, nuevoEstado, comentario, usuario);
         }
-        AccionesSolicitud s = accionSegunEstado(nuevoEstado);
+        try {
+            AccionesSolicitud accion = accionSegunEstado(nuevoEstado);
+            if (accion != null) {
+                AccionSolicitudCommand comando = accionSolicitudFactory.obtenerComando(accion);
+                comando.accionSolicitud(solicitud);
+            }
+            if (solicitud.getEstado() == EstadoSolicitud.PENDIENTE) {
+                solicitud.setEstado(nuevoEstado);
+            }
 
-        if(s != null) {
-            AccionSolicitudCommand comando = accionSolicitudFactory.obtenerComando(s);
-            comando.accionSolicitud(solicitud);
+            solicitudRepository.save(solicitud);
+
+        } catch (RuntimeException ex) {
+            solicitud.setEstado(EstadoSolicitud.RECHAZADA);
+            solicitudRepository.save(solicitud);
+            throw ex;
         }
 
-        solicitud.setEstado(nuevoEstado);
-        return solicitudMapper.toDTO(solicitudRepository.save(solicitud));
+        return solicitudMapper.toDTO(solicitud);
     }
 
     private AccionesSolicitud accionSegunEstado(EstadoSolicitud estado) {

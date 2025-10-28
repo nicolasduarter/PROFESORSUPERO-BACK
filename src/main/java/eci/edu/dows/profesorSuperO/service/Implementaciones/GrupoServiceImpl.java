@@ -3,8 +3,12 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.Util.Mappers.ClaseMapper;
 import eci.edu.dows.profesorSuperO.Util.Mappers.GrupoMapper;
+import eci.edu.dows.profesorSuperO.model.Clase;
 import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO2;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.ClaseDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.MateriaDTO;
+import eci.edu.dows.profesorSuperO.model.Horario;
+import eci.edu.dows.profesorSuperO.model.Materia;
 import eci.edu.dows.profesorSuperO.model.Materia;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Grupo;
@@ -19,6 +23,7 @@ import eci.edu.dows.profesorSuperO.service.Interfaces.GrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -260,6 +265,48 @@ public class GrupoServiceImpl implements GrupoService {
         grupoRepository.save(grupo);
 
         return grupoMapper.toDTO(grupo);
+    }
+
+
+    public GrupoDTO asignarMateriaYGrupo(String idEstudiante, String grupoId) {
+        Estudiante estudiante = estudianteRepository.findById(idEstudiante)
+                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado."));
+
+        Grupo grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new RuntimeException("Grupo no encontrado."));
+
+        if (grupo.getCupo() <= 0) {
+            throw new RuntimeException("El grupo no tiene cupo disponible.");
+        }
+
+        Horario horario;
+        if (estudiante.getHorarios().isEmpty()) {
+            horario = new Horario();
+            horario.setGrupos(new ArrayList<>());
+            estudiante.getHorarios().add(horario);
+        } else {
+            horario = estudiante.getHorarios().get(estudiante.getHorarios().size() - 1);
+        }
+
+        for (Grupo gExistente : horario.getGrupos()) {
+            for (Clase cExistente : gExistente.getClases()) {
+                for (Clase cNuevo : grupo.getClases()) {
+                    if (cExistente.getDiaSemana() == cNuevo.getDiaSemana() &&
+                            cNuevo.getHoraInicio().isBefore(cExistente.getHoraFin()) &&
+                            cNuevo.getHoraFin().isAfter(cExistente.getHoraInicio())) {
+                        throw new RuntimeException("El grupo tiene conflicto con otro horario");
+                    }
+                }
+            }
+        }
+
+        horario.getGrupos().add(grupo);
+        grupo.setCupo(grupo.getCupo() - 1);
+
+        System.out.println(estudiante.getHorarios().size());
+        estudianteRepository.save(estudiante);
+        System.out.println(estudiante.getHorarios().size());
+        return grupoMapper.toDTO(grupoRepository.save(grupo));
     }
 
 

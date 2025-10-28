@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 @Getter
@@ -22,11 +22,10 @@ public class Estudiante extends Usuario {
 
 
     private int semestre;
+    private ArrayList<Horario> horarios = new ArrayList<>();
     @DBRef(lazy = false)
     private Facultad facultad;
     private String semaforoId;
-    private List<Horario> horarios = new ArrayList<>();
-
 
     public Estudiante(String usuario, Permisos permiso, String correo, String Id, Facultad facultad, int semestre) {
         super(usuario, permiso, correo, Id);

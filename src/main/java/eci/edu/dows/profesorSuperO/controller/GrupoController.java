@@ -128,11 +128,18 @@ public class GrupoController {
 
 
     @GetMapping("/{grupoId}/capacidad-actual")
-    public ResponseEntity<Integer> getActualCapacity(@PathVariable String grupoId) {
-        int cupo = grupoService.getActualCapacity(grupoId);
-        return ResponseEntity.ok(cupo);
+    public ResponseEntity<Integer> getActualCapcity(@PathVariable String grupoId){
+        Integer grupoActualizado = grupoService.getActualCapacity(grupoId);
+        return ResponseEntity.ok(grupoActualizado);
     }
 
+
+
+    @PatchMapping("/{idGrupo}/estudiante/{idEstudiante2}")
+    public ResponseEntity<GrupoDTO> addGroupToStudent(@PathVariable String idGrupo, @PathVariable String idEstudiante2) {
+        GrupoDTO grupoActualizado = grupoService.asignarMateriaYGrupo(idEstudiante2, idGrupo);
+        return ResponseEntity.ok(grupoActualizado);
+    }
 
 
     @PatchMapping("/{grupoId}/materia")

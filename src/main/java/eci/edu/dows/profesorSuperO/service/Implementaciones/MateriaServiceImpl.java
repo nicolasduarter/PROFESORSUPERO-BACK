@@ -2,13 +2,18 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.Util.Mappers.MateriaMapper;
+import eci.edu.dows.profesorSuperO.model.*;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.MateriaDTO;
-import eci.edu.dows.profesorSuperO.model.Materia;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
+import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
+import eci.edu.dows.profesorSuperO.repository.GrupoRepository;
 import eci.edu.dows.profesorSuperO.repository.MateriaRepository;
+import eci.edu.dows.profesorSuperO.service.Interfaces.GrupoService;
 import eci.edu.dows.profesorSuperO.service.Interfaces.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service

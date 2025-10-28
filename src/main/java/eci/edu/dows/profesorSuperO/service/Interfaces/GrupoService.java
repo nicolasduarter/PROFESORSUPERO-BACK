@@ -46,4 +46,6 @@ public interface GrupoService {
 
     GrupoDTO asignarMateriaAGrupo(String grupoId, String materiaId);
 
+
+    GrupoDTO asignarMateriaYGrupo(String idEstudiante, String grupoId);
 }
