@@ -7,6 +7,7 @@ on:
     branches: [main]
 
 env:
+  # These are set as environment variables for the entire job
   REGISTRY: ${{ secrets.REGISTRY_LOGIN_SERVER }}
   IMAGE_NAME: sirha
 
@@ -15,9 +16,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # 1. Checkout the repository code
     - name: Checkout código
       uses: actions/checkout@v4
 
+    # 2. Login to Azure Container Registry (ACR)
     - name: Login en Azure Container Registry
       uses: azure/docker-login@v1
       with:
@@ -25,18 +28,26 @@ jobs:
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
 
+    # 3. Build the Docker image using buildx and push to ACR
     - name: Build y push con buildx
       run: |
+        # Create and use a new builder instance for multi-platform build
         docker buildx create --use
+        
+        # Build, tag (with the full commit SHA), and push the image.
+        # FIX: The tag argument is wrapped in quotes to prevent shell parsing errors.
         docker buildx build --platform linux/amd64 \
-          -t $REGISTRY/$IMAGE_NAME:${{ github.sha }} \
-          --push .
+          --file Dockerfile \
+          --push \
+          -t "$REGISTRY/$IMAGE_NAME:${{ github.sha }}" .
 
+    # 4. Login to Azure (Service Principal)
     - name: Login en Azure
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    # 5. Configure the Azure App Service to use the new image
     - name: Configurar contenedor en App Service
       run: |
         az webapp config container set \
@@ -47,6 +58,7 @@ jobs:
           --docker-registry-server-user ${{ secrets.ACR_USERNAME }} \
           --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
 
+    # 6. Restart the App Service to pull the new image
     - name: Reiniciar App Service
       run: |
         az webapp restart \
