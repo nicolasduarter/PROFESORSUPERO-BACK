@@ -1,6 +1,7 @@
 package eci.edu.dows.profesorSuperO.model;
 
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoMateria;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;

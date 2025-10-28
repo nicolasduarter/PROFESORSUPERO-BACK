@@ -1,8 +1,9 @@
 package eci.edu.dows.profesorSuperO.service.Interfaces;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
-import eci.edu.dows.profesorSuperO.model.Estudiante;
+import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO2;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.ClaseDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 
 import java.util.List;
 
@@ -36,7 +37,11 @@ public interface GrupoService {
 
     GrupoDTO getMaximumCapacity(String grupoId);
 
-    GrupoDTO getActualCapacity(String grupoId);
+    int getActualCapacity(String grupoId);
 
     GrupoDTO deleteStudentOfGroup(String grupoId, String estudianteId);
+
+    GrupoDTO2 getMaximumCapacity2(String grupoId);
+
+    GrupoDTO asignarMateriaYGrupo(String idEstudiante, String grupoId);
 }

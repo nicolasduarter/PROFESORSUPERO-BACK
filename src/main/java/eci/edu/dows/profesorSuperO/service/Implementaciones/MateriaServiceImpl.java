@@ -2,13 +2,18 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.Util.Mappers.MateriaMapper;
-import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
-import eci.edu.dows.profesorSuperO.model.Materia;
+import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.MateriaDTO;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
+import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
+import eci.edu.dows.profesorSuperO.repository.GrupoRepository;
 import eci.edu.dows.profesorSuperO.repository.MateriaRepository;
+import eci.edu.dows.profesorSuperO.service.Interfaces.GrupoService;
 import eci.edu.dows.profesorSuperO.service.Interfaces.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,6 +21,8 @@ public class MateriaServiceImpl implements MateriaService {
 
     private final MateriaRepository materiaRepository;
     private final MateriaMapper materiaMapper;
+
+
 
     @Autowired
     public MateriaServiceImpl(MateriaRepository materiaRepository, MateriaMapper materiaMapper) {
@@ -65,13 +72,18 @@ public class MateriaServiceImpl implements MateriaService {
         return materiaMapper.toDto(actualizada);
     }
 
-    public MateriaDTO agregarPrerequisito(String id, MateriaDTO materiaDTO) {
+    public MateriaDTO agregarPrerequisito(String id, String prerequisitoId) {
         Materia materia = materiaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("no se encontro materia con esa ID"));
-        materia.agregarPrerequisito(materiaMapper.toMateria(materiaDTO));
+                .orElseThrow(() -> new NotFoundException("No se encontró la materia con esa ID"));
+
+        Materia prerequisito = materiaRepository.findById(prerequisitoId)
+                .orElseThrow(() -> new NotFoundException("No se encontró la materia prerequisito con esa ID"));
+
+        materia.agregarPrerequisito(prerequisito);
         Materia actualizada = materiaRepository.save(materia);
         return materiaMapper.toDto(actualizada);
     }
+
 
     public MateriaDTO eliminarPrerequisito(String id, MateriaDTO materiaDTO) {
         Materia materia = materiaRepository.findById(id)
@@ -102,4 +114,6 @@ public class MateriaServiceImpl implements MateriaService {
         Materia actualizada = materiaRepository.save(materia);
         return materiaMapper.toDto(actualizada);
     }
+
+
 }

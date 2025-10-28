@@ -1,9 +1,9 @@
 package eci.edu.dows.profesorSuperO.controller;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
-import eci.edu.dows.profesorSuperO.model.Estudiante;
-import eci.edu.dows.profesorSuperO.service.Implementaciones.GrupoServiceImpl;
+import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO2;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.ClaseDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.GrupoDTO;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.service.Interfaces.GrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -120,9 +120,24 @@ public class GrupoController {
         return ResponseEntity.ok(grupoActualizado);
     }
 
+    @GetMapping("/{grupoId}/capacidad2")
+    public ResponseEntity<GrupoDTO2> getMaximumCapacity2(@PathVariable String grupoId){
+        GrupoDTO2 grupoActualizado = grupoService.getMaximumCapacity2(grupoId);
+        return ResponseEntity.ok(grupoActualizado);
+    }
+
+
     @GetMapping("/{grupoId}/capacidad-actual")
-    public ResponseEntity<GrupoDTO> getActualCapcity(@PathVariable String grupoId){
-        GrupoDTO grupoActualizado = grupoService.getActualCapacity(grupoId);
+    public ResponseEntity<Integer> getActualCapcity(@PathVariable String grupoId){
+        Integer grupoActualizado = grupoService.getActualCapacity(grupoId);
+        return ResponseEntity.ok(grupoActualizado);
+    }
+
+
+
+    @PatchMapping("/{idGrupo}/estudiante/{idEstudiante2}")
+    public ResponseEntity<GrupoDTO> addGroupToStudent(@PathVariable String idGrupo, @PathVariable String idEstudiante2) {
+        GrupoDTO grupoActualizado = grupoService.asignarMateriaYGrupo(idEstudiante2, idGrupo);
         return ResponseEntity.ok(grupoActualizado);
     }
 

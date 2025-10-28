@@ -4,19 +4,30 @@ import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.Util.Mappers.SolicitudCambioGrupoMapper;
 import eci.edu.dows.profesorSuperO.Util.Mappers.SolicitudCambioMateriaMapper;
 import eci.edu.dows.profesorSuperO.Util.Mappers.SolicitudMapper;
+import eci.edu.dows.profesorSuperO.model.DTOS.SoliGrupoTestDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.SoliMateriaTestDTO;
 import eci.edu.dows.profesorSuperO.model.*;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.HistorialDecisionDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.HistorialDecisionDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudCambioGrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudCambioMateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
+import eci.edu.dows.profesorSuperO.model.Enums.TipoSolicitud;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioGrupo;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioMateria;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.repository.*;
+import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudCommand;
+import eci.edu.dows.profesorSuperO.service.Acciones.AccionSolicitudFactory;
+import eci.edu.dows.profesorSuperO.service.Acciones.AccionesSolicitud;
 import eci.edu.dows.profesorSuperO.service.Interfaces.SolicitudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.validation.Validator;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,18 +42,26 @@ public class SolicitudServiceImpl implements SolicitudService {
     private final FacultadRepository facultadRepository;
     private CalendarioRepository calendarioRepository;
     private MateriaRepository materiaRepository;
-    private GrupoRepository grupoRepository;
+    private final  GrupoRepository grupoRepository;
     private final SolicitudCambioGrupoMapper SolicitudCambioGrupoMapper;
     private final SolicitudCambioMateriaMapper solicitudCambioMateriaMapper;
     private final SolicitudMapper solicitudMapper;
+    private final AccionSolicitudFactory accionSolicitudFactory;
+
+
+
     @Autowired
     public SolicitudServiceImpl(SolicitudRepository solicitudRepository,
                                 DecanaturaRepository decanaturaRepository,
                                 EstudianteRepository estudianteRepository,
-                                Validator validator, SolicitudCambioGrupoMapper solicitudCambioGrupoMapper,
+                                Validator validator,
+                                SolicitudCambioGrupoMapper solicitudCambioGrupoMapper,
                                 SolicitudCambioMateriaMapper solicitudCambioMateriaMapper,
                                 SolicitudMapper solicitudMapper,
-                                HistorialDecisionRepository historialDecisionRepository, FacultadRepository facultadRepository) {
+                                HistorialDecisionRepository historialDecisionRepository,
+                                FacultadRepository facultadRepository,
+                                MateriaRepository materiaRepository,
+                                GrupoRepository grupoRepository, AccionSolicitudFactory accionSolicitudFactory) {
         this.solicitudRepository = solicitudRepository;
         this.decanaturaRepository = decanaturaRepository;
         this.estudianteRepository = estudianteRepository;
@@ -52,56 +71,15 @@ public class SolicitudServiceImpl implements SolicitudService {
         this.solicitudMapper = solicitudMapper;
         this.historialDecisionRepository = historialDecisionRepository;
         this.facultadRepository = facultadRepository;
+        this.materiaRepository = materiaRepository;
+        this.grupoRepository = grupoRepository;
+        this.accionSolicitudFactory = accionSolicitudFactory;
     }
 
-    public SolicitudCambioGrupoDTO crearSolicitudCambioGrupo(SolicitudCambioGrupoDTO dto) {
-        Estudiante estudiante = estudianteRepository.findById(dto.getEstudiante().getId())
-                .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
-
-        Materia materia = materiaRepository.findById(dto.getMateriaProblema().getId())
-                .orElseThrow(() -> new NotFoundException("Materia no encontrada"));
-        Grupo grupo = grupoRepository.findById(dto.getGrupo().getIdGrupo())
-                .orElseThrow(() -> new NotFoundException("Grupo actual no encontrado"));
-
-        Grupo grupoCambio = grupoRepository.findById(dto.getGrupoCambio().getIdGrupo())
-                .orElseThrow(() -> new NotFoundException("Grupo de cambio no encontrado"));
-
-        SolicitudCambioGrupo solicitud = SolicitudCambioGrupoMapper.toEntity(dto);
-        solicitud.setEstudiante(estudiante);
-        solicitud.setMateriaProblema(materia);
-        solicitud.setGrupo(grupo);
-        solicitud.setGrupoCambio(grupoCambio);
-
-        return  SolicitudCambioGrupoMapper.toDTO(solicitudRepository.save(solicitud));
-
-    }
-
-    public SolicitudCambioMateriaDTO crearSolicitudCambioMateria(SolicitudCambioMateriaDTO dto) {
-        Estudiante estudiante = estudianteRepository.findById(dto.getEstudiante().getId())
-                .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
-
-        Materia materiaProblema = materiaRepository.findById(dto.getMateriaProblema().getId())
-                .orElseThrow(() -> new NotFoundException("Materia no encontrada"));
-
-        Materia materiaNueva = materiaRepository.findById(dto.getMateriaCambio().getId()).
-                orElseThrow(() -> new NotFoundException("Materia no encontrada"));
-        Grupo grupo = grupoRepository.findById(dto.getGrupo().getIdGrupo())
-                .orElseThrow(() -> new NotFoundException("Grupo actual no encontrado"));
-
-        Grupo grupoCambio = grupoRepository.findById(dto.getGrupoCambio().getIdGrupo())
-                .orElseThrow(() -> new NotFoundException("Grupo de cambio no encontrado"));
-
-        SolicitudCambioMateria solicitud = solicitudCambioMateriaMapper.toEntity(dto);
-        solicitud.setEstudiante(estudiante);
-        solicitud.setMateriaProblema(materiaProblema);
-        solicitud.setGrupo(grupo);
-        solicitud.setGrupoCambio(grupoCambio);
-        solicitud.setMateriaCambio(materiaNueva);
 
 
 
-        return solicitudCambioMateriaMapper.toDTO(solicitudRepository.save(solicitud));
-    }
+
 
     public List<SolicitudDTO> consultarSolicitudes() {
         List<Solicitud> solicitudes = solicitudRepository.findAll();
@@ -132,9 +110,39 @@ public class SolicitudServiceImpl implements SolicitudService {
         if (!estadoAnterior.equals(nuevoEstado)) {
             registrarDecisionEnHistorial(solicitud, estadoAnterior, nuevoEstado, comentario, usuario);
         }
-        solicitud.setEstado(nuevoEstado);
-        return solicitudMapper.toDTO(solicitudRepository.save(solicitud));
+        try {
+            AccionesSolicitud accion = accionSegunEstado(nuevoEstado);
+            if (accion != null) {
+                AccionSolicitudCommand comando = accionSolicitudFactory.obtenerComando(accion);
+                comando.accionSolicitud(solicitud);
+            }
+            if (solicitud.getEstado() == EstadoSolicitud.PENDIENTE) {
+                solicitud.setEstado(nuevoEstado);
+            }
+
+            solicitudRepository.save(solicitud);
+
+        } catch (RuntimeException ex) {
+            solicitud.setEstado(EstadoSolicitud.RECHAZADA);
+            solicitudRepository.save(solicitud);
+            throw ex;
+        }
+
+        return solicitudMapper.toDTO(solicitud);
     }
+
+    private AccionesSolicitud accionSegunEstado(EstadoSolicitud estado) {
+        if(EstadoSolicitud.APROBADA.equals(estado)){
+            return AccionesSolicitud.ACEPTAR;
+        }else if(EstadoSolicitud.RECHAZADA.equals(estado)){
+            return AccionesSolicitud.DECLINAR;
+        } else if (EstadoSolicitud.INFORMACION_ADICIONAL.equals(estado)) {
+            return AccionesSolicitud.SOLICITAR_INFO;
+        }
+        return null;
+    }
+
+
 
     private void registrarDecisionEnHistorial(Solicitud solicitud, EstadoSolicitud estadoAnterior,
                                               EstadoSolicitud estadoNuevo, String comentario, String usuario) {
@@ -177,5 +185,57 @@ public class SolicitudServiceImpl implements SolicitudService {
 
 
 
+
+
+    public SolicitudCambioMateriaDTO crearSolicitudCambioMateria(SoliMateriaTestDTO dto) {
+        Estudiante estudiante = estudianteRepository.findById(dto.getEstudianteId())
+                .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
+
+        Facultad f = estudiante.getFacultad();
+
+        Grupo g = grupoRepository.findById(dto.getGrupoId()).orElseThrow(() -> new NotFoundException("Grupo no encontrado"));
+
+
+        SolicitudCambioMateria solicitud = new SolicitudCambioMateria();
+        solicitud.setEstudianteId(estudiante.getId());
+        solicitud.setFacultadId(f.getId());
+        solicitud.setMateriaProblemaId(dto.getMateriaProblemaId());
+        solicitud.setMateriaCambioId(dto.getMateriaCambioId());
+        solicitud.setGrupoId(dto.getGrupoId());
+        solicitud.setGrupoCambioId(dto.getGrupoCambioId());
+        solicitud.setMotivo(dto.getMotivo());
+        solicitud.setPrioridad(dto.getPrioridad());
+        solicitud.setTipoSolicitud(TipoSolicitud.CAMBIO_MATERIA);
+        solicitud.setInfoAdicionalEstudiante(dto.getInfoAdicionalEstudiante());
+        solicitud.setFecha(dto.getFecha() != null ? dto.getFecha() : LocalDate.now());
+        solicitud.setEstado(EstadoSolicitud.PENDIENTE);
+
+        return solicitudCambioMateriaMapper.toDTO(solicitudRepository.save(solicitud));
+    }
+
+    public SolicitudCambioGrupoDTO crearSolicitudCambioGrupo(SoliGrupoTestDTO dto) {
+
+        Estudiante estudiante = estudianteRepository.findById(dto.getEstudianteId())
+                .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
+
+        Materia materia = materiaRepository.findById(dto.getMateriaProblemaId())
+                .orElseThrow(() -> new NotFoundException("Materia no encontrada"));
+
+
+        String facultadId = estudiante.getFacultad().getId();
+
+        SolicitudCambioGrupo solicitud = new SolicitudCambioGrupo(
+                dto.getId(),
+                dto.getEstudianteId(),
+                facultadId,
+                dto.getMotivo(),
+                dto.getFecha() != null ? dto.getFecha() : LocalDate.now(),
+                dto.getMateriaProblemaId(),
+                dto.getGrupoId(),
+                dto.getGrupoCambioId()
+        );
+
+        return SolicitudCambioGrupoMapper.toDTO(solicitudRepository.save(solicitud));
+    }
 }
 

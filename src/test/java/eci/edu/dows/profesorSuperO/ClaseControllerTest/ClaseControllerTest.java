@@ -2,7 +2,7 @@ package eci.edu.dows.profesorSuperO.ClaseControllerTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eci.edu.dows.profesorSuperO.controller.ClaseController;
-import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.ClaseDTO;
 import eci.edu.dows.profesorSuperO.service.Implementaciones.ClaseServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

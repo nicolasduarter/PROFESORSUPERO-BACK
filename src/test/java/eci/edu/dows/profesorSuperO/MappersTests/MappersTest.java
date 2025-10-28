@@ -2,8 +2,8 @@ package eci.edu.dows.profesorSuperO.MappersTests;
 
 
 import eci.edu.dows.profesorSuperO.Util.Mappers.EstudianteMapper;
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
-import eci.edu.dows.profesorSuperO.model.Estudiante;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Facultad;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

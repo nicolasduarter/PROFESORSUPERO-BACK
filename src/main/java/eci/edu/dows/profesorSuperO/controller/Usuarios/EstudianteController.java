@@ -1,11 +1,11 @@
 package eci.edu.dows.profesorSuperO.controller.Usuarios;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.HorarioDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SemaforoDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioGrupoDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudCambioMateriaDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.SolicitudesDTO.SolicitudDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.HorarioDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SemaforoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudCambioGrupoDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudCambioMateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.SolicitudesDTO.SolicitudDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
 import eci.edu.dows.profesorSuperO.service.Implementaciones.ConsultasServiceImpl;
 import eci.edu.dows.profesorSuperO.service.Implementaciones.EstudianteServiceImpl;
 import eci.edu.dows.profesorSuperO.service.Implementaciones.SolicitudServiceImpl;
@@ -134,18 +134,6 @@ public class EstudianteController {
      * Solicitudes
      */
 
-    @PostMapping("/solicitudes/cambio-materia")
-    public ResponseEntity<SolicitudCambioMateriaDTO> crearSolicitudCambioMateria(@Valid @RequestBody SolicitudCambioMateriaDTO dto) {
-
-        return ResponseEntity.ok(solicitudService.crearSolicitudCambioMateria(dto));
-    }
-
-
-
-    @PostMapping("/solicitudes/cambio-grupo")
-    public ResponseEntity<SolicitudCambioGrupoDTO> crearSolicitudCambioGrupo(@Valid @RequestBody SolicitudCambioGrupoDTO dto) {
-        return ResponseEntity.ok(solicitudService.crearSolicitudCambioGrupo(dto));
-    }
 
 
     @GetMapping("/{idEstudiante}/solicitudes/{idSolicitud}/estado")

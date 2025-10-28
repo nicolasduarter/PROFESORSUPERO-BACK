@@ -3,7 +3,7 @@ package eci.edu.dows.profesorSuperO.ClaseServiceTest;
 import eci.edu.dows.profesorSuperO.service.Implementaciones.ClaseServiceImpl;
 import eci.edu.dows.profesorSuperO.Util.Mappers.ClaseMapper;
 import eci.edu.dows.profesorSuperO.model.Clase;
-import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.ClaseDTO;
 import eci.edu.dows.profesorSuperO.repository.ClaseRepository;
 import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
 import org.junit.jupiter.api.BeforeEach;

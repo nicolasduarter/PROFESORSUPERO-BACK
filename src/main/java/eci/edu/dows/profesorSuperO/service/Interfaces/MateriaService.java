@@ -1,6 +1,6 @@
 package eci.edu.dows.profesorSuperO.service.Interfaces;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.MateriaDTO;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public interface MateriaService {
 
     MateriaDTO actualizarNombre(String id, String nombre);
 
-    MateriaDTO agregarPrerequisito(String id, MateriaDTO materiaDTO);
+    MateriaDTO agregarPrerequisito(String id, String prerequisito);
 
     MateriaDTO eliminarPrerequisito(String id, MateriaDTO materiaDTO);
 

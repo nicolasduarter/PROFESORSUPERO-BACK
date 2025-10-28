@@ -4,14 +4,18 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 import eci.edu.dows.profesorSuperO.Util.Mappers.DecanaturaMapper;
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.model.*;
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.DecanaturaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.DecanaturaDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Decanatura;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Usuario;
 import eci.edu.dows.profesorSuperO.repository.DecanaturaRepository;
 import eci.edu.dows.profesorSuperO.repository.FacultadRepository;
 import eci.edu.dows.profesorSuperO.repository.UsuarioRepository;
 import eci.edu.dows.profesorSuperO.service.Interfaces.DecanoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DecanoServiceImpl implements DecanoService {
@@ -46,6 +50,7 @@ public class DecanoServiceImpl implements DecanoService {
     //by id
     public DecanaturaDTO getDeanById(String id){
         Usuario u = usuarioRepository.findById(id).orElseThrow(()->new NotFoundException("Usuario no encontrado"));
+        System.out.println("Usuario encontrado: " + u.getClass().getName());
         return isDean(u);
     }
 
@@ -68,7 +73,7 @@ public class DecanoServiceImpl implements DecanoService {
         Facultad f = facultadRepository.findById(facultyID)
                 .orElseThrow(() -> new NotFoundException("Facultad no encontrada"));
 
-        Decanatura d = decanaturaRepository.findByFacultad(f).orElseThrow(() -> new NotFoundException("Decanatura no encontrada"));
+        Decanatura d = usuarioRepository.findDecanaturaByFacultad_Id(facultyID).orElseThrow(() -> new NotFoundException("No hay decano en esta facultad"));
         return  decanaturaMapper.toDTO(d);
     }
 

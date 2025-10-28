@@ -2,7 +2,7 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
 import eci.edu.dows.profesorSuperO.Util.Mappers.ClaseMapper;
 import eci.edu.dows.profesorSuperO.model.Clase;
-import eci.edu.dows.profesorSuperO.model.DTOS.ClaseDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.ClaseDTO;
 import eci.edu.dows.profesorSuperO.repository.ClaseRepository;
 import eci.edu.dows.profesorSuperO.service.Interfaces.ClaseService;
 import org.springframework.beans.factory.annotation.Autowired;

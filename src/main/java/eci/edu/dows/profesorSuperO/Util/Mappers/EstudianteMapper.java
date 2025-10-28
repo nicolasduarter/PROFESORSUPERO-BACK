@@ -1,7 +1,7 @@
 package eci.edu.dows.profesorSuperO.Util.Mappers;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.UsuariosDTO.EstudianteDTO;
-import eci.edu.dows.profesorSuperO.model.Estudiante;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = {FacultadMapper.class})

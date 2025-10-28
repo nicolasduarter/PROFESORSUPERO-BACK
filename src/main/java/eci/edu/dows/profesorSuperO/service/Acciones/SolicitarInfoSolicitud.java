@@ -1,7 +1,7 @@
 package eci.edu.dows.profesorSuperO.service.Acciones;
 
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
-import eci.edu.dows.profesorSuperO.model.Solicitud;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +13,7 @@ public class SolicitarInfoSolicitud implements AccionSolicitudCommand {
     }
 
     @Override
-    public String getTipoSolicitud() {
-        return AccionesSolicitud.SOLICITAR_INFO.toString();
+    public AccionesSolicitud getTipoSolicitud() {
+        return AccionesSolicitud.SOLICITAR_INFO;
     }
 }

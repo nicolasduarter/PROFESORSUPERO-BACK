@@ -5,7 +5,11 @@ import eci.edu.dows.profesorSuperO.Util.Mappers.HorarioMapper;
 import eci.edu.dows.profesorSuperO.Util.Mappers.ProfesorMapper;
 import eci.edu.dows.profesorSuperO.Util.Mappers.SolicitudMapper;
 import eci.edu.dows.profesorSuperO.model.*;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.GrupoDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioGrupo;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.SolicitudCambioMateria;
 import eci.edu.dows.profesorSuperO.repository.*;
 import eci.edu.dows.profesorSuperO.service.Interfaces.ReporteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ReporteServiceImpl implements ReporteService {
@@ -64,7 +69,7 @@ public class ReporteServiceImpl implements ReporteService {
         return (float) solicitudesRechazadas.size() / (float) solicitudes.size();
     }
 
-    public List<Grupo> gruposMasSolicitados(int grupos) {
+    public List<GrupoDTO> gruposMasSolicitados(int grupos) {
         List<Solicitud> solicitudes = solicitudRepository.findAll();
         Map<Grupo, Integer> conteoGrupos = new HashMap<>();
 
@@ -72,9 +77,9 @@ public class ReporteServiceImpl implements ReporteService {
             Grupo grupoCambio = null;
 
             if (solicitud instanceof SolicitudCambioGrupo cambioGrupo) {
-                grupoCambio = cambioGrupo.getGrupoCambio();
+                grupoCambio = grupoRepository.findById(cambioGrupo.getGrupoCambioId()).orElse(null);
             } else if (solicitud instanceof SolicitudCambioMateria cambioMateria) {
-                grupoCambio = cambioMateria.getGrupoCambio();
+                grupoCambio = grupoRepository.findById(cambioMateria.getGrupoCambioId()).orElse(null);
             }
 
             if (grupoCambio != null) {
@@ -85,7 +90,8 @@ public class ReporteServiceImpl implements ReporteService {
         return conteoGrupos.entrySet().stream()
                 .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
                 .limit(grupos)
-                .map(Map.Entry::getKey)
-                .toList();
+                .map(entry -> grupoMapper.toDTO(entry.getKey()))
+                .collect(  Collectors.toList());
     }
+
 }

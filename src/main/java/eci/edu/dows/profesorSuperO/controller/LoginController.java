@@ -1,10 +1,9 @@
 package eci.edu.dows.profesorSuperO.controller;
 
 
-import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.LoginRequestDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioLoginDTO;
-import eci.edu.dows.profesorSuperO.model.DTOS.AutenticacionLogin.UsuarioRegistroDTO;
-import eci.edu.dows.profesorSuperO.service.Implementaciones.AutenticacionServiceImpl;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin.LoginRequestDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin.UsuarioLoginDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin.UsuarioRegistroDTO;
 import eci.edu.dows.profesorSuperO.service.Interfaces.AutenticacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,7 @@
 package eci.edu.dows.profesorSuperO.model;
 
 import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
+import eci.edu.dows.profesorSuperO.model.Solicitudes.Solicitud;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;

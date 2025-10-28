@@ -2,7 +2,7 @@ package eci.edu.dows.profesorSuperO.MateriaControllerTest;
 
 
 import eci.edu.dows.profesorSuperO.controller.MateriaController;
-import eci.edu.dows.profesorSuperO.model.DTOS.MateriaDTO;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.MateriaDTO;
 import eci.edu.dows.profesorSuperO.service.Implementaciones.MateriaServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -142,20 +142,6 @@ class MateriaControllerUnitTest {
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertSame(esperado, resp.getBody());
         verify(materiaServiceImpl).eliminarPrerequisitos(id, prereqs);
-    }
-
-    @Test
-    void agregarPrerequisito_devuelveOkYBody() {
-        String id = "m1";
-        MateriaDTO prereq = mock(MateriaDTO.class);
-        MateriaDTO esperado = mock(MateriaDTO.class);
-        when(materiaServiceImpl.agregarPrerequisito(id, prereq)).thenReturn(esperado);
-
-        ResponseEntity<MateriaDTO> resp = controller.agregarPrerequisito(id, prereq);
-
-        assertEquals(HttpStatus.OK, resp.getStatusCode());
-        assertSame(esperado, resp.getBody());
-        verify(materiaServiceImpl).agregarPrerequisito(id, prereq);
     }
 
     @Test

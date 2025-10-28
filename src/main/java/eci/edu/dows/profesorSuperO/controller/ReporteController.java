@@ -1,8 +1,6 @@
 package eci.edu.dows.profesorSuperO.controller;
 
-import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO;
-import eci.edu.dows.profesorSuperO.model.Grupo;
-import eci.edu.dows.profesorSuperO.service.Implementaciones.ReporteServiceImpl;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.GrupoDTO;
 import eci.edu.dows.profesorSuperO.service.Interfaces.ReporteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

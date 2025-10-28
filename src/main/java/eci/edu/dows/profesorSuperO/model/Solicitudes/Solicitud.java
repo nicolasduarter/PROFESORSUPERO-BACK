@@ -1,0 +1,51 @@
+package eci.edu.dows.profesorSuperO.model.Solicitudes;
+
+import eci.edu.dows.profesorSuperO.model.Enums.EstadoSolicitud;
+import eci.edu.dows.profesorSuperO.model.Enums.TipoSolicitud;
+import eci.edu.dows.profesorSuperO.model.Facultad;
+import eci.edu.dows.profesorSuperO.model.Observer.PeriodoObserver;
+import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+@Getter
+@Setter
+@Document("Solicitud")
+public abstract class Solicitud {
+    @Id
+    private String id;
+
+    @Indexed
+    private EstadoSolicitud estado;
+
+    private String estudianteId;
+    private String facultadId;
+
+    private String motivo;
+    @Indexed
+    private LocalDate fecha;
+    private int prioridad;
+    @Transient
+    private ArrayList<PeriodoObserver> observadores;
+    protected TipoSolicitud tipoSolicitud;
+    private String infoAdicionalEstudiante;
+
+    public Solicitud(String id, String estudianteId, String facultadId, String motivo, LocalDate fecha) {
+        this.id = id;
+        this.estado = EstadoSolicitud.PENDIENTE;
+        this.estudianteId = estudianteId;
+        this.facultadId = facultadId;
+        this.motivo = motivo;
+        this.fecha = fecha;
+        this.prioridad = 0;
+    }
+
+    public Solicitud() {}
+}
