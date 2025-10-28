@@ -5,7 +5,9 @@ import eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin.Usuario
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin.UsuarioRegistroSalidaDTO;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Decanatura;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Usuario;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LoginDecanatura  implements LoginUsuario{
     @Override
     public UsuarioLoginDTO loginUsuario(Usuario usuario) {
@@ -13,6 +15,7 @@ public class LoginDecanatura  implements LoginUsuario{
         UsuarioLoginDTO registroU = new UsuarioLoginDTO();
         registroU.setUsuario(e.getFullName());
         registroU.setRol(e.getPermiso().toString());
+        registroU.setId(e.getId());
 
         return registroU;
     }
