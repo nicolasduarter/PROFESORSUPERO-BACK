@@ -26,7 +26,9 @@ jobs:
         password: ${{ secrets.ACR_PASSWORD }}
 
     - name: Build y push con buildx
-      run: docker buildx build --platform linux/amd64 -t $REGISTRY/$IMAGE_NAME:${{ github.sha }} --push --file Dockerfile .
+      run: |
+        docker buildx create --use
+        docker buildx build --platform linux/amd64 --file Dockerfile --push -t $REGISTRY/$IMAGE_NAME:${{ github.sha }} .
 
     - name: Login en Azure
       uses: azure/login@v1
@@ -48,5 +50,6 @@ jobs:
         az webapp restart \
           --name ${{ secrets.AZURE_WEBAPP_NAME }} \
           --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }}
+
 
 
