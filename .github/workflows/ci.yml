@@ -42,10 +42,7 @@ jobs:
         -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
     - name: Guardar reporte de cobertura Jacoco
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: jacoco-report
         path: target/site/jacoco/
-
-          
-
