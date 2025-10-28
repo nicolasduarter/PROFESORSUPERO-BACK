@@ -1,6 +1,7 @@
 package eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin;
 
 
+import eci.edu.dows.profesorSuperO.model.Facultad;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,6 @@ import lombok.Setter;
 public class UsuarioLoginDTO {
     private String id;
     private String usuario;
+    private Facultad facultad;
     private String rol;
 }
