@@ -107,4 +107,13 @@ public class MateriaServiceImpl implements MateriaService {
         Materia actualizada = materiaRepository.save(materia);
         return materiaMapper.toDto(actualizada);
     }
+
+    public List<MateriaDTO> obtenerTodasLasMaterias() {
+        return materiaRepository.findAll()
+                .stream()
+                .map(m -> new MateriaDTO(m.getId(), m.getNombre(), m.getCreditos()))
+                .toList();
+    }
+
+
 }

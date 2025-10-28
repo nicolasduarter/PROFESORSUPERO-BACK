@@ -134,6 +134,17 @@ public class GrupoController {
     }
 
 
+
+    @PatchMapping("/{grupoId}/materia")
+    public ResponseEntity<GrupoDTO> asignarMateriaAGrupo(
+            @PathVariable String grupoId,
+            @RequestBody Map<String, String> body) {
+
+        String materiaId = body.get("materiaId");
+        GrupoDTO grupoActualizado = grupoService.asignarMateriaAGrupo(grupoId, materiaId);
+        return ResponseEntity.ok(grupoActualizado);
+    }
+
 }
 
 

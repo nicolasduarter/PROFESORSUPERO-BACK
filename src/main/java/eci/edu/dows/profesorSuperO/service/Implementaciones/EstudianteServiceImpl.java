@@ -3,22 +3,23 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 
 import eci.edu.dows.profesorSuperO.Util.Mappers.EstudianteMapper;
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
+import eci.edu.dows.profesorSuperO.Util.Mappers.HorarioMapper;
+import eci.edu.dows.profesorSuperO.model.DTOS.Request.HorarioDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.SemaforoDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.UsuariosDTO.EstudianteDTO;
 import eci.edu.dows.profesorSuperO.model.Enums.Permisos;
+import eci.edu.dows.profesorSuperO.model.Horario;
 import eci.edu.dows.profesorSuperO.model.Semaforo;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Facultad;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Usuario;
-import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
-import eci.edu.dows.profesorSuperO.repository.FacultadRepository;
-import eci.edu.dows.profesorSuperO.repository.SemaforoRepository;
-import eci.edu.dows.profesorSuperO.repository.UsuarioRepository;
+import eci.edu.dows.profesorSuperO.repository.*;
 import eci.edu.dows.profesorSuperO.service.Interfaces.EstudianteService;
 import eci.edu.dows.profesorSuperO.service.Interfaces.SemaforoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,18 +30,22 @@ public class EstudianteServiceImpl implements EstudianteService {
     private final EstudianteMapper estudianteMapper;
     private final FacultadRepository facultadRepository;
     private final SemaforoService semaforoService;
+    private final HorarioRepository horarioRepository;
+    private final HorarioMapper horarioMapper;
 
     @Autowired
     public EstudianteServiceImpl(UsuarioRepository usuarioRepository,
                                  EstudianteRepository estudianteRepository,
                                  EstudianteMapper estudianteMapper,
                                  FacultadRepository facultadRepository,
-                                 SemaforoService semaforoService) {
+                                 SemaforoService semaforoService, HorarioMapper horarioMapper, HorarioRepository horarioRepository) {
         this.usuarioRepository = usuarioRepository;
         this.estudianteRepository = estudianteRepository;
         this.estudianteMapper = estudianteMapper;
         this.facultadRepository = facultadRepository;
         this.semaforoService = semaforoService;
+        this.horarioMapper = horarioMapper;
+        this.horarioRepository = horarioRepository;
     }
 
     /**
@@ -199,6 +204,24 @@ public class EstudianteServiceImpl implements EstudianteService {
         return u instanceof Estudiante;
     }
 
+
+    public HorarioDTO crearHorarioParaEstudiante(String idEstudiante, HorarioDTO horarioDTO) {
+        Estudiante estudiante = estudianteRepository.findById(idEstudiante)
+                .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
+
+        // Inyectar mapper y repositorio como dependencias
+        Horario horario = horarioMapper.toHorario(horarioDTO);
+        horarioRepository.save(horario);
+
+        if (estudiante.getHorarios() == null) {
+            estudiante.setHorarios(new ArrayList<>());
+        }
+
+        estudiante.getHorarios().add(horario);
+        estudianteRepository.save(estudiante);
+
+        return horarioMapper.toDTO(horario);
+    }
 
 
 }

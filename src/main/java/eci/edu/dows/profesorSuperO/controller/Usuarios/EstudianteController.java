@@ -148,4 +148,11 @@ public class EstudianteController {
         return ResponseEntity.ok(consultasService.consultarSolicitudesEstudiante(idEstudiante));
     }
 
+
+    @PostMapping("/{idEstudiante}/horario")
+    public ResponseEntity<HorarioDTO> crearHorario(@PathVariable String idEstudiante, @RequestBody HorarioDTO horarioDTO) {
+        return ResponseEntity.ok(estudianteService.crearHorarioParaEstudiante(idEstudiante, horarioDTO));
+    }
+
+
 }

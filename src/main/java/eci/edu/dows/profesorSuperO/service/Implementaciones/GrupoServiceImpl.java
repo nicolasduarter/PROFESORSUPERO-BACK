@@ -5,6 +5,7 @@ import eci.edu.dows.profesorSuperO.Util.Mappers.ClaseMapper;
 import eci.edu.dows.profesorSuperO.Util.Mappers.GrupoMapper;
 import eci.edu.dows.profesorSuperO.model.DTOS.GrupoDTO2;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.ClaseDTO;
+import eci.edu.dows.profesorSuperO.model.Materia;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Estudiante;
 import eci.edu.dows.profesorSuperO.model.Grupo;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.GrupoDTO;
@@ -12,6 +13,7 @@ import eci.edu.dows.profesorSuperO.model.Observer.GruposObserver;
 import eci.edu.dows.profesorSuperO.model.Usuarios.Profesor;
 import eci.edu.dows.profesorSuperO.repository.EstudianteRepository;
 import eci.edu.dows.profesorSuperO.repository.GrupoRepository;
+import eci.edu.dows.profesorSuperO.repository.MateriaRepository;
 import eci.edu.dows.profesorSuperO.repository.ProfesorRepository;
 import eci.edu.dows.profesorSuperO.service.Interfaces.GrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +29,18 @@ public class GrupoServiceImpl implements GrupoService {
     private final GrupoMapper grupoMapper;
     private final ProfesorRepository profesorRepository;
     private final ClaseMapper claseMapper;
+    private final MateriaRepository materiaRepository;
 
     @Autowired
     public GrupoServiceImpl(EstudianteRepository estudianteRepository,
                             GrupoRepository grupoRepository,
-                            GrupoMapper grupoMapper, ProfesorRepository profesorRepository, ClaseMapper claseMapper) {
+                            GrupoMapper grupoMapper, MateriaRepository materiaRepository, ProfesorRepository profesorRepository, ClaseMapper claseMapper) {
         this.estudianteRepository = estudianteRepository;
         this.grupoRepository = grupoRepository;
         this.grupoMapper = grupoMapper;
         this.profesorRepository = profesorRepository;
         this.claseMapper = claseMapper;
+        this.materiaRepository = materiaRepository;
     }
 
     public GrupoDTO crearGrupo(GrupoDTO dto) {
@@ -243,6 +247,20 @@ public class GrupoServiceImpl implements GrupoService {
         return dto;
     }
 
+
+
+    public GrupoDTO asignarMateriaAGrupo(String grupoId, String materiaId) {
+        Grupo grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new NotFoundException("Grupo no encontrado"));
+
+        Materia materia = materiaRepository.findById(materiaId)
+                .orElseThrow(() -> new NotFoundException("Materia no encontrada"));
+
+        grupo.setMateria(materia);
+        grupoRepository.save(grupo);
+
+        return grupoMapper.toDTO(grupo);
+    }
 
 
 }

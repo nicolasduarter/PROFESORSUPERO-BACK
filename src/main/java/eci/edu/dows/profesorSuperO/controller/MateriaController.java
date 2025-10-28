@@ -85,6 +85,13 @@ public class MateriaController {
         MateriaDTO actualizada = materiaService.eliminarPrerequisito(id, prerequisito);
         return ResponseEntity.ok(actualizada);
     }
+
+    @GetMapping
+    public ResponseEntity<List<MateriaDTO>> obtenerTodasLasMaterias() {
+        List<MateriaDTO> materias = materiaService.obtenerTodasLasMaterias();
+        return ResponseEntity.ok(materias);
+    }
+
 }
 
 

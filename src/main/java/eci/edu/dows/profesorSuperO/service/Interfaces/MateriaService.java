@@ -25,4 +25,7 @@ public interface MateriaService {
     MateriaDTO agregarPrerequisitos(String id, List<MateriaDTO> materiasDTO);
 
     MateriaDTO eliminarPrerequisitos(String id, List<MateriaDTO> materiasDTO);
+
+    List<MateriaDTO> obtenerTodasLasMaterias();
+
 }

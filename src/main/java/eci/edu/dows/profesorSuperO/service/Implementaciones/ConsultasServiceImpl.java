@@ -55,13 +55,21 @@ public class ConsultasServiceImpl implements ConsultasService {
 
     public HorarioDTO consultarUltimoHorarioEstudiante(String estudianteId) {
         Optional<Estudiante> estudiante = estudianteRepository.findById(estudianteId);
-        if (estudiante.isPresent()&& !estudiante.get().getHorarios().isEmpty()) {
+        if (estudiante.isPresent() && !estudiante.get().getHorarios().isEmpty()) {
             List<Horario> horarios = estudiante.get().getHorarios();
             Horario h = horarios.get(horarios.size() - 1);
+
+            // 🔍 Hidratar los grupos desde la base de datos
+            List<Grupo> gruposCompletos = h.getGrupos().stream()
+                    .map(grupo -> grupoRepository.findById(grupo.getId()).orElse(grupo))
+                    .collect(Collectors.toList());
+            h.setGrupos(gruposCompletos);
+
             return horarioMapper.toDTO(h);
         }
         return null;
     }
+
 
     public List<HorarioDTO> consultarHorariosEstudiante(String estudianteId) {
         return estudianteRepository.findById(estudianteId)

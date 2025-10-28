@@ -42,4 +42,8 @@ public interface GrupoService {
     GrupoDTO deleteStudentOfGroup(String grupoId, String estudianteId);
 
     GrupoDTO2 getMaximumCapacity2(String grupoId);
+
+
+    GrupoDTO asignarMateriaAGrupo(String grupoId, String materiaId);
+
 }
