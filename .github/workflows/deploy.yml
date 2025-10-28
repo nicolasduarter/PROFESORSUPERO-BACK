@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  # These are set as environment variables for the entire job
+  # Estas son variables de entorno para el job completo.
   REGISTRY: ${{ secrets.REGISTRY_LOGIN_SERVER }}
   IMAGE_NAME: sirha
 
@@ -31,11 +31,10 @@ jobs:
     # 3. Build the Docker image using buildx and push to ACR
     - name: Build y push con buildx
       run: |
-        # Create and use a new builder instance for multi-platform build
+        # Creación y uso de una instancia de builder para multi-plataforma
         docker buildx create --use
         
-        # Build, tag (with the full commit SHA), and push the image.
-        # FIX: The tag argument is wrapped in quotes to prevent shell parsing errors.
+        # Construye, etiqueta (con el SHA completo) y sube la imagen al ACR.
         docker buildx build --platform linux/amd64 \
           --file Dockerfile \
           --push \
@@ -47,16 +46,18 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # 5. Configure the Azure App Service to use the new image
-    - name: Configurar contenedor en App Service
+    # 5. Configurar el Azure App Service para usar la nueva imagen
+    # IMPORTANTE: Se han usado los parámetros actualizados de Azure CLI y se apunta 
+    # únicamente a la aplicación principal (Producción), eliminando la referencia al slot.
+    - name: Configurar contenedor en App Service (Producción)
       run: |
         az webapp config container set \
           --name ${{ secrets.AZURE_WEBAPP_NAME }} \
           --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-          --docker-custom-image-name $REGISTRY/$IMAGE_NAME:${{ github.sha }} \
-          --docker-registry-server-url https://$REGISTRY \
-          --docker-registry-server-user ${{ secrets.ACR_USERNAME }} \
-          --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
+          --container-image-name $REGISTRY/$IMAGE_NAME:${{ github.sha }} \
+          --container-registry-url https://$REGISTRY \
+          --container-registry-user ${{ secrets.ACR_USERNAME }} \
+          --container-registry-password ${{ secrets.ACR_PASSWORD }}
 
     # 6. Restart the App Service to pull the new image
     - name: Reiniciar App Service
@@ -64,5 +65,3 @@ jobs:
         az webapp restart \
           --name ${{ secrets.AZURE_WEBAPP_NAME }} \
           --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }}
-
-
