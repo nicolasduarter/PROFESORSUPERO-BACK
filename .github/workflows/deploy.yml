@@ -1,67 +1,27 @@
-# CD - Build and Deploy to Azure (Contenedor personalizado con buildx)
-
-name: CD - Build and Deploy to Azure
-
+name: Deploy Java App to Azure
 on:
   push:
     branches: [main]
-
-env:
-  # Estas son variables de entorno para el job completo.
-  REGISTRY: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-  IMAGE_NAME: sirha
-
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-    # 1. Checkout the repository code
-    - name: Checkout código
+    - name: Checkout code
       uses: actions/checkout@v4
-
-    # 2. Login to Azure Container Registry (ACR)
-    - name: Login en Azure Container Registry
-      uses: azure/docker-login@v1
+      
+    - name: Setup Java
+      uses: actions/setup-java@v4
       with:
-        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-        username: ${{ secrets.ACR_USERNAME }}
-        password: ${{ secrets.ACR_PASSWORD }}
-
-    # 3. Build the Docker image using buildx and push to ACR
-    - name: Build y push con buildx
-      run: |
-        # Creación y uso de una instancia de builder para multi-plataforma
-        docker buildx create --use
+        distribution: 'temurin'
+        java-version: '17'
         
-        # Construye, etiqueta (con el SHA completo) y sube la imagen al ACR.
-        docker buildx build --platform linux/amd64 \
-          --file Dockerfile \
-          --push \
-          -t "$REGISTRY/$IMAGE_NAME:${{ github.sha }}" .
-
-    # 4. Login to Azure (Service Principal)
-    - name: Login en Azure
-      uses: azure/login@v1
+    - name: Build with Maven
+      run: mvn clean package -DskipTests
+      
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    # 5. Configurar el Azure App Service para usar la nueva imagen
-    # IMPORTANTE: Se han usado los parámetros actualizados de Azure CLI y se apunta 
-    # únicamente a la aplicación principal (Producción), eliminando la referencia al slot.
-    - name: Configurar contenedor en App Service (Producción)
-      run: |
-        az webapp config container set \
-          --name ${{ secrets.AZURE_WEBAPP_NAME }} \
-          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-          --container-image-name $REGISTRY/$IMAGE_NAME:${{ github.sha }} \
-          --container-registry-url https://$REGISTRY \
-          --container-registry-user ${{ secrets.ACR_USERNAME }} \
-          --container-registry-password ${{ secrets.ACR_PASSWORD }}
-
-    # 6. Restart the App Service to pull the new image
-    - name: Reiniciar App Service
-      run: |
-        az webapp restart \
-          --name ${{ secrets.AZURE_WEBAPP_NAME }} \
-          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }}
+        app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+        resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: target/*.jar
