@@ -22,4 +22,11 @@ public class SolicitudDTO {
     private String tipoSolicitud;
     private String infoAdicionalEstudiante;
 
+    private String nombreEstudiante;
+    private String nombrePrograma;
+    private String nombreMateriaProblema;
+    private String nombreMateriaCambio;
+    private String grupoActual;
+    private String grupoNuevo;
+    private String nombreFacultad;
 }
