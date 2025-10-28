@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  # These are set as environment variables for the entire job#
+  # These are set as environment variables for the entire job
   REGISTRY: ${{ secrets.REGISTRY_LOGIN_SERVER }}
   IMAGE_NAME: sirha
 
@@ -64,4 +64,5 @@ jobs:
         az webapp restart \
           --name ${{ secrets.AZURE_WEBAPP_NAME }} \
           --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }}
+
 
