@@ -81,3 +81,45 @@ Cada commit realizado debe seguir el siguiente template:
 - Julián Ramirez
 - Juan Rangel
 - Santiago Suarez
+
+---
+
+## Evidencia OWASP Top 10 (Antes y Después)
+
+### 1) A07 - Identification and Authentication Failures
+
+🔴 **Antes (Vulnerable)**  
+- Las credenciales se almacenaban en texto plano (`Credencial.constra`).  
+- Se comparaba contraseña con `equals` directamente en autenticación.
+
+🟢 **Después (Seguro)**  
+- Se implementó hash con PBKDF2 + salt aleatorio antes de persistir credenciales.  
+- La validación de contraseña ahora se hace contra hash seguro.
+
+**Evidencia de corrección**  
+- `src/main/java/eci/edu/dows/profesorSuperO/Util/Security/PasswordSecurityUtil.java`  
+- `src/main/java/eci/edu/dows/profesorSuperO/Util/FactoryUsuariosLogin/LoginEstudiante.java`  
+- `src/main/java/eci/edu/dows/profesorSuperO/Util/FactoryUsuariosLogin/LoginDecanatura.java`  
+- `src/main/java/eci/edu/dows/profesorSuperO/service/Implementaciones/AutenticacionServiceImpl.java`  
+- Test: `src/test/java/eci/edu/dows/profesorSuperO/SecurityTest/PasswordSecurityUtilTest.java`
+
+### 2) A01 - Broken Access Control
+
+🔴 **Antes (Vulnerable)**  
+- Endpoints críticos de administración y decanatura no exigían control de rol en la capa web.
+
+🟢 **Después (Seguro)**  
+- Se agregó interceptor de autorización por rol para `/administracion/**` y `/decanatura/**`.  
+- Si no llega rol autorizado (`X-USER-ROLE`), la API responde `403 Forbidden`.
+
+**Evidencia de corrección**  
+- `src/main/java/eci/edu/dows/profesorSuperO/config/RoleBasedAccessInterceptor.java`  
+- `src/main/java/eci/edu/dows/profesorSuperO/config/WebMvcSecurityConfig.java`  
+- Test: `src/test/java/eci/edu/dows/profesorSuperO/SecurityTest/RoleBasedAccessInterceptorTest.java`
+
+### Control adicional de hardening
+
+🔐 Se evitó filtración de detalles internos en errores 500 (información sensible en mensajes técnicos).  
+**Evidencia:**  
+- `src/main/java/eci/edu/dows/profesorSuperO/Util/GlobalExceptionHandler.java`  
+- Test: `src/test/java/eci/edu/dows/profesorSuperO/SecurityTest/GlobalExceptionHandlerSecurityTest.java`
