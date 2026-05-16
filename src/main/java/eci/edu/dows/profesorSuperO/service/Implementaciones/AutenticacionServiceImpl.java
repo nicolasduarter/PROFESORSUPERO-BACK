@@ -3,6 +3,7 @@ package eci.edu.dows.profesorSuperO.service.Implementaciones;
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.Util.FactoryUsuariosLogin.LoginUsuario;
 import eci.edu.dows.profesorSuperO.Util.FactoryUsuariosLogin.LoginUsuariosFactory;
+import eci.edu.dows.profesorSuperO.Util.Security.PasswordSecurityUtil;
 import eci.edu.dows.profesorSuperO.model.Credencial;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin.LoginRequestDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin.UsuarioLoginDTO;
@@ -24,22 +25,27 @@ public class AutenticacionServiceImpl implements AutenticacionService {
 
     private final LoginUsuariosFactory loginUsuariosFactory;
 
+    private final PasswordSecurityUtil passwordSecurityUtil;
+
     @Autowired
     private AutenticacionServiceImpl(CredencialRepository credencialRepository,
-                                     UsuarioRepository usuarioRepository,LoginUsuariosFactory loginUsuariosFactory) {
+                                     UsuarioRepository usuarioRepository,
+                                     LoginUsuariosFactory loginUsuariosFactory,
+                                     PasswordSecurityUtil passwordSecurityUtil) {
         this.credencialRepository = credencialRepository;
         this.usuarioRepository = usuarioRepository;
         this.loginUsuariosFactory = loginUsuariosFactory;
+        this.passwordSecurityUtil = passwordSecurityUtil;
 
     }
 
 
     public UsuarioLoginDTO autenticar(LoginRequestDTO loginDTO) {
         Credencial credencial = credencialRepository.findByUsuario(loginDTO.getUsuario())
-                .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
+                .orElseThrow(() -> new NotFoundException("Credenciales inválidas"));
 
-        if (!credencial.getConstra().equals(loginDTO.getContra())) {
-            throw new NotFoundException("Contraseña incorrecta");
+        if (!passwordSecurityUtil.matches(loginDTO.getContra(), credencial.getConstra())) {
+            throw new NotFoundException("Credenciales inválidas");
         }
 
         Usuario usuario = usuarioRepository.findById(credencial.getUsuarioId())

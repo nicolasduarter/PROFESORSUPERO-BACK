@@ -2,6 +2,7 @@ package eci.edu.dows.profesorSuperO.Util.FactoryUsuariosLogin;
 
 
 import eci.edu.dows.profesorSuperO.Util.Mappers.EstudianteMapper;
+import eci.edu.dows.profesorSuperO.Util.Security.PasswordSecurityUtil;
 import eci.edu.dows.profesorSuperO.model.Credencial;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin.UsuarioLoginDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin.UsuarioRegistroDTO;
@@ -29,6 +30,9 @@ public class LoginEstudiante  implements LoginUsuario {
     @Autowired
     private CredencialRepository credencialRepository;
 
+    @Autowired
+    private PasswordSecurityUtil passwordSecurityUtil;
+
     @Override
     public UsuarioLoginDTO loginUsuario(Usuario usuario) {
         Estudiante e = (Estudiante) usuario;
@@ -52,7 +56,7 @@ public class LoginEstudiante  implements LoginUsuario {
 
         Credencial cred = new Credencial();
         cred.setUsuario(usuarioRegistroDTO.getFullName());
-        cred.setConstra(usuarioRegistroDTO.getContra());
+        cred.setConstra(passwordSecurityUtil.hashPassword(usuarioRegistroDTO.getContra()));
         cred.setUsuarioId(estudiante.getId());
 
         UsuarioRegistroSalidaDTO salida  = new UsuarioRegistroSalidaDTO();

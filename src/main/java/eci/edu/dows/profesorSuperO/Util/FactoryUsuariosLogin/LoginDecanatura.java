@@ -3,6 +3,7 @@ package eci.edu.dows.profesorSuperO.Util.FactoryUsuariosLogin;
 import eci.edu.dows.profesorSuperO.Util.Exceptions.NotFoundException;
 import eci.edu.dows.profesorSuperO.Util.Mappers.DecanaturaMapper;
 import eci.edu.dows.profesorSuperO.Util.Mappers.FacultadMapper;
+import eci.edu.dows.profesorSuperO.Util.Security.PasswordSecurityUtil;
 import eci.edu.dows.profesorSuperO.model.Credencial;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin.UsuarioLoginDTO;
 import eci.edu.dows.profesorSuperO.model.DTOS.Request.AutenticacionLogin.UsuarioRegistroDTO;
@@ -40,6 +41,9 @@ public class LoginDecanatura  implements LoginUsuario{
     @Autowired
     private final FacultadMapper facultadMapper;
 
+    @Autowired
+    private PasswordSecurityUtil passwordSecurityUtil;
+
     @Override
     public UsuarioLoginDTO loginUsuario(Usuario usuario) {
         Decanatura e = (Decanatura) usuario;
@@ -70,7 +74,7 @@ public class LoginDecanatura  implements LoginUsuario{
 
         Credencial cred = new Credencial();
         cred.setUsuario(uDTO.getFullName());
-        cred.setConstra(uDTO.getContra());
+        cred.setConstra(passwordSecurityUtil.hashPassword(uDTO.getContra()));
         cred.setUsuarioId(dSalvado.getId());
 
         UsuarioRegistroSalidaDTO salida  = new UsuarioRegistroSalidaDTO();
